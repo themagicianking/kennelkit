@@ -2,6 +2,15 @@
 
 Kennelkit is an app designed to help kennel employees store and organize information on their client and easily check pets in and out of their system. My final project for Techtonica.
 
+## Component List
+- Pet Profile Modal [ ]
+- Owner Profile Modal [ ]
+- Pet Creation Modal Form [ ]
+- Owner Creation Modal Form [ ]
+- List View [ ]
+- Pet Item [ ]
+- Owner Item [ ]
+
 ## Project Schedule
 
 ### Week One (10/14/24 - 10/18/24)
