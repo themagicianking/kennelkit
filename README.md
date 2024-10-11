@@ -5,55 +5,49 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 ## Project Schedule
 
 ### Week One (10/14/24 - 10/18/24)
-- Monday
--   10AM: View pet profile (individual view)
--   11AM: Stand up
--   12PM: Mentor meeting
--   1PM: Lunch
--   2PM: Continue view pet profile (individual view)
--   3PM: Check in a pet for the day
--   4PM: Check out a pet for the day
--   5PM: Finish any loose ends
--   6PM: Out of office
--   7PM: Wrap up
-- Tuesday
--   9AM: View pets currently checked in
--   10AM: View pet profiles (list view)
--   11AM: Stand up
--   12PM: Create a pet profile
--   1PM: Lunch
--   2PM: Continue create a pet profile
--   3PM: Finish any loose ends
--   4PM: Break
--   5PM: Pick 1 short story to work on from the list
--   7PM: Wrap up
-- Wednesday
--   9AM: Add breed to pet profile
--   11AM: Stand up
--   12PM: Add additional info to pet profile
--   1PM: Lunch
--   2PM: Continue add additional info to pet profile
--   3PM: Edit pet profile
--   4PM: Core soft skills talk: diversity & inclusion
--   5PM: One on one
--   6PM: Finish any loose ends
--   7PM: Wrap up
-- Thursday
--   9AM: Create an owner profile
--   11AM: Stand up
--   12PM: Add additional info to owner profile
--   1PM: Lunch
--   2PM: Mentor meeting
--   3PM: Edit owner profile
--   4PM: Finish any loose ends
--   5PM: Pick 1 short story to work on from the list
--   7PM: Out of office
-- Friday
--   9AM: View owner profile (individual view)
--   11AM: Stand up
--   12PM: View owner profiles (list view)
--   1PM: Lunch
--   2PM: Add feeding schedule to pet profile
--   3:30PM: Unwind block
--   4PM: Continue add feeding schedule to pet profile
--   6PM: Project share & retro
+
+|| Monday | Tuesday | Wednesday | Thursday | Friday |
+| - | ------ | ------- | --------- | -------- | ------ |
+| 9:00am  | Out of office | View pets currently checked in | Add breed to pet profile | Create an owner profile | View owner profile (individual view) |
+| 10:00am | View pet profile (individual view) | View pet profiles (list view) | Add breed to pet profile | Create an owner profile | View owner profile (individual view) |
+| 11:00am | Stand up | Stand up | Stand up | Stand up | Stand up |
+| 12:00pm | Mentor meeting | Create a pet profile | Add additional info to pet profile | Add additional info to owner profile | View owner profiles (list view) |
+| 1:00pm  | Lunch | Lunch | Lunch | Lunch | Lunch |
+| 2:00pm  | View pet profile (individual view) | Continue create a pet profile | Continue add additional info to pet profile | Mentor meeting | Add feeding schedule to pet profile |
+| 3:00pm  | Check in a pet for the day | Finish any loose ends | Edit pet profile | Edit owner profile | Unwind block (3:30) |
+| 4:00pm  | Check out a pet for the day | Break | Core soft skills talk: diversity & inclusion | Finish any loose ends | Continue add feeding schedule to pet profile |
+| 5:00pm  | Finish any loose ends | Pick 1 short story to work on from the list | One on one | Pick 1 short story to work on from the list | Continue add feeding schedule to pet profile |
+| 6:00pm  | Out of office | Pick 1 short story to work on from the list | Finish any loose ends | Pick 1 short story to work on from the list | Project share & retro |
+| 7:00pm  | Wrap up | Wrap up | Wrap up | Out of office | Project share & retro |
+
+### Week Two
+
+|| Monday | Tuesday | Wednesday | Thursday | Friday |
+| - | ------ | ------- | --------- | -------- | ------ |
+| 9:00am  | | | | | |
+| 10:00am | | | | | |
+| 11:00am | | | | | |
+| 12:00pm | | | | | |
+| 1:00pm  | | | | | |
+| 2:00pm  | | | | | |
+| 3:00pm  | | | | | |
+| 4:00pm  | | | | | |
+| 5:00pm  | | | | | |
+| 6:00pm  | | | | | |
+| 7:00pm  | | | | | |
+
+### Week Three
+
+|| Monday | Tuesday | Wednesday | Thursday | Friday |
+| - | ------ | ------- | --------- | -------- | ------ |
+| 9:00am  | | | | | |
+| 10:00am | | | | | |
+| 11:00am | | | | | |
+| 12:00pm | | | | | |
+| 1:00pm  | | | | | |
+| 2:00pm  | | | | | |
+| 3:00pm  | | | | | |
+| 4:00pm  | | | | | |
+| 5:00pm  | | | | | |
+| 6:00pm  | | | | | |
+| 7:00pm  | | | | | |
