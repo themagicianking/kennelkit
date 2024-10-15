@@ -4,12 +4,25 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 ## Component List
 - Pet Profile Modal [ ]
+-     Props: pet name, species, breed, sex, altered/unaltered, birthday, weight, physical description, owner, checked in/out
 - Owner Profile Modal [ ]
+-     Props: owner name, phone number, email, emergency contact name, emergency contact phone, emergency contact email, pets
 - Pet Creation Modal Form [ ]
 - Owner Creation Modal Form [ ]
 - List View [ ]
+-     Props: array of pets or owners
 - Pet Item [ ]
+-     Props: pet name, species, sex, altered/unaltered, checked in/out
 - Owner Item [ ]
+-     Props: owner name, phone number, pets
+
+## Testing
+- Test that all components are being rendered
+- Test that the pet profile renders all information passed through props and no required information is undefined
+- Test that the owner profile renders all information passed through props and no required information is undefined
+- Test that the list view correctly renders individual items OR a message indicating that there are no items in the list
+- Test that the pet item renders all information passed through props and no required information is undefined
+- Test that the owner item renders all information passed through props and no required information is undefined
 
 ## Project Schedule
 
