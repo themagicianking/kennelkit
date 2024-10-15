@@ -17,46 +17,22 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 || Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | ------ | ------- | --------- | -------- | ------ |
-| 9:00am  | Out of office | View pets currently checked in | Add breed to pet profile | Create an owner profile | View owner profile (individual view) |
-| 10:00am | View pet profile (individual view) | View pet profiles (list view) | Add breed to pet profile | Create an owner profile | View owner profile (individual view) |
-| 11:00am | Stand up | Stand up | Stand up | Stand up | Stand up |
-| 12:00pm | Mentor meeting | Create a pet profile | Add additional info to pet profile | Add additional info to owner profile | View owner profiles (list view) |
-| 1:00pm  | Lunch | Lunch | Lunch | Lunch | Lunch |
-| 2:00pm  | View pet profile (individual view) | Continue create a pet profile | Continue add additional info to pet profile | Mentor meeting | Add feeding schedule to pet profile |
-| 3:00pm  | Check in a pet for the day | Finish any loose ends | Edit pet profile | Edit owner profile | Unwind block (3:30) |
-| 4:00pm  | Check out a pet for the day | Break | Core soft skills talk: diversity & inclusion | Finish any loose ends | Continue add feeding schedule to pet profile |
-| 5:00pm  | Finish any loose ends | Pick 1 short story to work on from the list | One on one | Pick 1 short story to work on from the list | Continue add feeding schedule to pet profile |
-| 6:00pm  | Out of office | Pick 1 short story to work on from the list | Finish any loose ends | Pick 1 short story to work on from the list | Project share & retro |
-| 7:00pm  | Wrap up | Wrap up | Wrap up | Out of office | Project share & retro |
+| Story 1 | Off | View pet profile (individual view) | View pets currently checked in | Add breed to pet profile | Create an owner profile |
+| Story 2 | Off | Check in a pet for the day | View pet profiles (list view) | Add additional info to pet profile | Add additional info to owner profile | 
+| Story 3 | Off | Check out a pet for the day | Create a pet profile | Edit pet profile | Edit owner profile |
 
 ### Week Two
 
 || Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | ------ | ------- | --------- | -------- | ------ |
-| 9:00am  | | | | | |
-| 10:00am | | | | | |
-| 11:00am | | | | | |
-| 12:00pm | | | | | |
-| 1:00pm  | | | | | |
-| 2:00pm  | | | | | |
-| 3:00pm  | | | | | |
-| 4:00pm  | | | | | |
-| 5:00pm  | | | | | |
-| 6:00pm  | | | | | |
-| 7:00pm  | | | | | |
+| Story 1 | Clean up any loose ends from week 1 | Plan out feasible boarding stories | Work on boarding | Work on boarding | Plan out vaccine stories |
+| Story 2 | Add feeding schedule to pet profile | Work on boarding | Work on boarding | Work on boarding | Work on vaccines |
+| Story 3 | View owner profile (individual view) | Work on boarding | Work on boarding | Work on boarding | Work on vaccines |
 
 ### Week Three
 
 || Monday | Tuesday | Wednesday | Thursday | Friday |
 | - | ------ | ------- | --------- | -------- | ------ |
-| 9:00am  | | | | | |
-| 10:00am | | | | | |
-| 11:00am | | | | | |
-| 12:00pm | | | | | |
-| 1:00pm  | | | | | |
-| 2:00pm  | | | | | |
-| 3:00pm  | | | | | |
-| 4:00pm  | | | | | |
-| 5:00pm  | | | | | |
-| 6:00pm  | | | | | |
-| 7:00pm  | | | | | |
+| Story 1 | Finish any functionality left for boarding | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
+| Story 2 | Finish any functionality left for vaccines | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
+| Story 3 | Continue 1 & 2 | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
