@@ -24,6 +24,14 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 - Test that the pet item renders all information passed through props and no required information is undefined
 - Test that the owner item renders all information passed through props and no required information is undefined
 
+## Saving, Sending, and Updating Data
+- Each time a form is filled out, a post request will be sent to the server and will create either a new pet row or a new owner row.
+- Each time a pet profile or owner profile is edited, a put request will be sent to the server and will update the row by id.
+- Each time a pet profile or owner profile is deleted, a delete request will be sent to the server and will delete the row by id.
+- To retrieve information on both a pet and an owner, tables will be joined where the id row for owners match the pet row "owner ids"
+- Each time a list or profile view is rendered, a get request will be sent to the server to retrieve an owner or pet by id
+- For the search function, get requests will be made based on the filter criteria (phone number, breed, etc)
+
 ## Project Schedule
 
 ### Week One (10/14/24 - 10/18/24)
