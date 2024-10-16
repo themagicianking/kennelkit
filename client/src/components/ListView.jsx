@@ -1,10 +1,11 @@
-import { List, ListItem } from "@material-tailwind/react";
+import { List } from "@material-tailwind/react";
+import PetItem from "./PetItem";
 
 export default function ListView({ list }) {
   return (
     <List>
       {list.map((listitem) => (
-        <ListItem>{JSON.stringify(listitem)}</ListItem>
+        <PetItem pet={listitem} />
       ))}
     </List>
   );
