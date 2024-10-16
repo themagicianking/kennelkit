@@ -20,12 +20,13 @@ const PET = {
   birthday: "2017-05-14",
   weight: 55,
   physicaldesc: "Black and tan, curly",
+  checkedin: true,
 };
 
 export default function Homepage() {
   return (
     <>
-      <h1>Welcome to your kennel!</h1>
+      {/* <h1>Welcome to your kennel!</h1> */}
       <PetProfile
         petname={PET.petname}
         species={PET.species}
@@ -35,6 +36,7 @@ export default function Homepage() {
         birthday={PET.birthday}
         weight={PET.weight}
         physicaldesc={PET.physicaldesc}
+        checkedin={PET.checkedin}
         owner={OWNER}
       />
     </>

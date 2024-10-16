@@ -1,7 +1,7 @@
 import {
-  IconButton,
   Card,
   CardHeader,
+  Typography,
   CardBody,
   Tabs,
   TabsHeader,
@@ -21,6 +21,7 @@ export default function PetProfile({
   birthday,
   weight,
   physicaldesc,
+  checkedin,
   owner,
 }) {
   // get string to indicate altered/unaltered
@@ -114,7 +115,16 @@ export default function PetProfile({
 
   return (
     <Card>
-      <CardHeader>{petname}</CardHeader>
+      <CardHeader
+        floated={false}
+        shadow={false}
+        color="gray"
+        className="m-0 rounded-none"
+      >
+        <Typography variant="h2">
+          {petname} {checkedin ? <i className="fas fa-circle-check" /> : <></>}
+        </Typography>
+      </CardHeader>
       <CardBody className="pet-profile-body">
         <div className="pet-stats">
           <img
@@ -134,7 +144,8 @@ export default function PetProfile({
               <i className="fas fa-mars" />
             ) : (
               <i className="fas fa-venus" />
-            )} {alteredString}
+            )}{" "}
+            {alteredString}
           </p>
           <p>
             {age} {weight}lbs
