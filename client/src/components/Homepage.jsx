@@ -1,4 +1,5 @@
 import PetProfile from "./PetProfile";
+import ListView from "./ListView";
 import { useState, useEffect } from "react";
 
 const OWNER = {
@@ -26,6 +27,15 @@ const PET = {
   checkedin: true,
 };
 
+const PETITEM = {
+  species: "cat",
+  sex: "female",
+  altered: true,
+  petname: "Arcadia",
+};
+
+const LIST = [PET, PETITEM];
+
 export default function Homepage() {
   const [pet, setPet] = useState(null);
 
@@ -44,7 +54,8 @@ export default function Homepage() {
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      {pet ? (
+      <ListView list={LIST} />
+      {/* {pet ? (
         <PetProfile
           id={pet.id}
           petname={pet.petname}
@@ -74,7 +85,7 @@ export default function Homepage() {
           checkedin={PET.checkedin}
           owner={OWNER}
         />
-      )}
+      )} */}
     </>
   );
 }
