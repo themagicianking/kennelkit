@@ -1,3 +1,7 @@
+// todo: search material tailwind documentation to find a way to set a default tab
+// todo: change styling for tooltip info
+// todo: change color scheme
+// todo: add title font
 import {
   Card,
   CardHeader,
@@ -97,12 +101,12 @@ export default function PetProfile({
     {
       label: "Notes",
       value: "notes",
-      desc: `notes here`,
+      desc: "notes here",
     },
     {
       label: "History",
       value: "history",
-      desc: `history here`,
+      desc: "history here",
     },
     {
       label: "Vaccines",
@@ -117,86 +121,113 @@ export default function PetProfile({
   ];
 
   return (
-    <Card>
+    <Card shadow={true} variant="gradient" color="teal">
       <CardHeader
         floated={false}
-        shadow={false}
-        color="white"
-        className="m-0 rounded-none"
+        color="gray"
+        className="rounded-b-none pet-profile-header"
       >
-        <Typography variant="h2">
-          {petname}{" "}
-          {checkedin && staytype == "daycare" ? (
-            <>
-              <Tooltip content="This pet is checked in.">
-                <IconButton variant="gradient" className="rounded-full">
-                  <i className="fas fa-check" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip content="This is a daycare pet.">
-                <IconButton variant="gradient" className="rounded-full">
-                  <i className="fas fa-sun" />
-                </IconButton>
-              </Tooltip>
-            </>
-          ) : checkedin && staytype == "boarding" ? (
-            <>
+        <Typography variant="h2" className="pet-profile-header-item">
+          {petname} {owner.lastname}
+        </Typography>
+        {checkedin && staytype == "daycare" ? (
+          <>
             <Tooltip content="This pet is checked in.">
-              <IconButton variant="gradient" className="rounded-full">
+              <IconButton
+                variant="gradient"
+                className="rounded-full pet-profile-header-item"
+              >
+                <i className="fas fa-check" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="This is a daycare pet.">
+              <IconButton
+                variant="gradient"
+                className="rounded-full pet-profile-header-item"
+              >
+                <i className="fas fa-sun" />
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : checkedin && staytype == "boarding" ? (
+          <>
+            <Tooltip content="This pet is checked in.">
+              <IconButton
+                variant="gradient"
+                className="rounded-full pet-profile-header-item"
+              >
                 <i className="fas fa-check" />
               </IconButton>
             </Tooltip>
             <Tooltip content="This is a boarding pet.">
-              <IconButton variant="gradient" className="rounded-full">
+              <IconButton
+                variant="gradient"
+                className="rounded-full pet-profile-header-item"
+              >
                 <i className="fas fa-moon" />
               </IconButton>
             </Tooltip>
           </>
-          ) : (
-            <></>
-          )}
-        </Typography>
+        ) : (
+          <></>
+        )}
       </CardHeader>
       <CardBody className="pet-profile-body">
         <div className="pet-stats">
-          <img
-            className="h-96 w-96 rounded-full object-cover object-center shadow-xl shadow-blue-gray-900/50"
-            src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
-          ></img>
-          <p>
-            {species == "dog" ? (
-              <i className="fas fa-dog" />
-            ) : (
-              <i className="fas fa-cat" />
-            )}{" "}
-            {breed}
-          </p>
-          <p>
-            {sex == "male" ? (
-              <i className="fas fa-mars" />
-            ) : (
-              <i className="fas fa-venus" />
-            )}{" "}
-            {alteredString}
-          </p>
-          <p>
-            {age} {weight}lbs
-          </p>
-          <p>{physicaldesc}</p>
-          <p>
-            {owner.firstname} {owner.lastname}
-          </p>
-          <p>
-            {owner.phone} {owner.email}
-          </p>
-          <p>
-            {owner.ecfirstname} {owner.eclastname}
-          </p>
-          <p>
-            {owner.ecphone} {owner.ecemail}
-          </p>
+          <figure>
+            <img
+              className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
+              src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
+            ></img>
+            <Typography
+              as="caption"
+              variant="small"
+              className="mt-2 text-center font-normal"
+            >
+              {physicaldesc}
+            </Typography>
+          </figure>
+          <ul>
+            <li>
+              {" "}
+              {species == "dog" ? (
+                <i className="fas fa-dog" />
+              ) : (
+                <i className="fas fa-cat" />
+              )}{" "}
+              {breed}
+            </li>
+            <li>
+              {" "}
+              {sex == "male" ? (
+                <i className="fas fa-mars" />
+              ) : (
+                <i className="fas fa-venus" />
+              )}{" "}
+              {alteredString}
+            </li>
+            <li>
+              {age} · {weight}lbs
+            </li>
+            <li>
+              <Typography variant="h5">Owner: {owner.firstname} {owner.lastname}</Typography>
+              <ul>
+                <li>
+                  {owner.phone} · {owner.email}
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Typography variant="h5">Emergency Contact: {owner.ecfirstname} {owner.eclastname}</Typography>
+              <ul>
+                <li>
+                  {owner.ecphone} · {owner.ecemail}
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <Tabs>
+        <Tabs className="rounded-lg pet-tabs">
           <TabsHeader>
             {data.map(({ label, value }) => (
               <Tab key={value} value={value}>
@@ -213,7 +244,7 @@ export default function PetProfile({
           </TabsBody>
         </Tabs>
       </CardBody>
-      <CardFooter>
+      <CardFooter className="pet-profile-footer">
         <Button>Edit</Button>
       </CardFooter>
     </Card>
