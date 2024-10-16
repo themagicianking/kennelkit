@@ -1,5 +1,16 @@
 import PetProfile from "./PetProfile";
 
+const OWNER = {
+  firstname: "Cara",
+  lastname: "Coleman",
+  phone: "(555) 555 - 5555",
+  email: "email@email.com",
+  ecfirstname: "Thane",
+  eclastname: "Wilson",
+  ecphone: "(444) 444 - 4444",
+  ecemail: "ecemail@email.com",
+};
+
 const PET = {
   petname: "Watts",
   species: "dog",
@@ -24,6 +35,7 @@ export default function Homepage() {
         birthday={PET.birthday}
         weight={PET.weight}
         physicaldesc={PET.physicaldesc}
+        owner={OWNER}
       />
     </>
   );

@@ -20,6 +20,7 @@ export default function PetProfile({
   birthday,
   weight,
   physicaldesc,
+  owner,
 }) {
   const data = [
     {
@@ -102,19 +103,25 @@ export default function PetProfile({
         <div className="pet-stats">
           <img></img>
           <p>
-            {species}
-            {breed}
+            {species} {breed}
           </p>
           <p>
-            {sex} Altered? {altered}
+            {sex} Altered? {JSON.stringify(altered)}
           </p>
           <p>
-            {age}
-            {weight}
+            {age} {weight}lbs
           </p>
           <p>{physicaldesc}</p>
-          <p>Owner name - owner phone</p>
-          <p>Emergency contact name - EC phone</p>
+          <p>
+            {owner.firstname} {owner.lastname}
+          </p>
+          <p>
+            {owner.phone} {owner.email}
+          </p>
+          <p>
+            {owner.ecfirstname} {owner.eclastname}
+          </p>
+          <p>{owner.ecphone} {owner.ecemail}</p>
         </div>
         <Tabs>
           {" "}
