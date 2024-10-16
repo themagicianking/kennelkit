@@ -1,4 +1,5 @@
 import PetProfile from "./PetProfile";
+import { useState, useEffect } from "react";
 
 const OWNER = {
   firstname: "Cara",
@@ -12,6 +13,7 @@ const OWNER = {
 };
 
 const PET = {
+  id: 2,
   petname: "Watts",
   species: "dog",
   breed: "Airedale Terrier",
@@ -25,22 +27,54 @@ const PET = {
 };
 
 export default function Homepage() {
+  const [pet, setPet] = useState(null);
+
+  async function getPet() {
+    await fetch("http://localhost:5000/pet?id=1")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setPet(data));
+  }
+
+  useEffect(() => {
+    getPet();
+  }, []);
+
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      <PetProfile
-        petname={PET.petname}
-        species={PET.species}
-        breed={PET.breed}
-        sex={PET.sex}
-        altered={PET.altered}
-        birthday={PET.birthday}
-        weight={PET.weight}
-        physicaldesc={PET.physicaldesc}
-        staytype={PET.staytype}
-        checkedin={PET.checkedin}
-        owner={OWNER}
-      />
+      {pet ? (
+        <PetProfile
+          id={pet.id}
+          petname={pet.petname}
+          species={pet.species}
+          breed={pet.breed}
+          sex={pet.sex}
+          altered={pet.altered}
+          birthday={pet.birthday}
+          weight={pet.weight}
+          physicaldesc={pet.physicaldesc}
+          staytype={pet.staytype}
+          checkedin={pet.checkedin}
+          owner={OWNER}
+        />
+      ) : (
+        <PetProfile
+          id={PET.id}
+          petname={PET.petname}
+          species={PET.species}
+          breed={PET.breed}
+          sex={PET.sex}
+          altered={PET.altered}
+          birthday={PET.birthday}
+          weight={PET.weight}
+          physicaldesc={PET.physicaldesc}
+          staytype={PET.staytype}
+          checkedin={PET.checkedin}
+          owner={OWNER}
+        />
+      )}
     </>
   );
 }

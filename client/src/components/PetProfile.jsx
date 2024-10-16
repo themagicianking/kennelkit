@@ -16,9 +16,14 @@ import {
   TabsBody,
   CardFooter,
   Button,
+  Switch,
+  checkbox,
 } from "@material-tailwind/react";
 
+import { useState } from "react";
+
 export default function PetProfile({
+  id,
   petname,
   species,
   breed,
@@ -31,6 +36,7 @@ export default function PetProfile({
   staytype,
   owner,
 }) {
+  const [isChecked, setIsChecked] = useState(checkedin);
   // get string to indicate altered/unaltered
   function getAltered(altered) {
     // set variable for return statement
@@ -120,8 +126,21 @@ export default function PetProfile({
     },
   ];
 
+  async function toggleCheckIn(usertoggle) {
+    await fetch("http://localhost:5000/checkin", {
+      method: "PUT",
+      body: JSON.stringify({ id: id, checkedin: usertoggle }),
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  function handleChange(e) {
+    setIsChecked(!isChecked);
+    toggleCheckIn(isChecked);
+  }
+
   return (
-    <Card shadow={true} variant="gradient" color="teal">
+    <Card shadow={true} variant="gradient" color="white">
       <CardHeader
         floated={false}
         color="gray"
@@ -130,7 +149,7 @@ export default function PetProfile({
         <Typography variant="h2" className="pet-profile-header-item">
           {petname} {owner.lastname}
         </Typography>
-        {checkedin && staytype == "daycare" ? (
+        {isChecked && staytype == "daycare" ? (
           <>
             <Tooltip content="This pet is checked in.">
               <IconButton
@@ -149,7 +168,7 @@ export default function PetProfile({
               </IconButton>
             </Tooltip>
           </>
-        ) : checkedin && staytype == "boarding" ? (
+        ) : isChecked && staytype == "boarding" ? (
           <>
             <Tooltip content="This pet is checked in.">
               <IconButton
@@ -210,7 +229,9 @@ export default function PetProfile({
               {age} · {weight}lbs
             </li>
             <li>
-              <Typography variant="h5">Owner: {owner.firstname} {owner.lastname}</Typography>
+              <Typography variant="h5">
+                Owner: {owner.firstname} {owner.lastname}
+              </Typography>
               <ul>
                 <li>
                   {owner.phone} · {owner.email}
@@ -218,7 +239,9 @@ export default function PetProfile({
               </ul>
             </li>
             <li>
-              <Typography variant="h5">Emergency Contact: {owner.ecfirstname} {owner.eclastname}</Typography>
+              <Typography variant="h5">
+                Emergency Contact: {owner.ecfirstname} {owner.eclastname}
+              </Typography>
               <ul>
                 <li>
                   {owner.ecphone} · {owner.ecemail}
@@ -244,8 +267,16 @@ export default function PetProfile({
           </TabsBody>
         </Tabs>
       </CardBody>
-      <CardFooter className="pet-profile-footer">
+      <CardFooter className="gap-4 pet-profile-footer">
         <Button>Edit</Button>
+        <form>
+          <Switch
+            color="green"
+            label="Checked In?"
+            checked={isChecked}
+            onChange={handleChange}
+          />
+        </form>
       </CardFooter>
     </Card>
   );
