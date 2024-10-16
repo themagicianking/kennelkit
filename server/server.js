@@ -79,7 +79,7 @@ const Pet = sequelize.define("Pet", {
 APP.use(express.json());
 APP.use(cors());
 
-// endpoint to retrieve pet data
+// endpoint to retrieve pet id
 APP.get("/pet", async (req, res) => {
   const pet = await Pet.findAll({
     where: {
@@ -90,15 +90,15 @@ APP.get("/pet", async (req, res) => {
 });
 
 // endpoint to check pet in and out
-APP.put("/pet", async (req, res) => {
+APP.put("/checkin", async (req, res) => {
   await Pet.update(
-    { checkedin: req.checkedin },
+    { checkedin: req.body.checkedin },
     {
-      where: { id: req.id },
+      where: { id: req.body.id },
     }
   );
 
-  res.send("Pet check in status has been updated.");
+  res.status(200);
 });
 
 APP.listen(PORT, () => {

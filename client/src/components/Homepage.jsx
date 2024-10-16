@@ -1,7 +1,6 @@
 import PetProfile from "./PetProfile";
 import { useState, useEffect } from "react";
 
-
 const OWNER = {
   firstname: "Cara",
   lastname: "Coleman",
@@ -14,6 +13,7 @@ const OWNER = {
 };
 
 const PET = {
+  id: 2,
   petname: "Watts",
   species: "dog",
   breed: "Airedale Terrier",
@@ -40,13 +40,13 @@ export default function Homepage() {
   useEffect(() => {
     getPet();
   }, []);
-  
 
   return (
     <>
       <h1>Welcome to your kennel!</h1>
       {pet ? (
         <PetProfile
+          id={pet.id}
           petname={pet.petname}
           species={pet.species}
           breed={pet.breed}
@@ -61,6 +61,7 @@ export default function Homepage() {
         />
       ) : (
         <PetProfile
+          id={PET.id}
           petname={PET.petname}
           species={PET.species}
           breed={PET.breed}
