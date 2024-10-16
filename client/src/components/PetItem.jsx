@@ -1,4 +1,13 @@
-import { ListItem, ListItemPrefix, Typography } from "@material-tailwind/react";
+// todo: add icon for photo
+
+import {
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Typography,
+  Switch,
+  IconButton,
+} from "@material-tailwind/react";
 
 export default function PetItem({ pet }) {
   return (
@@ -10,7 +19,18 @@ export default function PetItem({ pet }) {
           <i className="fas fa-cat" />
         )}
       </ListItemPrefix>
+      <ListItemPrefix>
+        {pet.sex == "male" ? (
+          <i className="fas fa-mars" />
+        ) : (
+          <i className="fas fa-venus" />
+        )}
+      </ListItemPrefix>
       <Typography variant="h6"> {pet.petname}</Typography>
+      <ListItemSuffix>
+        <Switch></Switch>
+      </ListItemSuffix>
+      <IconButton><i className="fas fa-pen-to-square" /></IconButton>
     </ListItem>
   );
 }
