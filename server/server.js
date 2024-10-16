@@ -27,12 +27,24 @@ const Pet = sequelize.define("Pet", {
 
 (async () => {
   await sequelize.sync({ force: true });
-  const arcadia = await Pet.create({ petname: 'Arcadia', checkedin: true });
-  console.log(arcadia.toJSON());;
+  const arcadia = await Pet.create({ petname: "Arcadia", checkedin: true });
+  console.log(arcadia.toJSON());
 })();
 
 APP.use(express.json());
 APP.use(cors());
+
+// endpoint to check pet in and out
+APP.put("/pet", async (req, res) => {
+  await Pet.update(
+    { checkedin: req.checkedin },
+    {
+      where: { id: req.id },
+    }
+  );
+
+  res.send("Pet check in status has been updated.");
+});
 
 APP.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
