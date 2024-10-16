@@ -101,7 +101,10 @@ export default function PetProfile({
       <CardHeader>{petname}</CardHeader>
       <CardBody className="pet-profile-body">
         <div className="pet-stats">
-          <img></img>
+          <img
+            className="h-96 w-96 rounded-full object-cover object-center shadow-xl shadow-blue-gray-900/50"
+            src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
+          ></img>
           <p>
             {species} {breed}
           </p>
@@ -121,7 +124,9 @@ export default function PetProfile({
           <p>
             {owner.ecfirstname} {owner.eclastname}
           </p>
-          <p>{owner.ecphone} {owner.ecemail}</p>
+          <p>
+            {owner.ecphone} {owner.ecemail}
+          </p>
         </div>
         <Tabs>
           {" "}
