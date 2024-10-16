@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Card,
   CardHeader,
   CardBody,
@@ -22,29 +23,6 @@ export default function PetProfile({
   physicaldesc,
   owner,
 }) {
-  const data = [
-    {
-      label: "Notes",
-      value: "notes",
-      desc: `notes here`,
-    },
-    {
-      label: "History",
-      value: "history",
-      desc: `history here`,
-    },
-    {
-      label: "Vaccines",
-      value: "vaccines",
-      desc: `vaccines here`,
-    },
-    {
-      label: "Reservations",
-      value: "reservations",
-      desc: `reservations here`,
-    },
-  ];
-
   // calculate pet age based on birthday
   function getAge(birthday) {
     // convert birthday into date object
@@ -96,6 +74,29 @@ export default function PetProfile({
 
   let age = getAge(birthday);
 
+  const data = [
+    {
+      label: "Notes",
+      value: "notes",
+      desc: `notes here`,
+    },
+    {
+      label: "History",
+      value: "history",
+      desc: `history here`,
+    },
+    {
+      label: "Vaccines",
+      value: "vaccines",
+      desc: `vaccines here`,
+    },
+    {
+      label: "Reservations",
+      value: "reservations",
+      desc: `reservations here`,
+    },
+  ];
+
   return (
     <Card>
       <CardHeader>{petname}</CardHeader>
@@ -106,7 +107,7 @@ export default function PetProfile({
             src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
           ></img>
           <p>
-            {species} {breed}
+            { species == "dog" ? (<i className="fas fa-dog" />) : (<i className="fas fa-cat" />)} {breed}
           </p>
           <p>
             {sex} Altered? {JSON.stringify(altered)}
@@ -129,7 +130,6 @@ export default function PetProfile({
           </p>
         </div>
         <Tabs>
-          {" "}
           <TabsHeader>
             {data.map(({ label, value }) => (
               <Tab key={value} value={value}>
