@@ -89,6 +89,12 @@ APP.get("/pet", async (req, res) => {
   res.send(pet[0]);
 });
 
+// endpoint to retrieve all pets
+APP.get("/allpets", async (req, res) => {
+  const petlist = await Pet.findAll();
+  res.send(petlist);
+});
+
 // endpoint to retrieve all checked in pets
 APP.get("/checkedinpets", async (req, res) => {
   const petlist = await Pet.findAll({
