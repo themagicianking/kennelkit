@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@material-tailwind/react";
 import Homepage from "./components/Homepage"
 
 function App() {
