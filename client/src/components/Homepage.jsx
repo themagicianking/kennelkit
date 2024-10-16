@@ -1,5 +1,6 @@
 import PetProfile from "./PetProfile";
-import ListView from "./ListView";
+import AllPetsList from "./AllPetsList";
+import CheckedInPetsList from "./CheckedInPetsList";
 import { useState, useEffect } from "react";
 
 const OWNER = {
@@ -56,7 +57,10 @@ export default function Homepage() {
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      <ListView />
+      <p>All pets:</p>
+      <AllPetsList />
+      <p>Checked in pets:</p>
+      <CheckedInPetsList />
       {/* {pet ? (
         <PetProfile
           id={pet.id}

@@ -4,20 +4,8 @@ import { List } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import PetItem from "./PetItem";
 
-export default function ListView() {
-  const [list, setList] = useState([]);
+export default function ListView({list}) {
 
-  async function loadPets() {
-    await fetch("http://localhost:5000/checkedinpets")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => setList(data));
-  }
-
-  useEffect(() => {
-    loadPets();
-  }, []);
 
   return (
     <List>
