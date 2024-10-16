@@ -19,6 +19,9 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 ## Testing
 - Test that all components are being rendered
 - Test that the pet profile renders all information passed through props and no required information is undefined
+- Test that dog icon renders for dogs and cat icon render for cats
+- Test that sex icon and altered string renders correctly in all combinations
+- Test that check in icon is only rendered if pet is checked in and correct stay type icon is rendered
 - Test that the owner profile renders all information passed through props and no required information is undefined
 - Test that the list view correctly renders individual items OR a message indicating that there are no items in the list
 - Test that the pet item renders all information passed through props and no required information is undefined
