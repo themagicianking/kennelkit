@@ -17,7 +17,6 @@ import {
   CardFooter,
   Button,
   Switch,
-  checkbox,
 } from "@material-tailwind/react";
 
 import { useState } from "react";
@@ -269,14 +268,12 @@ export default function PetProfile({
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
         <Button>Edit</Button>
-        <form>
-          <Switch
-            color="green"
-            label="Checked In?"
-            checked={isChecked}
-            onChange={handleChange}
-          />
-        </form>
+        <Switch
+          color="green"
+          label="Checked In?"
+          checked={isChecked}
+          onChange={handleChange}
+        />
       </CardFooter>
     </Card>
   );
