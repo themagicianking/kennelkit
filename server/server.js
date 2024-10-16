@@ -89,6 +89,16 @@ APP.get("/pet", async (req, res) => {
   res.send(pet[0]);
 });
 
+// endpoint to retrieve all checked in pets
+APP.get("/checkedinpets", async (req, res) => {
+  const petlist = await Pet.findAll({
+    where: {
+      checkedin: true,
+    },
+  });
+  res.send(petlist);
+});
+
 // endpoint to check pet in and out
 APP.put("/checkin", async (req, res) => {
   await Pet.update(
@@ -97,7 +107,6 @@ APP.put("/checkin", async (req, res) => {
       where: { id: req.body.id },
     }
   );
-
   res.status(200);
 });
 
