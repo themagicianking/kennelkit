@@ -5,7 +5,7 @@ export default function ListView({ list }) {
   return (
     <List>
       {list.map((listitem) => (
-        <PetItem pet={listitem} />
+        <PetItem key={listitem.id} pet={listitem} />
       ))}
     </List>
   );

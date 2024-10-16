@@ -28,10 +28,12 @@ const PET = {
 };
 
 const PETITEM = {
+  id: 1,
   species: "cat",
   sex: "female",
   altered: true,
   petname: "Arcadia",
+  checkedin: false,
 };
 
 const LIST = [PET, PETITEM];

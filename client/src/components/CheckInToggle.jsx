@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Switch } from "@material-tailwind/react";
 
 export default function CheckInToggle({ id, checkedin }) {
   const [isChecked, setIsChecked] = useState(checkedin);

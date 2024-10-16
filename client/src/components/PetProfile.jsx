@@ -17,7 +17,6 @@ import {
   CardFooter,
   Button,
   Switch,
-  checkbox,
 } from "@material-tailwind/react";
 
 import { useState } from "react";

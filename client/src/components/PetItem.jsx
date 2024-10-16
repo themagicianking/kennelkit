@@ -1,5 +1,4 @@
 // todo: add icon for photo
-
 import {
   ListItem,
   ListItemPrefix,
@@ -8,6 +7,7 @@ import {
   Switch,
   IconButton,
 } from "@material-tailwind/react";
+import CheckInToggle from "./CheckInToggle";
 
 export default function PetItem({ pet }) {
   return (
@@ -29,7 +29,7 @@ export default function PetItem({ pet }) {
       <Typography variant="h6"> {pet.petname}</Typography>
       <ListItemSuffix>
         <div className="flex gap-4">
-          <Switch></Switch>
+          <CheckInToggle id={pet.id} checkedin={pet.checkedin}/>
           <IconButton>
             <i className="fas fa-pen-to-square" />
           </IconButton>
