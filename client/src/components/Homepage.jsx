@@ -6,7 +6,7 @@ const PET = {
   breed: "Airedale Terrier",
   sex: "male",
   altered: true,
-  birthday: "",
+  birthday: "2017-05-14",
   weight: 55,
   physicaldesc: "Black and tan, curly",
 };
