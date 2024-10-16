@@ -28,9 +28,13 @@ export default function PetItem({ pet }) {
       </ListItemPrefix>
       <Typography variant="h6"> {pet.petname}</Typography>
       <ListItemSuffix>
-        <Switch></Switch>
+        <div className="flex gap-4">
+          <Switch></Switch>
+          <IconButton>
+            <i className="fas fa-pen-to-square" />
+          </IconButton>
+        </div>
       </ListItemSuffix>
-      <IconButton><i className="fas fa-pen-to-square" /></IconButton>
     </ListItem>
   );
 }
