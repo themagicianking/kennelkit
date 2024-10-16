@@ -2,6 +2,8 @@ import {
   Card,
   CardHeader,
   Typography,
+  Tooltip,
+  IconButton,
   CardBody,
   Tabs,
   TabsHeader,
@@ -22,6 +24,7 @@ export default function PetProfile({
   weight,
   physicaldesc,
   checkedin,
+  staytype,
   owner,
 }) {
   // get string to indicate altered/unaltered
@@ -118,11 +121,40 @@ export default function PetProfile({
       <CardHeader
         floated={false}
         shadow={false}
-        color="gray"
+        color="white"
         className="m-0 rounded-none"
       >
         <Typography variant="h2">
-          {petname} {checkedin ? <i className="fas fa-circle-check" /> : <></>}
+          {petname}{" "}
+          {checkedin && staytype == "daycare" ? (
+            <>
+              <Tooltip content="This pet is checked in.">
+                <IconButton variant="gradient" className="rounded-full">
+                  <i className="fas fa-check" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip content="This is a daycare pet.">
+                <IconButton variant="gradient" className="rounded-full">
+                  <i className="fas fa-sun" />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : checkedin && staytype == "boarding" ? (
+            <>
+            <Tooltip content="This pet is checked in.">
+              <IconButton variant="gradient" className="rounded-full">
+                <i className="fas fa-check" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content="This is a boarding pet.">
+              <IconButton variant="gradient" className="rounded-full">
+                <i className="fas fa-moon" />
+              </IconButton>
+            </Tooltip>
+          </>
+          ) : (
+            <></>
+          )}
         </Typography>
       </CardHeader>
       <CardBody className="pet-profile-body">

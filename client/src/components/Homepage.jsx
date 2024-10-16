@@ -20,6 +20,7 @@ const PET = {
   birthday: "2017-05-14",
   weight: 55,
   physicaldesc: "Black and tan, curly",
+  staytype: "boarding",
   checkedin: true,
 };
 
@@ -36,6 +37,7 @@ export default function Homepage() {
         birthday={PET.birthday}
         weight={PET.weight}
         physicaldesc={PET.physicaldesc}
+        staytype={PET.staytype}
         checkedin={PET.checkedin}
         owner={OWNER}
       />
