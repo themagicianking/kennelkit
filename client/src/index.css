@@ -1,3 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.pet-profile-header {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 5px;
+}
+
+.pet-profile-header-item {
+  margin: 5px;
+}
+
+.pet-profile-body {
+  display: flex;
+  margin: 0 10px 0 10px;
+}
+
+.pet-stats, .pet-tabs {
+  margin: 0 15px 0 15px;
+}
+
+.pet-tabs {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: white;
+}
+
+.pet-profile-image {
+  border: 10px solid white;
+  border-bottom: 50px solid white;
+  margin-bottom: 15px;
+}
+
+.pet-profile-footer {
+  display: flex;
+  flex-direction: row-reverse;
+}
