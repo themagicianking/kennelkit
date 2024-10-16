@@ -1,4 +1,4 @@
-import { ListItem, ListItemPrefix } from "@material-tailwind/react";
+import { ListItem, ListItemPrefix, Typography } from "@material-tailwind/react";
 
 export default function PetItem({ pet }) {
   return (
@@ -10,6 +10,7 @@ export default function PetItem({ pet }) {
           <i className="fas fa-cat" />
         )}
       </ListItemPrefix>
+      <Typography variant="h6"> {pet.petname}</Typography>
     </ListItem>
   );
 }
