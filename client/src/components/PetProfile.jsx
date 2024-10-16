@@ -23,6 +23,21 @@ export default function PetProfile({
   physicaldesc,
   owner,
 }) {
+  // get string to indicate altered/unaltered
+  function getAltered(altered) {
+    // set variable for return statement
+    let alteredString;
+    if (altered && sex == "male") {
+      alteredString = "Neutered";
+    } else if (altered && sex == "female") {
+      alteredString = "Spayed";
+    } else {
+      alteredString = "Intact";
+    }
+    return alteredString;
+  }
+
+  let alteredString = getAltered(altered);
   // calculate pet age based on birthday
   function getAge(birthday) {
     // convert birthday into date object
@@ -107,10 +122,19 @@ export default function PetProfile({
             src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
           ></img>
           <p>
-            { species == "dog" ? (<i className="fas fa-dog" />) : (<i className="fas fa-cat" />)} {breed}
+            {species == "dog" ? (
+              <i className="fas fa-dog" />
+            ) : (
+              <i className="fas fa-cat" />
+            )}{" "}
+            {breed}
           </p>
           <p>
-            {sex} Altered? {JSON.stringify(altered)}
+            {sex == "male" ? (
+              <i className="fas fa-mars" />
+            ) : (
+              <i className="fas fa-venus" />
+            )} {alteredString}
           </p>
           <p>
             {age} {weight}lbs
