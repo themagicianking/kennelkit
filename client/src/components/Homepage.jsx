@@ -1,6 +1,7 @@
 import PetProfile from "./PetProfile";
 import AllPetsList from "./AllPetsList";
 import CheckedInPetsList from "./CheckedInPetsList";
+import CreatePetModal from "./CreatePetModal";
 import { useState, useEffect } from "react";
 
 const OWNER = {
@@ -57,10 +58,11 @@ export default function Homepage() {
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      <p>All pets:</p>
+      <CreatePetModal />
+      {/* <p>All pets:</p>
       <AllPetsList />
       <p>Checked in pets:</p>
-      <CheckedInPetsList />
+      <CheckedInPetsList /> */}
       {/* {pet ? (
         <PetProfile
           id={pet.id}
