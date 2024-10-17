@@ -29,8 +29,8 @@ export default function CreatePetModal() {
           <CardHeader>
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
-          <CardBody>
-            <div>
+          <CardBody className="flex gap-6">
+            <div className="mb-1 flex flex-col gap-6">
               {/* Owner selection */}
               <AsyncSelect placeholder="Owner Name"></AsyncSelect>
               <Input label="Pet Name"></Input>
@@ -51,7 +51,7 @@ export default function CreatePetModal() {
               <Input type="date" label="Birthday"></Input>
               <Input type="number" label="Weight"></Input>
             </div>
-            <div>
+            <div className="mb-1 flex flex-col gap-6">
               <Textarea placeholder="Physical description: coat color and type, markings, unusual features"></Textarea>
               <Textarea label="Notes"></Textarea>
               <Input type="file" accept="image/png, image/jpeg"></Input>
