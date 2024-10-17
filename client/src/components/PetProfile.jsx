@@ -7,11 +7,6 @@ import {
   CardHeader,
   Typography,
   CardBody,
-  Tabs,
-  TabsHeader,
-  Tab,
-  TabPanel,
-  TabsBody,
   CardFooter,
   Button,
   Switch,
@@ -19,6 +14,7 @@ import {
 import { useState } from "react";
 import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
+import { PetProfileTabs } from "./PetProfileTabs";
 
 export default function PetProfile({ pet, owner }) {
   const [isChecked, setIsChecked] = useState(pet.checkedin);
@@ -65,18 +61,7 @@ export default function PetProfile({ pet, owner }) {
           </figure>
           <PetStats pet={pet} owner={owner} />
         </div>
-        <Tabs className="rounded-lg pet-tabs">
-          <TabsHeader>
-            <Tab key="Notes" value="Notes">
-              Notes
-            </Tab>
-          </TabsHeader>
-          <TabsBody>
-            <TabPanel key="Notes" value="Notes">
-              Notes description goes here
-            </TabPanel>
-          </TabsBody>
-        </Tabs>
+        <PetProfileTabs />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
         <Button>Edit</Button>
