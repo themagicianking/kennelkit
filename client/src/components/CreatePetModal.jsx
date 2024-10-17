@@ -1,4 +1,5 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
+// to do: add more consistent/better styling to image upload
 
 import { useState } from "react";
 import {
@@ -17,6 +18,8 @@ import {
 } from "@material-tailwind/react";
 import AsyncSelect from "react-select";
 
+const OWNERS = []
+
 export default function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
@@ -26,7 +29,12 @@ export default function CreatePetModal() {
       <Button onClick={handleOpen}>Create Pet</Button>
       <Dialog open={open} handler={handleOpen}>
         <Card>
-          <CardHeader>
+          <CardHeader
+            floated={false}
+            shadow={false}
+            color="transparent"
+            className="rounded-b-none"
+          >
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
           <CardBody className="flex gap-6">
