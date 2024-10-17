@@ -57,11 +57,11 @@ export default function Homepage() {
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      <p>All pets:</p>
+      {/* <p>All pets:</p>
       <AllPetsList />
       <p>Checked in pets:</p>
-      <CheckedInPetsList />
-      {/* {pet ? (
+      <CheckedInPetsList /> */}
+      {pet ? (
         <PetProfile
           id={pet.id}
           petname={pet.petname}
@@ -76,6 +76,7 @@ export default function Homepage() {
           checkedin={pet.checkedin}
           owner={OWNER}
         />
+
       ) : (
         <PetProfile
           id={PET.id}
@@ -91,7 +92,7 @@ export default function Homepage() {
           checkedin={PET.checkedin}
           owner={OWNER}
         />
-      )} */}
+      )}
     </>
   );
 }
