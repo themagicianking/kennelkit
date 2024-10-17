@@ -4,7 +4,6 @@ import {
   ListItemPrefix,
   ListItemSuffix,
   Typography,
-  Switch,
   IconButton,
 } from "@material-tailwind/react";
 import CheckInToggle from "./CheckInToggle";

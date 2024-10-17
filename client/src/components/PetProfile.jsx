@@ -21,6 +21,8 @@ import {
 
 import { useState } from "react";
 
+import { getAltered, getAge } from "../utilities/pets";
+
 export default function PetProfile({
   id,
   petname,
@@ -36,94 +38,10 @@ export default function PetProfile({
   owner,
 }) {
   const [isChecked, setIsChecked] = useState(checkedin);
-  // get string to indicate altered/unaltered
-  function getAltered(altered) {
-    // set variable for return statement
-    let alteredString;
-    if (altered && sex == "male") {
-      alteredString = "Neutered";
-    } else if (altered && sex == "female") {
-      alteredString = "Spayed";
-    } else {
-      alteredString = "Intact";
-    }
-    return alteredString;
-  }
 
-  let alteredString = getAltered(altered);
-  // calculate pet age based on birthday
-  function getAge(birthday) {
-    // convert birthday into date object
-    const birthdate = Date.parse(birthday);
-    // get current date
-    const today = Date.now();
-    // get time elapsed between birthday and current date
-    const millisecondsElapsed = today - birthdate;
-    const secondsElapsed = millisecondsElapsed / 1000;
-    const minutesElapsed = secondsElapsed / 60;
-
-    // get days elapsed since pet's birthdate
-    const daysElapsed = minutesElapsed / 1440;
-
-    // set variables for pet's age in years, months, and days
-    let yearsElapsed;
-    let monthsElapsed = 0;
-    let daysRemaining = 0;
-
-    // get years if pet is more than 1 year old
-    if (daysElapsed / 365 > 1) {
-      yearsElapsed = Math.floor(daysElapsed / 365);
-      daysRemaining = Math.floor(daysElapsed % 365);
-    } else {
-      yearsElapsed = 0;
-    }
-
-    // get months if pet is more than 30 days old or some years + more than 30 days old
-    if (daysRemaining / 30.4167 > 1) {
-      monthsElapsed = Math.floor(daysRemaining / 30.4167);
-    }
-
-    // set variable for return statement
-    let ageString = "";
-    // create age string based on pet age
-    if (yearsElapsed == 0 && monthsElapsed == 0) {
-      ageString = `${daysElapsed} days`;
-    } else if (yearsElapsed == 0 && monthsElapsed > 0) {
-      ageString = `${monthsElapsed} months`;
-    } else if (monthsElapsed == 0) {
-      ageString = `${yearsElapsed} years`;
-    } else {
-      ageString = `${yearsElapsed} years ${monthsElapsed} months`;
-    }
-
-    // return pet age
-    return ageString;
-  }
-
+  let alteredString = getAltered(altered, sex);
   let age = getAge(birthday);
 
-  const data = [
-    {
-      label: "Notes",
-      value: "notes",
-      desc: "notes here",
-    },
-    {
-      label: "History",
-      value: "history",
-      desc: "history here",
-    },
-    {
-      label: "Vaccines",
-      value: "vaccines",
-      desc: `vaccines here`,
-    },
-    {
-      label: "Reservations",
-      value: "reservations",
-      desc: `reservations here`,
-    },
-  ];
 
   async function toggleCheckIn(usertoggle) {
     await fetch("http://localhost:5000/checkin", {
@@ -251,18 +169,14 @@ export default function PetProfile({
         </div>
         <Tabs className="rounded-lg pet-tabs">
           <TabsHeader>
-            {data.map(({ label, value }) => (
-              <Tab key={value} value={value}>
-                {label}
-              </Tab>
-            ))}
+            <Tab key="Notes" value="Notes">
+              Notes
+            </Tab>
           </TabsHeader>
           <TabsBody>
-            {data.map(({ value, desc }) => (
-              <TabPanel key={value} value={value}>
-                {desc}
-              </TabPanel>
-            ))}
+            <TabPanel key="Notes" value="Notes">
+              Notes description goes here
+            </TabPanel>
           </TabsBody>
         </Tabs>
       </CardBody>
