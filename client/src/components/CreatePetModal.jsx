@@ -32,7 +32,7 @@ export default function CreatePetModal() {
           <CardBody>
             <div>
               {/* Owner selection */}
-              <AsyncSelect></AsyncSelect>
+              <AsyncSelect placeholder="Owner Name"></AsyncSelect>
               <Input label="Pet Name"></Input>
               <div className="flex gap-10">
                 <Radio name="type" label="Male" />
@@ -47,7 +47,7 @@ export default function CreatePetModal() {
                 <Option>Cat</Option>
               </Select>
               {/* Breed selection */}
-              <AsyncSelect></AsyncSelect>
+              <AsyncSelect placeholder="Breed"></AsyncSelect>
               <Input type="date" label="Birthday"></Input>
               <Input type="number" label="Weight"></Input>
             </div>
