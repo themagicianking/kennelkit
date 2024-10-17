@@ -22,7 +22,29 @@ import { OWNERNAMES, BREED } from "../utilities/dummydata";
 
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
+  const [species, setSpecies] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
+
+  function onSpeciesChange(value) {
+    setSpecies(value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let newPet = {
+      petname: e.target.petname.value,
+      sex: e.target.sex.value,
+      altered: e.target.altered.value,
+      species: species,
+      breed: e.target.breed.value,
+      birthday: e.target.birthday.value,
+      weight: e.target.weight.value,
+      physicaldesc: e.target.physicaldesc.value,
+    };
+
+    console.log(newPet);
+    console.log("this ran");
+  }
 
   return (
     <>
@@ -37,45 +59,107 @@ export function CreatePetModal() {
           >
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
-          <CardBody className="flex gap-6">
-            <div className="mb-1 flex flex-col gap-6">
-              <Input list="owners" label="Owner Name" required/>
-              <datalist id="owners">
-                {OWNERNAMES.map((name) => (
-                  <option value={name.value} />
-                ))}
-              </datalist>
-              <Input label="Pet Name" required/>
-              <div className="flex gap-10">
-                <Radio name="sex" label="Male" required/>
-                <Radio name="sex" label="Female" required/>
+          <form onSubmit={handleSubmit}>
+            <CardBody className="flex gap-6">
+              <div className="mb-1 flex flex-col gap-6">
+                <Input list="owners" label="Owner Name" required />
+                <datalist id="owners">
+                  {OWNERNAMES.map((name) => (
+                    <option value={name.value} />
+                  ))}
+                </datalist>
+                <Input id="petname" label="Pet Name" required />
+                <div className="flex gap-10">
+                  <Radio name="sex" value="male" label="Male" required />
+                  <Radio name="sex" value="female" label="Female" required />
+                </div>
+                <div className="flex gap-10">
+                  <Radio
+                    name="altered"
+                    value="altered"
+                    label="Altered"
+                    required
+                  />
+                  <Radio
+                    name="altered"
+                    value="unaltered"
+                    label="Unaltered"
+                    required
+                  />
+                </div>
+                <Select
+                  label="Species"
+                  id="species"
+                  value={species}
+                  onChange={onSpeciesChange}
+                  required
+                >
+                  <Option name="species" value="dog">
+                    Dog
+                  </Option>
+                  <Option name="species" value="cat">
+                    Cat
+                  </Option>
+                </Select>
+                <Input list="breed" id="breed" label="Breed" required />
+                <datalist id="breed">
+                  {BREED.map((breed) => (
+                    <option key={breed.value} value={breed.value} />
+                  ))}
+                </datalist>
+                <div>
+                  <Input
+                    type="date"
+                    id="birthday"
+                    label="Birthday"
+                    required
+                  ></Input>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-asterisk"></i>
+                    Or best estimate
+                  </Typography>
+                </div>
+                <Input type="number" id="weight" label="Weight"></Input>
               </div>
-              <div className="flex gap-10">
-                <Radio name="altered" label="Altered" required/>
-                <Radio name="altered" label="Unaltered" required/>
+              <div className="mb-1 flex flex-col gap-6">
+                <div>
+                  <Textarea
+                    id="physicaldesc"
+                    label="Physical Description"
+                    // placeholder="Physical description: coat color and type, markings, unusual features"
+                  ></Textarea>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-circle-info"></i>
+                    Physical description: coat color and type, markings, unusual
+                    features
+                  </Typography>
+                </div>
+                <div>
+                  <Textarea label="Notes"></Textarea>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-circle-info"></i>Personality, specific
+                    concerns or quirks
+                  </Typography>
+                </div>
+                <Input type="file" accept="image/png, image/jpeg"></Input>
               </div>
-              <Select label="Species" required>
-                <Option>Dog</Option>
-                <Option>Cat</Option>
-              </Select>
-              <Input list="breed" label="Breed" required/>
-              <datalist id="breed">
-                {BREED.map((breed) => (
-                  <option value={breed.value} />
-                ))}
-              </datalist>
-              <Input type="date" label="Birthday" required></Input>
-              <Input type="number" label="Weight"></Input>
-            </div>
-            <div className="mb-1 flex flex-col gap-6">
-              <Textarea placeholder="Physical description: coat color and type, markings, unusual features"></Textarea>
-              <Textarea label="Notes"></Textarea>
-              <Input type="file" accept="image/png, image/jpeg"></Input>
-            </div>
-          </CardBody>
-          <CardFooter>
-            <Button>Submit</Button>
-          </CardFooter>
+            </CardBody>
+            <CardFooter>
+              <Button type="submit">Submit</Button>
+            </CardFooter>
+          </form>
         </Card>
       </Dialog>
     </>
