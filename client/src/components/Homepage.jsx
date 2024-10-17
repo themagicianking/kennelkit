@@ -1,44 +1,8 @@
 import PetProfile from "./PetProfile";
 import AllPetsList from "./AllPetsList";
 import CheckedInPetsList from "./CheckedInPetsList";
-import CreatePetModal from "./CreatePetModal";
+import { OWNER, PET, LIST } from "../utilities/dummydata";
 import { useState, useEffect } from "react";
-
-const OWNER = {
-  firstname: "Cara",
-  lastname: "Coleman",
-  phone: "(555) 555 - 5555",
-  email: "email@email.com",
-  ecfirstname: "Thane",
-  eclastname: "Wilson",
-  ecphone: "(444) 444 - 4444",
-  ecemail: "ecemail@email.com",
-};
-
-const PET = {
-  id: 2,
-  petname: "Watts",
-  species: "dog",
-  breed: "Airedale Terrier",
-  sex: "male",
-  altered: true,
-  birthday: "2017-05-14",
-  weight: 55,
-  physicaldesc: "Black and tan, curly",
-  staytype: "boarding",
-  checkedin: true,
-};
-
-const PETITEM = {
-  id: 1,
-  species: "cat",
-  sex: "female",
-  altered: true,
-  petname: "Arcadia",
-  checkedin: false,
-};
-
-const LIST = [PET, PETITEM];
 
 export default function Homepage() {
   const [pet, setPet] = useState(null);
@@ -58,42 +22,15 @@ export default function Homepage() {
   return (
     <>
       <h1>Welcome to your kennel!</h1>
-      <CreatePetModal />
       {/* <p>All pets:</p>
       <AllPetsList />
       <p>Checked in pets:</p>
       <CheckedInPetsList /> */}
-      {/* {pet ? (
-        <PetProfile
-          id={pet.id}
-          petname={pet.petname}
-          species={pet.species}
-          breed={pet.breed}
-          sex={pet.sex}
-          altered={pet.altered}
-          birthday={pet.birthday}
-          weight={pet.weight}
-          physicaldesc={pet.physicaldesc}
-          staytype={pet.staytype}
-          checkedin={pet.checkedin}
-          owner={OWNER}
-        />
+      {pet ? (
+        <PetProfile pet={pet} owner={OWNER} />
       ) : (
-        <PetProfile
-          id={PET.id}
-          petname={PET.petname}
-          species={PET.species}
-          breed={PET.breed}
-          sex={PET.sex}
-          altered={PET.altered}
-          birthday={PET.birthday}
-          weight={PET.weight}
-          physicaldesc={PET.physicaldesc}
-          staytype={PET.staytype}
-          checkedin={PET.checkedin}
-          owner={OWNER}
-        />
-      )} */}
+        <PetProfile pet={PET} owner={OWNER} />
+      )}
     </>
   );
 }

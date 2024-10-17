@@ -4,10 +4,9 @@ import {
   ListItemPrefix,
   ListItemSuffix,
   Typography,
-  Switch,
   IconButton,
 } from "@material-tailwind/react";
-import CheckInToggle from "./CheckInToggle";
+import { CheckInToggle } from "./CheckInToggle";
 
 export default function PetItem({ pet }) {
   return (
@@ -29,7 +28,7 @@ export default function PetItem({ pet }) {
       <Typography variant="h6"> {pet.petname}</Typography>
       <ListItemSuffix>
         <div className="flex gap-4">
-          <CheckInToggle id={pet.id} checkedin={pet.checkedin}/>
+          <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
           <IconButton>
             <i className="fas fa-pen-to-square" />
           </IconButton>

@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "watch-css": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "prebuild": "npx tailwindcss -i ./src/input.css -o ./src/output.css"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
