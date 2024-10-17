@@ -17,14 +17,11 @@ import {
   Switch,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import { getAltered, getAge } from "../utilities/pets";
 import { PetProfileIconBar } from "./PetProfileIconBar";
+import { PetStats } from "./PetStats";
 
 export default function PetProfile({ pet, owner }) {
   const [isChecked, setIsChecked] = useState(pet.checkedin);
-
-  let alteredString = getAltered(pet.altered, pet.sex);
-  let age = getAge(pet.birthday);
 
   async function toggleCheckIn(usertoggle) {
     await fetch("http://localhost:5000/checkin", {
@@ -52,63 +49,21 @@ export default function PetProfile({ pet, owner }) {
         <PetProfileIconBar isChecked={isChecked} staytype={pet.staytype} />
       </CardHeader>
       <CardBody className="pet-profile-body">
-        <div className="pet-stats">
-          <figure>
-            <img
-              className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
-              src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
-            ></img>
-            <Typography
-              as="caption"
-              variant="small"
-              className="mt-2 text-center font-normal"
-            >
-              {pet.physicaldesc}
-            </Typography>
-          </figure>
-          <ul>
-            <li>
-              {" "}
-              {pet.species == "dog" ? (
-                <i className="fas fa-dog" />
-              ) : (
-                <i className="fas fa-cat" />
-              )}{" "}
-              {pet.breed}
-            </li>
-            <li>
-              {" "}
-              {pet.sex == "male" ? (
-                <i className="fas fa-mars" />
-              ) : (
-                <i className="fas fa-venus" />
-              )}{" "}
-              {alteredString}
-            </li>
-            <li>
-              {age} · {pet.weight}lbs
-            </li>
-            <li>
-              <Typography variant="h5">
-                Owner: {owner.firstname} {owner.lastname}
-              </Typography>
-              <ul>
-                <li>
-                  {owner.phone} · {owner.email}
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Typography variant="h5">
-                Emergency Contact: {owner.ecfirstname} {owner.eclastname}
-              </Typography>
-              <ul>
-                <li>
-                  {owner.ecphone} · {owner.ecemail}
-                </li>
-              </ul>
-            </li>
-          </ul>
+        <div>
+        <figure>
+          <img
+            className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
+            src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
+          ></img>
+          <Typography
+            as="caption"
+            variant="small"
+            className="mt-2 text-center font-normal"
+          >
+            {pet.physicaldesc}
+          </Typography>
+        </figure>
+        <PetStats pet={pet} owner={owner} />
         </div>
         <Tabs className="rounded-lg pet-tabs">
           <TabsHeader>
