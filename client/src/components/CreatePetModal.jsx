@@ -1,5 +1,7 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
 // to do: add more consistent/better styling to image upload
+// to do: add styling to owner name and breed so they match hard coded list options
+// to do: collapse number of names appearing in owner search
 
 import { useState } from "react";
 import {
@@ -16,7 +18,7 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES } from "../utilities/dummydata";
+import { OWNERNAMES, BREED } from "../utilities/dummydata";
 
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
@@ -37,28 +39,32 @@ export function CreatePetModal() {
           </CardHeader>
           <CardBody className="flex gap-6">
             <div className="mb-1 flex flex-col gap-6">
-              <Input list="owners" label="Owner Name"/>
+              <Input list="owners" label="Owner Name" required/>
               <datalist id="owners">
                 {OWNERNAMES.map((name) => (
                   <option value={name.value} />
                 ))}
               </datalist>
-              <Input label="Pet Name" />
+              <Input label="Pet Name" required/>
               <div className="flex gap-10">
-                <Radio name="type" label="Male" />
-                <Radio name="type" label="Female" />
+                <Radio name="sex" label="Male" required/>
+                <Radio name="sex" label="Female" required/>
               </div>
               <div className="flex gap-10">
-                <Radio name="type" label="Altered" />
-                <Radio name="type" label="Unaltered" />
+                <Radio name="altered" label="Altered" required/>
+                <Radio name="altered" label="Unaltered" required/>
               </div>
-              <Select label="Species">
+              <Select label="Species" required>
                 <Option>Dog</Option>
                 <Option>Cat</Option>
               </Select>
-              {/* Breed selection */}
-              {/* <AsyncSelect placeholder="Breed"></AsyncSelect> */}
-              <Input type="date" label="Birthday"></Input>
+              <Input list="breed" label="Breed" required/>
+              <datalist id="breed">
+                {BREED.map((breed) => (
+                  <option value={breed.value} />
+                ))}
+              </datalist>
+              <Input type="date" label="Birthday" required></Input>
               <Input type="number" label="Weight"></Input>
             </div>
             <div className="mb-1 flex flex-col gap-6">

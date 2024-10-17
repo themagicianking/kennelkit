@@ -30,3 +30,9 @@ export const OWNERNAMES = [
   { value: "Cara Coleman", label: "Cara Coleman" },
   { value: "Masha Timina", label: "Masha Timina" },
 ];
+
+export const BREED = [
+  { value: "German Shepherd", label: "German Shepherd" },
+  { value: "Airedale Terrier", label: "Airedale Terrier" },
+  { value: "Dalmatian", label: "Dalmatian" },
+];
