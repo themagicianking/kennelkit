@@ -69,11 +69,11 @@ export function CreatePetModal() {
                   ))}
                 </datalist>
                 <Input id="petname" label="Pet Name" required />
-                <div className="flex gap-10">
+                <div className="flex gap-8">
                   <Radio name="sex" value="male" label="Male" required />
                   <Radio name="sex" value="female" label="Female" required />
                 </div>
-                <div className="flex gap-10">
+                <div className="flex gap-4">
                   <Radio
                     name="altered"
                     value="altered"
@@ -153,7 +153,19 @@ export function CreatePetModal() {
                     concerns or quirks
                   </Typography>
                 </div>
-                <Input type="file" accept="image/png, image/jpeg"></Input>
+                <Button
+                  color="blue-gray"
+                  size="md"
+                  className="flex flex-col items-center gap-6"
+                  fullWidth
+                >
+                  <label forHtml="imageupload">Upload a photo</label>
+                  <input
+                    name="imageupload"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                  ></input>
+                </Button>
               </div>
             </CardBody>
             <CardFooter>
