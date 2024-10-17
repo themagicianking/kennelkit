@@ -18,30 +18,14 @@ import {
   Button,
   Switch,
 } from "@material-tailwind/react";
-
 import { useState } from "react";
-
 import { getAltered, getAge } from "../utilities/pets";
 
-export default function PetProfile({
-  id,
-  petname,
-  species,
-  breed,
-  sex,
-  altered,
-  birthday,
-  weight,
-  physicaldesc,
-  checkedin,
-  staytype,
-  owner,
-}) {
-  const [isChecked, setIsChecked] = useState(checkedin);
+export default function PetProfile({ pet, owner }) {
+  const [isChecked, setIsChecked] = useState(pet.checkedin);
 
-  let alteredString = getAltered(altered, sex);
-  let age = getAge(birthday);
-
+  let alteredString = getAltered(pet.altered, pet.sex);
+  let age = getAge(pet.birthday);
 
   async function toggleCheckIn(usertoggle) {
     await fetch("http://localhost:5000/checkin", {
@@ -51,7 +35,7 @@ export default function PetProfile({
     });
   }
 
-  function handleChange(e) {
+  function handleChange() {
     setIsChecked(!isChecked);
     toggleCheckIn(isChecked);
   }
@@ -64,9 +48,9 @@ export default function PetProfile({
         className="rounded-b-none pet-profile-header"
       >
         <Typography variant="h2" className="pet-profile-header-item">
-          {petname} {owner.lastname}
+          {pet.petname} {owner.lastname}
         </Typography>
-        {isChecked && staytype == "daycare" ? (
+        {isChecked && pet.staytype == "daycare" ? (
           <>
             <Tooltip content="This pet is checked in.">
               <IconButton
@@ -85,7 +69,7 @@ export default function PetProfile({
               </IconButton>
             </Tooltip>
           </>
-        ) : isChecked && staytype == "boarding" ? (
+        ) : isChecked && pet.staytype == "boarding" ? (
           <>
             <Tooltip content="This pet is checked in.">
               <IconButton
@@ -120,22 +104,22 @@ export default function PetProfile({
               variant="small"
               className="mt-2 text-center font-normal"
             >
-              {physicaldesc}
+              {pet.physicaldesc}
             </Typography>
           </figure>
           <ul>
             <li>
               {" "}
-              {species == "dog" ? (
+              {pet.species == "dog" ? (
                 <i className="fas fa-dog" />
               ) : (
                 <i className="fas fa-cat" />
               )}{" "}
-              {breed}
+              {pet.breed}
             </li>
             <li>
               {" "}
-              {sex == "male" ? (
+              {pet.sex == "male" ? (
                 <i className="fas fa-mars" />
               ) : (
                 <i className="fas fa-venus" />
@@ -143,7 +127,7 @@ export default function PetProfile({
               {alteredString}
             </li>
             <li>
-              {age} · {weight}lbs
+              {age} · {pet.weight}lbs
             </li>
             <li>
               <Typography variant="h5">
