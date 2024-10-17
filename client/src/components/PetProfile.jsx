@@ -6,8 +6,6 @@ import {
   Card,
   CardHeader,
   Typography,
-  Tooltip,
-  IconButton,
   CardBody,
   Tabs,
   TabsHeader,
@@ -20,6 +18,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { getAltered, getAge } from "../utilities/pets";
+import { PetProfileIconBar } from "./PetProfileIconBar";
 
 export default function PetProfile({ pet, owner }) {
   const [isChecked, setIsChecked] = useState(pet.checkedin);
@@ -30,7 +29,7 @@ export default function PetProfile({ pet, owner }) {
   async function toggleCheckIn(usertoggle) {
     await fetch("http://localhost:5000/checkin", {
       method: "PUT",
-      body: JSON.stringify({ id: id, checkedin: usertoggle }),
+      body: JSON.stringify({ id: pet.id, checkedin: usertoggle }),
       headers: { "Content-Type": "application/json" },
     });
   }
@@ -50,47 +49,7 @@ export default function PetProfile({ pet, owner }) {
         <Typography variant="h2" className="pet-profile-header-item">
           {pet.petname} {owner.lastname}
         </Typography>
-        {isChecked && pet.staytype == "daycare" ? (
-          <>
-            <Tooltip content="This pet is checked in.">
-              <IconButton
-                variant="gradient"
-                className="rounded-full pet-profile-header-item"
-              >
-                <i className="fas fa-check" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip content="This is a daycare pet.">
-              <IconButton
-                variant="gradient"
-                className="rounded-full pet-profile-header-item"
-              >
-                <i className="fas fa-sun" />
-              </IconButton>
-            </Tooltip>
-          </>
-        ) : isChecked && pet.staytype == "boarding" ? (
-          <>
-            <Tooltip content="This pet is checked in.">
-              <IconButton
-                variant="gradient"
-                className="rounded-full pet-profile-header-item"
-              >
-                <i className="fas fa-check" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip content="This is a boarding pet.">
-              <IconButton
-                variant="gradient"
-                className="rounded-full pet-profile-header-item"
-              >
-                <i className="fas fa-moon" />
-              </IconButton>
-            </Tooltip>
-          </>
-        ) : (
-          <></>
-        )}
+        <PetProfileIconBar isChecked={isChecked} staytype={pet.staytype} />
       </CardHeader>
       <CardBody className="pet-profile-body">
         <div className="pet-stats">
