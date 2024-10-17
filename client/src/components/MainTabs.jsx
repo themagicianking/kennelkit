@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import CheckedInPetsList from "./CheckedInPetsList";
 import AllPetsList from "./AllPetsList";
+import { CreatePetModal } from "./CreatePetModal";
 
 export function MainTabs() {
   return (
@@ -34,7 +35,7 @@ export function MainTabs() {
           <AllPetsList />
         </TabPanel>
         <TabPanel key="Create" value="Create">
-          Create Pet
+          <CreatePetModal />
         </TabPanel>
       </TabsBody>
     </Tabs>

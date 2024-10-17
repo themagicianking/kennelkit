@@ -16,11 +16,9 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import AsyncSelect from "react-select";
+import { OWNERNAMES } from "../utilities/dummydata";
 
-const OWNERS = []
-
-export default function CreatePetModal() {
+export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -39,9 +37,13 @@ export default function CreatePetModal() {
           </CardHeader>
           <CardBody className="flex gap-6">
             <div className="mb-1 flex flex-col gap-6">
-              {/* Owner selection */}
-              <AsyncSelect placeholder="Owner Name"></AsyncSelect>
-              <Input label="Pet Name"></Input>
+              <Input list="owners" label="Owner Name"/>
+              <datalist id="owners">
+                {OWNERNAMES.map((name) => (
+                  <option value={name.value} />
+                ))}
+              </datalist>
+              <Input label="Pet Name" />
               <div className="flex gap-10">
                 <Radio name="type" label="Male" />
                 <Radio name="type" label="Female" />
@@ -55,7 +57,7 @@ export default function CreatePetModal() {
                 <Option>Cat</Option>
               </Select>
               {/* Breed selection */}
-              <AsyncSelect placeholder="Breed"></AsyncSelect>
+              {/* <AsyncSelect placeholder="Breed"></AsyncSelect> */}
               <Input type="date" label="Birthday"></Input>
               <Input type="number" label="Weight"></Input>
             </div>
