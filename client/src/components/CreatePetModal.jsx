@@ -8,6 +8,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
+import AsyncSelect from "react-select";
 
 export default function CreatePetModal() {
   const [open, setOpen] = useState(false);
@@ -21,8 +22,12 @@ export default function CreatePetModal() {
           <CardHeader>
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
-          <CardBody>Insert all the things needed here</CardBody>
-          <CardFooter><Button>Submit</Button></CardFooter>
+          <CardBody>
+            <AsyncSelect></AsyncSelect>
+          </CardBody>
+          <CardFooter>
+            <Button>Submit</Button>
+          </CardFooter>
         </Card>
       </Dialog>
     </>
