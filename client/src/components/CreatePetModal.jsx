@@ -1,8 +1,7 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
 // to do: add more consistent/better styling to image upload
-// to do: add styling to owner name and breed so they match hard coded list options
-// to do: collapse number of names appearing in owner search
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
+// to do: add common mixes to presets
 
 import { useState, useEffect } from "react";
 import {
@@ -31,7 +30,7 @@ export function CreatePetModal() {
 
   useEffect(() => {
     // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
-    loadBreeds();
+    loadDogBreeds();
   }, [species]);
 
   function onSpeciesChange(value) {
@@ -54,12 +53,24 @@ export function CreatePetModal() {
     }).then((res) => console.log(res));
   }
 
-  async function loadBreeds() {
+  async function loadDogBreeds() {
     await fetch("http://localhost:5000/breeds")
       .then((res) => {
         return res.json();
       })
-      .then((data) => setBreedList(data));
+      .then((data) => {
+        function alphabetize(a, b) {
+          if (a.name < b.name) {
+            return -1;
+          } else if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }
+        let presets = [{ id: "Mixed", name: "Mixed" }];
+        let joinedList = data.concat(presets).sort(alphabetize);
+        setBreedList(joinedList);
+      });
   }
 
   function handleSubmit(e) {
