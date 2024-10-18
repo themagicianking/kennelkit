@@ -26,9 +26,9 @@ export const PET = {
 export const LIST = [PET, PET, PET, PET];
 
 export const OWNERNAMES = [
-  { value: "Thane Wilson", name: "Thane Wilson" },
-  { value: "Cara Coleman", name: "Cara Coleman" },
-  { value: "Masha Timina", name: "Masha Timina" },
+  { id: "1", name: "Thane Wilson" },
+  { id: "2", name: "Cara Coleman" },
+  { id: "3", name: "Masha Timina" },
 ];
 
 export const DOGBREEDS = [

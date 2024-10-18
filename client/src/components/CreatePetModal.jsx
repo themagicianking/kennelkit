@@ -18,33 +18,41 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES } from "../utilities/dummydata";
-import { BreedDropdown } from "./BreedDropdown";
+import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState(null);
-  const [owner, setOwner] = useState(null);
+  const [breedList, setBreedList] = useState([]);
+  const [breed, setBreed] = useState(null);
+  const [ownerid, setOwnerid] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
 
-  useEffect(() => {}, [species]);
+  useEffect(() => {
+    species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+  }, [species]);
 
   function onSpeciesChange(value) {
     setSpecies(value);
   }
 
   function onOwnerChange(value) {
-    setOwner(value);
+    setOwnerid(value);
+  }
+
+  function onBreedChange(value) {
+    setBreed(value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     let newPet = {
+      ownerid: ownerid,
       petname: e.target.petname.value,
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
-      breed: e.target.breed.value,
+      breed: breed,
       birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
@@ -70,25 +78,15 @@ export function CreatePetModal() {
           <form onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
               <div className="mb-1 flex flex-col gap-6">
-                {/* <Input list="owners" label="Owner Name" required />
-                <datalist id="owners">
-                  {OWNERNAMES.map((name) => (
-                    <option value={name.value} />
-                  ))}
-                </datalist> */}
                 <Select
                   label="Owner Name"
                   id="owners"
-                  value={owner}
+                  value={ownerid}
                   onChange={onOwnerChange}
                   required
                 >
                   {OWNERNAMES.map((owner) => (
-                    <Option
-                      key={owner.name}
-                      name={owner.name}
-                      value={owner.value}
-                    >
+                    <Option key={owner.name} name={owner.name} value={owner.id}>
                       {owner.name}
                     </Option>
                   ))}
@@ -126,7 +124,24 @@ export function CreatePetModal() {
                     Cat
                   </Option>
                 </Select>
-                <BreedDropdown species={species} />
+                <Select
+                  label="Breed"
+                  id="breed"
+                  value={breed}
+                  onChange={onBreedChange}
+                  disabled={!species}
+                  required
+                >
+                  {breedList.map((breed) => (
+                    <Option
+                      key={breed.name}
+                      name={breed.name}
+                      value={breed.value}
+                    >
+                      {breed.name}
+                    </Option>
+                  ))}
+                </Select>
                 <div>
                   <Input
                     type="date"
