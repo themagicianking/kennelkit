@@ -54,7 +54,7 @@ export function CreatePetModal() {
   }
 
   async function loadDogBreeds() {
-    await fetch("http://localhost:5000/breeds")
+    await fetch("http://localhost:5000/dogbreeds")
       .then((res) => {
         return res.json();
       })
