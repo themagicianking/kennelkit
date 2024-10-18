@@ -170,6 +170,7 @@ APP.put("/checkin", async (req, res) => {
       where: { id: req.body.id },
     }
   );
+  console.log("this pet's checkin status has been changed", req.body.checkedin);
   res.status(200);
 });
 

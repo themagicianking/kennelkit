@@ -23,24 +23,36 @@ export function PetProfile({ pet, owner }) {
   const [open, setOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(pet.checkedin);
 
+  console.log("state of isChecked upon render", isChecked);
+
   const handleOpen = () => setOpen(!open);
 
-  async function toggleCheckIn(usertoggle) {
-    await fetch("http://localhost:5000/checkin", {
-      method: "PUT",
-      body: JSON.stringify({ id: pet.id, checkedin: usertoggle }),
-      headers: { "Content-Type": "application/json" },
-    });
+  async function toggleCheckIn(isChecked) {
+    try {
+      await fetch("http://localhost:5000/checkin", {
+        method: "PUT",
+        body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch {
+      console.log("Server could not be updated.");
+    }
   }
 
-  function handleChange() {
-    setIsChecked(!isChecked);
-    toggleCheckIn(isChecked);
+  function handleChange(e) {
+    toggleCheckIn(e.target.checked);
+    setIsChecked(e.target.checked);
   }
 
   return (
     <>
-      <IconButton onClick={handleOpen} variant="outlined" className="rounded-full"><i className="fas fa-eye" /></IconButton>
+      <IconButton
+        onClick={handleOpen}
+        variant="outlined"
+        className="rounded-full"
+      >
+        <i className="fas fa-eye" />
+      </IconButton>
       <Dialog open={open} size={"xl"} handler={handleOpen}>
         <DialogBody className="h-[42rem] overflow-scroll">
           <Card shadow={true} variant="gradient" color="white">
