@@ -44,8 +44,17 @@ export function CreatePetModal() {
     setBreed(value);
   }
 
+  async function postPet(newPet) {
+    await fetch("http://localhost:5000/pet", {
+      method: "POST",
+      body: JSON.stringify(newPet),
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => console.log(res));
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+
     let newPet = {
       ownerid: ownerid,
       petname: e.target.petname.value,
@@ -58,8 +67,7 @@ export function CreatePetModal() {
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(newPet);
-    console.log("this ran");
+    postPet(newPet);
   }
 
   return (
