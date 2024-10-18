@@ -107,27 +107,29 @@ APP.get("/checkedinpets", async (req, res) => {
 
 // endpoint to retrieve dog breeds
 APP.get("/dogbreeds", async (req, res) => {
-  await fetch(("https://api.thedogapi.com/v1/breeds"),
-    { "Content-Type": "application/json" })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => res.send(data));
+  await fetch("https://api.thedogapi.com/v1/breeds", {
+    "Content-Type": "application/json",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => res.send(data));
 });
 
 // endpoint to retrieve cat breeds
 APP.get("/catbreeds", async (req, res) => {
-  await fetch(("https://api.thecatapi.com/v1/breeds"),
-    { "Content-Type": "application/json" })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => res.send(data));
+  await fetch("https://api.thecatapi.com/v1/breeds", {
+    "Content-Type": "application/json",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => res.send(data));
 });
 
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
   const newpet = await Pet.create({
     petname: req.body.petname,
     checkedin: false,
@@ -143,6 +145,21 @@ APP.post("/pet", async (req, res) => {
   });
   console.log(newpet.toJSON());
   res.send(newpet);
+});
+
+APP.put("/pet", async (req, res) => {
+  await Pet.update(
+    {
+      sex: req.body.sex,
+      altered: req.body.altered,
+      breed: req.body.breed,
+      weight: req.body.weight,
+      physicaldesc: req.body.physicaldesc,
+    },
+    { where: { id: req.body.id } }
+  );
+  console.log("pet has been edited:", req.body);
+  res.status(200);
 });
 
 // endpoint to check pet in and out

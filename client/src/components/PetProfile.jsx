@@ -15,6 +15,7 @@ import { useState } from "react";
 import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
+import { EditPetModal } from "./EditPetModal";
 
 export default function PetProfile({ pet, owner }) {
   const [isChecked, setIsChecked] = useState(pet.checkedin);
@@ -64,7 +65,7 @@ export default function PetProfile({ pet, owner }) {
         <PetProfileTabs />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
-        <Button>Edit</Button>
+        <EditPetModal pet={pet} owner={owner}/>
         <Switch
           color="green"
           label="Checked In?"

@@ -28,8 +28,8 @@ export default function Homepage() {
       <CheckedInPetsList /> */}
       {pet ? (
         <PetProfile pet={pet} owner={OWNER} />
-      ) : (
-        <PetProfile pet={PET} owner={OWNER} />
+      ) : (<></>
+        // <PetProfile pet={PET} owner={OWNER} />
       )}
     </>
   );
