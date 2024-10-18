@@ -40,7 +40,7 @@ export function PetProfile({ pet, owner }) {
 
   return (
     <>
-      <IconButton onClick={handleOpen}><i className="fas fa-eye" /></IconButton>
+      <IconButton onClick={handleOpen} variant="outlined" className="rounded-full"><i className="fas fa-eye" /></IconButton>
       <Dialog open={open} size={"xl"} handler={handleOpen}>
         <DialogBody className="h-[42rem] overflow-scroll">
           <Card shadow={true} variant="gradient" color="white">

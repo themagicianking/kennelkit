@@ -37,9 +37,6 @@ export default function PetItem({ pet }) {
           <IconButton>
             <i className="fas fa-pen-to-square" />
           </IconButton>
-          <IconButton>
-            <i className="fas fa-pen-to-square" />
-          </IconButton>
         </div>
       </ListItemSuffix>
     </ListItem>
