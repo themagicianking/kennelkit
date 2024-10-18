@@ -23,13 +23,15 @@ import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState(null);
-  const [breedList, setBreedList] = useState([]);
+  const [catBreedList, setCatBreedList] = useState([]);
+  const [dogBreedList, setDogBreedList] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {
     // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+    loadCatBreeds();
     loadDogBreeds();
   }, [species]);
 
@@ -53,6 +55,29 @@ export function CreatePetModal() {
     }).then((res) => console.log(res));
   }
 
+  async function loadCatBreeds() {
+    await fetch("http://localhost:5000/catbreeds")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        function alphabetize(a, b) {
+          if (a.name < b.name) {
+            return -1;
+          } else if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }
+        let presets = [
+          { id: "Domestic Longhair", name: "Domestic Longhair" },
+          { id: "Domestic Shorthair", name: "Domestic Shorthair" },
+        ];
+        let joinedList = data.concat(presets).sort(alphabetize);
+        setCatBreedList(joinedList);
+      });
+  }
+
   async function loadDogBreeds() {
     await fetch("http://localhost:5000/dogbreeds")
       .then((res) => {
@@ -69,7 +94,7 @@ export function CreatePetModal() {
         }
         let presets = [{ id: "Mixed", name: "Mixed" }];
         let joinedList = data.concat(presets).sort(alphabetize);
-        setBreedList(joinedList);
+        setDogBreedList(joinedList);
       });
   }
 
@@ -170,11 +195,25 @@ export function CreatePetModal() {
                   disabled={!species}
                   required
                 >
-                  {breedList.map((breed) => (
-                    <Option key={breed.id} name={breed.name} value={breed.name}>
-                      {breed.name}
-                    </Option>
-                  ))}
+                  {species == "cat"
+                    ? catBreedList.map((breed) => (
+                        <Option
+                          key={breed.id}
+                          name={breed.name}
+                          value={breed.name}
+                        >
+                          {breed.name}
+                        </Option>
+                      ))
+                    : dogBreedList.map((breed) => (
+                        <Option
+                          key={breed.id}
+                          name={breed.name}
+                          value={breed.name}
+                        >
+                          {breed.name}
+                        </Option>
+                      ))}
                 </Select>
                 {/* Birthday input */}
                 <div>
