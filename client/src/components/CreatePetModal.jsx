@@ -70,7 +70,7 @@ export function CreatePetModal() {
 
     console.log(newPet);
 
-    // postPet(newPet);
+    postPet(newPet);
   }
 
   return (
