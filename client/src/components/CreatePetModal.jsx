@@ -2,6 +2,7 @@
 // to do: add more consistent/better styling to image upload
 // to do: add styling to owner name and breed so they match hard coded list options
 // to do: collapse number of names appearing in owner search
+// to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
 
 import { useState, useEffect } from "react";
 import {
@@ -61,13 +62,15 @@ export function CreatePetModal() {
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
-      breed: breed,
+      breed: e.target.breed,
       birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    postPet(newPet);
+    console.log(newPet);
+
+    // postPet(newPet);
   }
 
   return (
@@ -177,6 +180,7 @@ export function CreatePetModal() {
                 {/* Weight input */}
                 <Input type="number" id="weight" label="Weight"></Input>
               </div>
+              {/* Column two */}
               <div className="mb-1 flex flex-col gap-6">
                 {/* Physical description input */}
                 <div>
