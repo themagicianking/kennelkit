@@ -105,6 +105,26 @@ APP.get("/checkedinpets", async (req, res) => {
   res.send(petlist);
 });
 
+// endpoint to create a new pet
+APP.post("/pet", async (req, res) => {
+  await sequelize.sync({ force: true });
+  const newpet = await Pet.create({
+    petname: req.body.petname,
+    checkedin: false,
+    staytype: null,
+    species: req.body.species,
+    breed: req.body.breed,
+    sex: req.body.sex,
+    altered: req.body.altered,
+    birthday: req.body.birthday,
+    weight: req.body.weight,
+    physicaldesc: req.body.physicaldesc,
+    ownerid: req.body.ownerid,
+  });
+  console.log(newpet.toJSON());
+  res.send(newpet);
+});
+
 // endpoint to check pet in and out
 APP.put("/checkin", async (req, res) => {
   await Pet.update(

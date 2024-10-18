@@ -24,3 +24,21 @@ export const PET = {
 };
 
 export const LIST = [PET, PET, PET, PET];
+
+export const OWNERNAMES = [
+  { id: "1", name: "Thane Wilson" },
+  { id: "2", name: "Cara Coleman" },
+  { id: "3", name: "Masha Timina" },
+];
+
+export const DOGBREEDS = [
+  { value: "German Shepherd", name: "German Shepherd" },
+  { value: "Airedale Terrier", name: "Airedale Terrier" },
+  { value: "Dalmatian", name: "Dalmatian" },
+];
+
+export const CATBREEDS = [
+  { value: "Devon Rex", name: "Devon Rex" },
+  { value: "Ragdoll", name: "Ragdoll" },
+  { value: "Turkish Van", name: "Turkish Van" },
+];

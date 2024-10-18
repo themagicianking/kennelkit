@@ -60,3 +60,6 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 | Story 1 | Finish any functionality left for boarding | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
 | Story 2 | Finish any functionality left for vaccines | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
 | Story 3 | Continue 1 & 2 | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
+
+## To Do
+- Replace as many custom classes as possible with Material Tailwinf classes [  ]
