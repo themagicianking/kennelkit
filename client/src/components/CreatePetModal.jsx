@@ -30,7 +30,8 @@ export function CreatePetModal() {
   const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {
-    species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+    loadBreeds();
   }, [species]);
 
   function onSpeciesChange(value) {
@@ -51,6 +52,14 @@ export function CreatePetModal() {
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
     }).then((res) => console.log(res));
+  }
+
+  async function loadBreeds() {
+    await fetch("http://localhost:5000/breeds")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => setBreedList(data));
   }
 
   function handleSubmit(e) {
@@ -151,11 +160,7 @@ export function CreatePetModal() {
                   required
                 >
                   {breedList.map((breed) => (
-                    <Option
-                      key={breed.name}
-                      name={breed.name}
-                      value={breed.value}
-                    >
+                    <Option key={breed.id} name={breed.name} value={breed.name}>
                       {breed.name}
                     </Option>
                   ))}

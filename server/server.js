@@ -108,10 +108,6 @@ APP.get("/checkedinpets", async (req, res) => {
 APP.get("/breeds", async (req, res) => {
   await fetch(("https://api.thedogapi.com/v1/breeds"),
     { "Content-Type": "application/json" })
-      // await fetch(
-      //   `https://api.thedogapi.comv1/breeds?api_key=${process.env.APIKEY}`,
-      //   { "Content-Type": "application/json" }
-      // )
       .then((res) => {
         return res.json();
       })
