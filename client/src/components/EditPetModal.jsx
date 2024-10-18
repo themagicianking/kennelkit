@@ -270,23 +270,6 @@ export function EditPetModal({ pet, owner }) {
                         </Option>
                       ))}
                 </Select>
-                {/* Birthday input */}
-                <div>
-                  <Input
-                    type="date"
-                    id="birthday"
-                    label="Birthday"
-                    required
-                  ></Input>
-                  <Typography
-                    variant="small"
-                    color="gray"
-                    className="mt-2 flex items-center gap-2 font-normal"
-                  >
-                    <i className="fas fa-asterisk"></i>
-                    Or best estimate
-                  </Typography>
-                </div>
                 {/* Weight input */}
                 <Input
                   type="number"
