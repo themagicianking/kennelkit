@@ -52,7 +52,11 @@ export function CreatePetModal() {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
-    }).then((res) => console.log(res));
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data));
   }
 
   async function loadCatBreeds() {
@@ -107,7 +111,7 @@ export function CreatePetModal() {
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
-      breed: e.target.breed,
+      breed: breed,
       birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
