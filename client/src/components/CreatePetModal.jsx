@@ -24,12 +24,17 @@ import { BreedDropdown } from "./BreedDropdown";
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState(null);
+  const [owner, setOwner] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {}, [species]);
 
   function onSpeciesChange(value) {
     setSpecies(value);
+  }
+
+  function onOwnerChange(value) {
+    setOwner(value);
   }
 
   function handleSubmit(e) {
@@ -65,12 +70,29 @@ export function CreatePetModal() {
           <form onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
               <div className="mb-1 flex flex-col gap-6">
-                <Input list="owners" label="Owner Name" required />
+                {/* <Input list="owners" label="Owner Name" required />
                 <datalist id="owners">
                   {OWNERNAMES.map((name) => (
                     <option value={name.value} />
                   ))}
-                </datalist>
+                </datalist> */}
+                <Select
+                  label="Owner Name"
+                  id="owners"
+                  value={owner}
+                  onChange={onOwnerChange}
+                  required
+                >
+                  {OWNERNAMES.map((owner) => (
+                    <Option
+                      key={owner.name}
+                      name={owner.name}
+                      value={owner.value}
+                    >
+                      {owner.name}
+                    </Option>
+                  ))}
+                </Select>
                 <Input id="petname" label="Pet Name" required />
                 <div className="flex gap-8">
                   <Radio name="sex" value="male" label="Male" required />
