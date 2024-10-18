@@ -5,6 +5,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
+import Homepage from "./Homepage";
 import CheckedInPetsList from "./CheckedInPetsList";
 import AllPetsList from "./AllPetsList";
 import { CreatePetModal } from "./CreatePetModal";
@@ -27,7 +28,7 @@ export function MainTabs() {
         </Tab>
       </TabsHeader>
       <TabsBody>
-        <TabPanel key="Home" value="Home"></TabPanel>
+        <TabPanel key="Home" value="Home"><Homepage /></TabPanel>
         <TabPanel key="Daycare" value="Daycare">
           <CheckedInPetsList />
         </TabPanel>
