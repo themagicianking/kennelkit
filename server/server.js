@@ -105,13 +105,20 @@ APP.get("/checkedinpets", async (req, res) => {
   res.send(petlist);
 });
 
-APP.get("/breeds", async (req, res) => {
+// endpoint to retrieve dog breeds
+APP.get("/dogbreeds", async (req, res) => {
   await fetch(("https://api.thedogapi.com/v1/breeds"),
     { "Content-Type": "application/json" })
-      // await fetch(
-      //   `https://api.thedogapi.comv1/breeds?api_key=${process.env.APIKEY}`,
-      //   { "Content-Type": "application/json" }
-      // )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => res.send(data));
+});
+
+// endpoint to retrieve cat breeds
+APP.get("/catbreeds", async (req, res) => {
+  await fetch(("https://api.thecatapi.com/v1/breeds"),
+    { "Content-Type": "application/json" })
       .then((res) => {
         return res.json();
       })

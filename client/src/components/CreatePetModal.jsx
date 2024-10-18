@@ -1,8 +1,7 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
 // to do: add more consistent/better styling to image upload
-// to do: add styling to owner name and breed so they match hard coded list options
-// to do: collapse number of names appearing in owner search
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
+// to do: add common mixes to presets
 
 import { useState, useEffect } from "react";
 import {
@@ -24,13 +23,16 @@ import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState(null);
-  const [breedList, setBreedList] = useState([]);
+  const [catBreedList, setCatBreedList] = useState([]);
+  const [dogBreedList, setDogBreedList] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {
-    species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
+    loadCatBreeds();
+    loadDogBreeds();
   }, [species]);
 
   function onSpeciesChange(value) {
@@ -50,7 +52,54 @@ export function CreatePetModal() {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
-    }).then((res) => console.log(res));
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => console.log(data));
+  }
+
+  async function loadCatBreeds() {
+    await fetch("http://localhost:5000/catbreeds")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        function alphabetize(a, b) {
+          if (a.name < b.name) {
+            return -1;
+          } else if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }
+        let presets = [
+          { id: "Domestic Longhair", name: "Domestic Longhair" },
+          { id: "Domestic Shorthair", name: "Domestic Shorthair" },
+        ];
+        let joinedList = data.concat(presets).sort(alphabetize);
+        setCatBreedList(joinedList);
+      });
+  }
+
+  async function loadDogBreeds() {
+    await fetch("http://localhost:5000/dogbreeds")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        function alphabetize(a, b) {
+          if (a.name < b.name) {
+            return -1;
+          } else if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }
+        let presets = [{ id: "Mixed", name: "Mixed" }];
+        let joinedList = data.concat(presets).sort(alphabetize);
+        setDogBreedList(joinedList);
+      });
   }
 
   function handleSubmit(e) {
@@ -62,15 +111,17 @@ export function CreatePetModal() {
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
-      breed: e.target.breed,
+      breed: breed,
       birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
     };
 
     console.log(newPet);
-
     postPet(newPet);
+    setOpen(false);
+    setSpecies(null), setBreed(null), setOwnerid(null);
+    e.target.reset();
   }
 
   return (
@@ -86,7 +137,7 @@ export function CreatePetModal() {
           >
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
-          <form onSubmit={handleSubmit}>
+          <form id="create-pet" onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
               {/* Column one */}
               <div className="mb-1 flex flex-col gap-6">
@@ -150,15 +201,25 @@ export function CreatePetModal() {
                   disabled={!species}
                   required
                 >
-                  {breedList.map((breed) => (
-                    <Option
-                      key={breed.name}
-                      name={breed.name}
-                      value={breed.value}
-                    >
-                      {breed.name}
-                    </Option>
-                  ))}
+                  {species == "cat"
+                    ? catBreedList.map((breed) => (
+                        <Option
+                          key={breed.id}
+                          name={breed.name}
+                          value={breed.name}
+                        >
+                          {breed.name}
+                        </Option>
+                      ))
+                    : dogBreedList.map((breed) => (
+                        <Option
+                          key={breed.id}
+                          name={breed.name}
+                          value={breed.name}
+                        >
+                          {breed.name}
+                        </Option>
+                      ))}
                 </Select>
                 {/* Birthday input */}
                 <div>
