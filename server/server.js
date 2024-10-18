@@ -129,7 +129,7 @@ APP.get("/catbreeds", async (req, res) => {
 
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
   const newpet = await Pet.create({
     petname: req.body.petname,
     checkedin: false,
