@@ -3,17 +3,17 @@
 Kennelkit is an app designed to help kennel employees store and organize information on their client and easily check pets in and out of their system. My final project for Techtonica.
 
 ## Component List
-- Pet Profile Modal [ ]
+- [x] Pet Profile Modal 
 -     Props: pet name, species, breed, sex, altered/unaltered, birthday, weight, physical description, owner, checked in/out
-- Owner Profile Modal [ ]
+- [ ] Owner Profile Modal 
 -     Props: owner name, phone number, email, emergency contact name, emergency contact phone, emergency contact email, pets
-- Pet Creation Modal Form [ ]
-- Owner Creation Modal Form [ ]
-- List View [ ]
+- [x] Pet Creation Modal Form 
+- [x] Owner Creation Modal Form 
+- [x] List View 
 -     Props: array of pets or owners
-- Pet Item [ ]
+- [x] Pet Item
 -     Props: pet name, species, sex, altered/unaltered, checked in/out
-- Owner Item [ ]
+- [ ] Owner Item
 -     Props: owner name, phone number, pets
 
 ## Testing
@@ -60,3 +60,6 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 | Story 1 | Finish any functionality left for boarding | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
 | Story 2 | Finish any functionality left for vaccines | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
 | Story 3 | Continue 1 & 2 | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
+
+## To Do
+- Replace as many custom classes as possible with Material Tailwinf classes [  ]

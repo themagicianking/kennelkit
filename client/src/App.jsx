@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@material-tailwind/react";
-import Homepage from "./components/Homepage"
+import { MainTabs } from "./components/MainTabs";
 
 function App() {
 
   return (
     <>
-    <Homepage />
+    <MainTabs />
     </>
   )
 }
