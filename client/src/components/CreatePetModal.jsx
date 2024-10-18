@@ -77,7 +77,9 @@ export function CreatePetModal() {
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
+              {/* Column one */}
               <div className="mb-1 flex flex-col gap-6">
+                {/* Owner's name dropdown */}
                 <Select
                   label="Owner Name"
                   id="owners"
@@ -91,11 +93,14 @@ export function CreatePetModal() {
                     </Option>
                   ))}
                 </Select>
+                {/* Pet name input */}
                 <Input id="petname" label="Pet Name" required />
+                {/* Sex radios */}
                 <div className="flex gap-8">
                   <Radio name="sex" value="male" label="Male" required />
                   <Radio name="sex" value="female" label="Female" required />
                 </div>
+                {/* Altered radios */}
                 <div className="flex gap-4">
                   <Radio
                     name="altered"
@@ -110,6 +115,7 @@ export function CreatePetModal() {
                     required
                   />
                 </div>
+                {/* Species dropdown */}
                 <Select
                   label="Species"
                   id="species"
@@ -124,6 +130,7 @@ export function CreatePetModal() {
                     Cat
                   </Option>
                 </Select>
+                {/* Breed dropdown */}
                 <Select
                   label="Breed"
                   id="breed"
@@ -142,6 +149,7 @@ export function CreatePetModal() {
                     </Option>
                   ))}
                 </Select>
+                {/* Birthday input */}
                 <div>
                   <Input
                     type="date"
@@ -158,9 +166,11 @@ export function CreatePetModal() {
                     Or best estimate
                   </Typography>
                 </div>
+                {/* Weight input */}
                 <Input type="number" id="weight" label="Weight"></Input>
               </div>
               <div className="mb-1 flex flex-col gap-6">
+                {/* Physical description input */}
                 <div>
                   <Textarea
                     id="physicaldesc"
@@ -176,6 +186,7 @@ export function CreatePetModal() {
                     features
                   </Typography>
                 </div>
+                {/* Notes input */}
                 <div>
                   <Textarea label="Notes"></Textarea>
                   <Typography
@@ -187,6 +198,7 @@ export function CreatePetModal() {
                     concerns or quirks
                   </Typography>
                 </div>
+                {/* Photo upload */}
                 <Button
                   color="blue-gray"
                   size="md"
