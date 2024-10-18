@@ -31,8 +31,14 @@ export const OWNERNAMES = [
   { value: "Masha Timina", label: "Masha Timina" },
 ];
 
-export const BREED = [
-  { value: "German Shepherd", label: "German Shepherd" },
-  { value: "Airedale Terrier", label: "Airedale Terrier" },
-  { value: "Dalmatian", label: "Dalmatian" },
+export const DOGBREEDS = [
+  { value: "German Shepherd", name: "German Shepherd" },
+  { value: "Airedale Terrier", name: "Airedale Terrier" },
+  { value: "Dalmatian", name: "Dalmatian" },
+];
+
+export const CATBREEDS = [
+  { value: "Devon Rex", name: "Devon Rex" },
+  { value: "Ragdoll", name: "Ragdoll" },
+  { value: "Turkish Van", name: "Turkish Van" },
 ];

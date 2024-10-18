@@ -3,7 +3,7 @@
 // to do: add styling to owner name and breed so they match hard coded list options
 // to do: collapse number of names appearing in owner search
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -18,12 +18,15 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES, BREED } from "../utilities/dummydata";
+import { OWNERNAMES } from "../utilities/dummydata";
+import { BreedDropdown } from "./BreedDropdown";
 
 export function CreatePetModal() {
   const [open, setOpen] = useState(false);
   const [species, setSpecies] = useState(null);
   const handleOpen = () => setOpen((cur) => !cur);
+
+  useEffect(() => {}, [species]);
 
   function onSpeciesChange(value) {
     setSpecies(value);
@@ -101,12 +104,7 @@ export function CreatePetModal() {
                     Cat
                   </Option>
                 </Select>
-                <Input list="breed" id="breed" label="Breed" required />
-                <datalist id="breed">
-                  {BREED.map((breed) => (
-                    <option key={breed.value} value={breed.value} />
-                  ))}
-                </datalist>
+                <BreedDropdown species={species} />
                 <div>
                   <Input
                     type="date"
@@ -130,7 +128,6 @@ export function CreatePetModal() {
                   <Textarea
                     id="physicaldesc"
                     label="Physical Description"
-                    // placeholder="Physical description: coat color and type, markings, unusual features"
                   ></Textarea>
                   <Typography
                     variant="small"
@@ -159,7 +156,7 @@ export function CreatePetModal() {
                   className="flex flex-col items-center gap-6"
                   fullWidth
                 >
-                  <label forHtml="imageupload">Upload a photo</label>
+                  <label html="imageupload">Upload a photo</label>
                   <input
                     name="imageupload"
                     type="file"
