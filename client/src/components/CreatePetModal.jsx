@@ -118,8 +118,10 @@ export function CreatePetModal() {
     };
 
     console.log(newPet);
-
     postPet(newPet);
+    setOpen(false);
+    setSpecies(null), setBreed(null), setOwnerid(null);
+    e.target.reset();
   }
 
   return (
@@ -135,7 +137,7 @@ export function CreatePetModal() {
           >
             <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
-          <form onSubmit={handleSubmit}>
+          <form id="create-pet" onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
               {/* Column one */}
               <div className="mb-1 flex flex-col gap-6">
