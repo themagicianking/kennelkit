@@ -39,10 +39,6 @@ export function EditPetModal({ pet, owner }) {
     setSpecies(value);
   }
 
-  function onOwnerChange(value) {
-    setOwnerid(value);
-  }
-
   function onBreedChange(value) {
     setBreed(value);
   }
@@ -106,13 +102,12 @@ export function EditPetModal({ pet, owner }) {
     e.preventDefault();
 
     let editedPet = {
-      ownerid: ownerid,
+      id: pet.id,
       petname: e.target.petname.value,
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
       breed: breed,
-      birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
     };
@@ -148,20 +143,6 @@ export function EditPetModal({ pet, owner }) {
                   defaultValue={OWNERNAMES[pet.ownerid].name}
                   disabled
                 ></Input>
-                {/* <Select
-                  label="Owner Name"
-                  id="owners"
-                  value={ownerid}
-                  onChange={onOwnerChange}
-                  required
-                >
-                  {OWNERNAMES.map((owner) => (
-                    <Option key={owner.name} name={owner.name} value={owner.id}>
-                      {owner.name}
-                    </Option>
-                  ))}
-                </Select> */}
-                {/* Pet name input */}
                 <Input
                   id="petname"
                   label="Pet Name"

@@ -148,14 +148,17 @@ APP.post("/pet", async (req, res) => {
 });
 
 APP.put("/pet", async (req, res) => {
-  const editedPet = await Pet.findAll({ where: { id: req.body.id } })[0];
-  await editedPet.update({
-    sex: req.body.sex,
-    altered: req.body.altered,
-    breed: req.body.breed,
-    weight: req.body.weight,
-    physicaldesc: req.body.physicaldesc,
-  });
+  await Pet.update(
+    {
+      sex: req.body.sex,
+      altered: req.body.altered,
+      breed: req.body.breed,
+      weight: req.body.weight,
+      physicaldesc: req.body.physicaldesc,
+    },
+    { where: { id: req.body.id } }
+  );
+  console.log("pet has been edited:", req.body);
   res.status(200);
 });
 
