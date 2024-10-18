@@ -1,4 +1,4 @@
-import PetProfile from "./PetProfile";
+import { PetProfile } from "./PetProfile";
 import AllPetsList from "./AllPetsList";
 import CheckedInPetsList from "./CheckedInPetsList";
 import { OWNER, PET, LIST } from "../utilities/dummydata";
@@ -28,7 +28,8 @@ export default function Homepage() {
       <CheckedInPetsList /> */}
       {pet ? (
         <PetProfile pet={pet} owner={OWNER} />
-      ) : (<></>
+      ) : (
+        <></>
         // <PetProfile pet={PET} owner={OWNER} />
       )}
     </>
