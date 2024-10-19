@@ -4,17 +4,17 @@ import { Switch } from "@material-tailwind/react";
 export function CheckInToggle({ id, checkedin }) {
   const [isChecked, setIsChecked] = useState(checkedin);
 
-  async function toggleCheckIn(usertoggle) {
+  async function toggleCheckIn(isChecked) {
     await fetch("http://localhost:5000/checkin", {
       method: "PUT",
-      body: JSON.stringify({ id: id, checkedin: usertoggle }),
+      body: JSON.stringify({ id: id, checkedin: isChecked }),
       headers: { "Content-Type": "application/json" },
     });
   }
 
-  function handleChange() {
-    setIsChecked(!isChecked);
-    toggleCheckIn(isChecked);
+  function handleChange(e) {
+    toggleCheckIn(e.target.checked);
+    setIsChecked(e.target.checked);
   }
   return (
     <Switch

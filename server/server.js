@@ -158,8 +158,7 @@ APP.put("/pet", async (req, res) => {
     },
     { where: { id: req.body.id } }
   );
-  console.log("pet has been edited:", req.body);
-  res.status(200);
+  res.status(200).send("Pet has been edited.");
 });
 
 // endpoint to check pet in and out
@@ -170,7 +169,7 @@ APP.put("/checkin", async (req, res) => {
       where: { id: req.body.id },
     }
   );
-  res.status(200);
+  res.status(200).send("Pet's check in status has been changed.");
 });
 
 APP.listen(PORT, () => {
