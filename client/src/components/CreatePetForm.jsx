@@ -6,7 +6,6 @@
 import { useState, useEffect } from "react";
 import {
   Button,
-  Dialog,
   Card,
   CardHeader,
   Typography,
@@ -20,14 +19,12 @@ import {
 } from "@material-tailwind/react";
 import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 
-export function CreatePetModal() {
-  const [open, setOpen] = useState(false);
+export function CreatePetForm() {
   const [species, setSpecies] = useState(null);
   const [catBreedList, setCatBreedList] = useState([]);
   const [dogBreedList, setDogBreedList] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
-  const handleOpen = () => setOpen((cur) => !cur);
 
   useEffect(() => {
     // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
@@ -126,8 +123,6 @@ export function CreatePetModal() {
 
   return (
     <>
-      <Button onClick={handleOpen}>Create Pet</Button>
-      <Dialog open={open} handler={handleOpen}>
         <Card>
           <CardHeader
             floated={false}
@@ -292,7 +287,6 @@ export function CreatePetModal() {
             </CardFooter>
           </form>
         </Card>
-      </Dialog>
     </>
   );
 }

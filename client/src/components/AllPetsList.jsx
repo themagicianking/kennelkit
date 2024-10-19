@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ListView from "./ListView";
 
-export default function AllPetsList() {
+export function AllPetsList() {
   const [allPetsList, setAllPetsList] = useState([]);
 
   async function loadAllPets() {
