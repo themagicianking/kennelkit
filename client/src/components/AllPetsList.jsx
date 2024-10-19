@@ -5,16 +5,28 @@ export default function AllPetsList() {
   const [allPetsList, setAllPetsList] = useState([]);
 
   async function loadAllPets() {
-    await fetch("http://localhost:5000/allpets")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => setAllPetsList(data));
+    try {
+      await fetch("http://localhost:5000/allpets")
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => setAllPetsList(data));
+    } catch (e) {
+      console.log(
+        "Could not connect to the server. The following error occurred:",
+        e
+      );
+    }
   }
 
   useEffect(() => {
     loadAllPets();
   }, []);
 
-return (<ListView list={allPetsList}/>)
+  return (
+    <>
+      <h2>All pets:</h2>
+      <ListView list={allPetsList} />
+    </>
+  );
 }
