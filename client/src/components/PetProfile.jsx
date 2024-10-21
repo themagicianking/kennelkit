@@ -9,19 +9,20 @@ import {
   CardBody,
   CardFooter,
   Switch,
+  Button,
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
-import { EditPetForm } from "./EditPetForm";
 import { useParams } from "react-router-dom";
 import { OWNER } from "../utilities/dummydata";
 
 export function PetProfile() {
   let id = useParams().id;
-  console.log(id);
+  console.log("ID:", id);
   let owner = OWNER;
+  const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [isChecked, setIsChecked] = useState(null);
 
@@ -31,14 +32,20 @@ export function PetProfile() {
     try {
       await fetch(`http://localhost:5000/pet?id=${id}`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
-        .then((data) => {
-          setPet(data);
-          setIsChecked(pet.checkedin);
+        .then((json) => {
+          setPet(json);
+          setLoading(false);
+          setIsChecked(json.checkedin);
         });
     } catch (e) {
-      console.log("Could not fetch pet.", e);
+      setPet(null);
+      setLoading(false);
+      console.log("Could not fetch pet.");
     }
   }
 
@@ -63,6 +70,10 @@ export function PetProfile() {
     loadPet(id);
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {pet ? (
@@ -84,20 +95,20 @@ export function PetProfile() {
                   className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
                   src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
                 ></img>
-                <Typography
-                  as="caption"
-                  variant="small"
-                  className="mt-2 text-center font-normal"
-                >
-                  {pet.physicaldesc}
-                </Typography>
               </figure>
+              <Typography
+                as="figcaption"
+                variant="small"
+                className="mt-2 text-center font-normal"
+              >
+                {pet.physicaldesc}
+              </Typography>
               <PetStats pet={pet} owner={owner} />
             </div>
             <PetProfileTabs />
           </CardBody>
           <CardFooter className="gap-4 pet-profile-footer">
-            {/* <EditPetForm pet={pet} owner={owner} /> */}
+            <Button>Edit</Button>
             <Switch
               color="green"
               label="Checked In?"

@@ -14,9 +14,6 @@ export default function PetItem({ pet }) {
   return (
     <ListItem>
       <ListItemPrefix>
-        <PetProfile pet={pet} owner={OWNERNAMES[0]} />
-      </ListItemPrefix>
-      <ListItemPrefix>
         {pet.species == "dog" ? (
           <i className="fas fa-dog" />
         ) : (
