@@ -6,7 +6,6 @@
 import { useState, useEffect } from "react";
 import {
   Button,
-  Dialog,
   Card,
   CardHeader,
   Typography,
@@ -18,16 +17,14 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES } from "../utilities/dummydata";
+import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 
-export function EditPetModal({ pet, owner }) {
-  const [open, setOpen] = useState(false);
-  const [species, setSpecies] = useState(pet.species);
+export function CreatePetForm() {
+  const [species, setSpecies] = useState(null);
   const [catBreedList, setCatBreedList] = useState([]);
   const [dogBreedList, setDogBreedList] = useState([]);
-  const [breed, setBreed] = useState(pet.breed);
-  const [ownerid, setOwnerid] = useState(pet.ownerid);
-  const handleOpen = () => setOpen((cur) => !cur);
+  const [breed, setBreed] = useState(null);
+  const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
     // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
@@ -39,14 +36,18 @@ export function EditPetModal({ pet, owner }) {
     setSpecies(value);
   }
 
+  function onOwnerChange(value) {
+    setOwnerid(value);
+  }
+
   function onBreedChange(value) {
     setBreed(value);
   }
 
-  async function editPet(editedPet) {
+  async function postPet(newPet) {
     await fetch("http://localhost:5000/pet", {
-      method: "PUT",
-      body: JSON.stringify(editedPet),
+      method: "POST",
+      body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
@@ -101,26 +102,27 @@ export function EditPetModal({ pet, owner }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    let editedPet = {
-      id: pet.id,
+    let newPet = {
+      ownerid: ownerid,
       petname: e.target.petname.value,
       sex: e.target.sex.value,
       altered: e.target.altered.value,
       species: species,
       breed: breed,
+      birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(editedPet);
-    editPet(editedPet);
+    console.log(newPet);
+    postPet(newPet);
     setOpen(false);
+    setSpecies(null), setBreed(null), setOwnerid(null);
+    e.target.reset();
   }
 
   return (
     <>
-      <Button onClick={handleOpen}>Edit Pet</Button>
-      <Dialog open={open} handler={handleOpen}>
         <Card>
           <CardHeader
             floated={false}
@@ -128,85 +130,48 @@ export function EditPetModal({ pet, owner }) {
             color="transparent"
             className="rounded-b-none"
           >
-            <Typography variant="h2">
-              Edit {pet.petname} {owner.lastname}
-            </Typography>
+            <Typography variant="h2">Create a Pet</Typography>
           </CardHeader>
           <form id="create-pet" onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
               {/* Column one */}
               <div className="mb-1 flex flex-col gap-6">
                 {/* Owner's name dropdown */}
-                <Input
-                  id="owner"
+                <Select
                   label="Owner Name"
-                  defaultValue={OWNERNAMES[pet.ownerid].name}
-                  disabled
-                ></Input>
-                <Input
-                  id="petname"
-                  label="Pet Name"
-                  defaultValue={pet.petname}
-                  disabled
-                />
+                  id="owners"
+                  value={ownerid}
+                  onChange={onOwnerChange}
+                  required
+                >
+                  {OWNERNAMES.map((owner) => (
+                    <Option key={owner.name} name={owner.name} value={owner.id}>
+                      {owner.name}
+                    </Option>
+                  ))}
+                </Select>
+                {/* Pet name input */}
+                <Input id="petname" label="Pet Name" required />
                 {/* Sex radios */}
-                {pet.sex == "male" ? (
-                  <div className="flex gap-8">
-                    <Radio
-                      name="sex"
-                      value="male"
-                      label="Male"
-                      required
-                      defaultChecked
-                    />
-                    <Radio name="sex" value="female" label="Female" required />
-                  </div>
-                ) : (
-                  <div className="flex gap-8">
-                    <Radio name="sex" value="male" label="Male" required />
-                    <Radio
-                      name="sex"
-                      value="female"
-                      label="Female"
-                      required
-                      defaultChecked
-                    />
-                  </div>
-                )}
+                <div className="flex gap-8">
+                  <Radio name="sex" value="male" label="Male" required />
+                  <Radio name="sex" value="female" label="Female" required />
+                </div>
                 {/* Altered radios */}
-                {pet.altered ? (
-                  <div className="flex gap-4">
-                    <Radio
-                      name="altered"
-                      value="altered"
-                      label="Altered"
-                      defaultChecked
-                      required
-                    />
-                    <Radio
-                      name="altered"
-                      value="unaltered"
-                      label="Unaltered"
-                      required
-                    />
-                  </div>
-                ) : (
-                  <div className="flex gap-4">
-                    <Radio
-                      name="altered"
-                      value="altered"
-                      label="Altered"
-                      required
-                    />
-                    <Radio
-                      name="altered"
-                      value="unaltered"
-                      label="Unaltered"
-                      defaultChecked
-                      required
-                    />
-                  </div>
-                )}
+                <div className="flex gap-4">
+                  <Radio
+                    name="altered"
+                    value="altered"
+                    label="Altered"
+                    required
+                  />
+                  <Radio
+                    name="altered"
+                    value="unaltered"
+                    label="Unaltered"
+                    required
+                  />
+                </div>
                 {/* Species dropdown */}
                 <Select
                   label="Species"
@@ -251,13 +216,25 @@ export function EditPetModal({ pet, owner }) {
                         </Option>
                       ))}
                 </Select>
+                {/* Birthday input */}
+                <div>
+                  <Input
+                    type="date"
+                    id="birthday"
+                    label="Birthday"
+                    required
+                  ></Input>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-asterisk"></i>
+                    Or best estimate
+                  </Typography>
+                </div>
                 {/* Weight input */}
-                <Input
-                  type="number"
-                  id="weight"
-                  label="Weight"
-                  defaultValue={pet.weight}
-                ></Input>
+                <Input type="number" id="weight" label="Weight"></Input>
               </div>
               {/* Column two */}
               <div className="mb-1 flex flex-col gap-6">
@@ -266,7 +243,6 @@ export function EditPetModal({ pet, owner }) {
                   <Textarea
                     id="physicaldesc"
                     label="Physical Description"
-                    defaultValue={pet.physicaldesc}
                   ></Textarea>
                   <Typography
                     variant="small"
@@ -290,6 +266,20 @@ export function EditPetModal({ pet, owner }) {
                     concerns or quirks
                   </Typography>
                 </div>
+                {/* Photo upload */}
+                <Button
+                  color="blue-gray"
+                  size="md"
+                  className="flex flex-col items-center gap-6"
+                  fullWidth
+                >
+                  <label html="imageupload">Upload a photo</label>
+                  <input
+                    name="imageupload"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                  ></input>
+                </Button>
               </div>
             </CardBody>
             <CardFooter>
@@ -297,7 +287,6 @@ export function EditPetModal({ pet, owner }) {
             </CardFooter>
           </form>
         </Card>
-      </Dialog>
     </>
   );
 }

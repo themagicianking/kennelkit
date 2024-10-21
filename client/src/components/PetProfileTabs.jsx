@@ -8,7 +8,7 @@ import {
 
 export function PetProfileTabs() {
   return (
-    <Tabs className="rounded-lg pet-tabs">
+    <Tabs className="rounded-lg pet-tabs" value="Notes">
       <TabsHeader>
         <Tab key="Notes" value="Notes">
           Notes

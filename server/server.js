@@ -81,12 +81,20 @@ APP.use(cors());
 
 // endpoint to retrieve pet id
 APP.get("/pet", async (req, res) => {
-  const pet = await Pet.findAll({
-    where: {
-      id: req.query.id,
-    },
-  });
-  res.send(pet[0]);
+  try {
+    const pets = await Pet.findAll({
+      where: {
+        id: req.query.id,
+      },
+    });
+    if (pets.length > 0) {
+      res.send(pets[0]);
+    } else {
+      throw error;
+    }
+  } catch (e) {
+    res.status(404).send(e);
+  }
 });
 
 // endpoint to retrieve all pets

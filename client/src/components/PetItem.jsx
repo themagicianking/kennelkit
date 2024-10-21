@@ -7,15 +7,12 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { CheckInToggle } from "./CheckInToggle";
-import { PetProfile } from "./PetProfile";
-import { OWNERNAMES } from "../utilities/dummydata";
 
 export default function PetItem({ pet }) {
+  let link = `/pets/${pet.id}`;
+
   return (
     <ListItem>
-      <ListItemPrefix>
-        <PetProfile pet={pet} owner={OWNERNAMES[0]} />
-      </ListItemPrefix>
       <ListItemPrefix>
         {pet.species == "dog" ? (
           <i className="fas fa-dog" />
@@ -30,7 +27,8 @@ export default function PetItem({ pet }) {
           <i className="fas fa-venus" />
         )}
       </ListItemPrefix>
-      <Typography variant="h6"> {pet.petname}</Typography>
+      <a href={link}>
+      <Typography variant="h6"> {pet.petname}</Typography></a>
       <ListItemSuffix>
         <div className="flex gap-4">
           <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
