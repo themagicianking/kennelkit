@@ -47,6 +47,7 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 - For the search function, get requests will be made based on the filter criteria (phone number, breed, etc)
 
 ## Stretch Goals & Extra Features (By Theme & Priority Level)
+
 - ### Owner Profile Theme
 -     *Ability to add owner to the database*
 -     *Ability to view owner's profile*
@@ -78,11 +79,11 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 ### Week Two (10/21/24 - 10/25/24)
 
-|         | Monday                               | Tuesday                            | Wednesday        | Thursday         | Friday                   |
-| ------- | ------------------------------------ | ---------------------------------- | ---------------- | ---------------- | ------------------------ |
-| Story 1 | Clean up any loose ends from week 1  | Plan out feasible boarding stories | Work on boarding | Work on boarding | Plan out vaccine stories |
-| Story 2 | Add feeding schedule to pet profile  | Work on boarding                   | Work on boarding | Work on boarding | Work on vaccines         |
-| Story 3 | View owner profile (individual view) | Work on boarding                   | Work on boarding | Work on boarding | Work on vaccines         |
+|         | Monday                              | Tuesday                     | Wednesday        | Thursday         | Friday                           |
+| ------- | ----------------------------------- | --------------------------- | ---------------- | ---------------- | -------------------------------- |
+| Story 1 | Clean up any loose ends from week 1 | Owner Theme                 | Work on boarding | Owner Theme      | Plan out feed/medication stories |
+| Story 2 | Add testing                         | Add testing for owner theme | Work on boarding | Work on boarding | Feeding Theme                    |
+| Story 3 | Add testing                         | Work on boarding            | Work on boarding | Work on boarding | Medication Theme                 |
 
 ### Week Three
 
