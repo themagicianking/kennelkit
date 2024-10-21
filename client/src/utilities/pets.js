@@ -44,6 +44,10 @@ export function getAge(birthday) {
     monthsElapsed = Math.floor(daysRemaining / 30.4167);
   }
 
+  if (yearsElapsed == 0 && monthsElapsed == 0) {
+    daysElapsed = Math.floor(daysElapsed);
+  }
+
   // set variable for return statement
   let ageString = "";
   // create age string based on pet age
