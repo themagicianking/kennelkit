@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Navbar } from "./Navbar";
 import ListView from "./ListView";
 
 export function CheckedInPetsList() {
@@ -24,8 +25,12 @@ export function CheckedInPetsList() {
   }, []);
 
   return (
-    <><h2>Checked in pets:</h2>
-      <ListView list={checkedInPetsList} />
-    </>
+    <div className="flex">
+      <Navbar />
+      <div>
+        <h2>Checked in pets:</h2>
+        <ListView list={checkedInPetsList} />
+      </div>
+    </div>
   );
 }

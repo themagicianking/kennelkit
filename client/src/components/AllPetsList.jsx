@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Navbar } from "./Navbar";
 import ListView from "./ListView";
 
 export function AllPetsList() {
@@ -24,9 +25,12 @@ export function AllPetsList() {
   }, []);
 
   return (
-    <>
-      <h2>All pets:</h2>
-      <ListView list={allPetsList} />
-    </>
+    <div className="flex">
+      <Navbar />
+      <div className="flex flex-col">
+        <h2>All pets:</h2>
+        <ListView list={allPetsList} />
+      </div>
+    </div>
   );
 }
