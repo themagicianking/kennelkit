@@ -24,7 +24,7 @@ export function getAge(birthday) {
   const minutesElapsed = secondsElapsed / 60;
 
   // get days elapsed since pet's birthdate
-  const daysElapsed = minutesElapsed / 1440;
+  let daysElapsed = minutesElapsed / 1440;
 
   // set variables for pet's age in years, months, and days
   let yearsElapsed;
