@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
-import ListView from "./ListView";
+import { PetListView } from "./PetListView";
 
 export function AllPetsList() {
   const [allPetsList, setAllPetsList] = useState([]);
@@ -29,7 +29,7 @@ export function AllPetsList() {
       <Navbar />
       <div className="flex flex-col">
         <h2>All pets:</h2>
-        <ListView list={allPetsList} />
+        <PetListView list={allPetsList} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { CheckInToggle } from "./CheckInToggle";
 
-export default function PetItem({ pet }) {
+export function PetItem({ pet }) {
   let link = `/pets/${pet.id}`;
 
   return (

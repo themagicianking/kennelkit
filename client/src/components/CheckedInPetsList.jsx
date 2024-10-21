@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
-import ListView from "./ListView";
+import { PetListView } from "./PetListView";
 
 export function CheckedInPetsList() {
   const [checkedInPetsList, setCheckedInPetsList] = useState([]);
@@ -29,7 +29,7 @@ export function CheckedInPetsList() {
       <Navbar />
       <div>
         <h2>Checked in pets:</h2>
-        <ListView list={checkedInPetsList} />
+        <PetListView list={checkedInPetsList} />
       </div>
     </div>
   );
