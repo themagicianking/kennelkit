@@ -20,7 +20,7 @@ import { OWNER } from "../utilities/dummydata";
 
 export function PetProfile() {
   let id = useParams().id;
-  console.log("ID:", id);
+  let editLink = `/pets/${id}/edit`;
   let owner = OWNER;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
@@ -108,7 +108,7 @@ export function PetProfile() {
             <PetProfileTabs />
           </CardBody>
           <CardFooter className="gap-4 pet-profile-footer">
-            <Button>Edit</Button>
+            <a href={editLink}><Button>Edit</Button></a>
             <Switch
               color="green"
               label="Checked In?"
