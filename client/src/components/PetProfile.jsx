@@ -71,7 +71,7 @@ export function PetProfile() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>loading...</div>;
   }
 
   return (
