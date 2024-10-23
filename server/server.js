@@ -14,6 +14,7 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   dialect: "postgres",
 });
 
+// defining pet table
 const Pet = sequelize.define("Pet", {
   petname: {
     type: DataTypes.STRING,
@@ -57,6 +58,72 @@ const Pet = sequelize.define("Pet", {
     allowNull: false,
   },
 });
+
+// defining breed table
+const Breeds = sequelize.define("Breeds", {
+  species: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+
+// getting cat breeds from the api
+(async () => {
+  await fetch("https://api.thecatapi.com/v1/breeds", {
+    "Content-Type": "application/json",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      function alphabetize(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      }
+      let presets = [
+        { id: "Domestic Longhair", name: "Domestic Longhair" },
+        { id: "Domestic Shorthair", name: "Domestic Shorthair" },
+      ];
+      let allCatBreeds = json.concat(presets).sort(alphabetize);
+      allCatBreeds.forEach((breed) => {
+        Breeds.create({ species: "cat", name: breed.name });
+      });
+    });
+})();
+
+// getting dog breeds from the api
+(async () => {
+  await fetch("https://api.thedogapi.com/v1/breeds", {
+    "Content-Type": "application/json",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      function alphabetize(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      }
+      let presets = [{ id: "Mixed", name: "Mixed" }];
+      let allDogBreeds = json.concat(presets).sort(alphabetize);
+      allDogBreeds.forEach((breed) => {
+        Breeds.create({ species: "dog", name: breed.name });
+      });
+    });
+})();
 
 (async () => {
   await sequelize.sync({ force: true });
@@ -115,24 +182,22 @@ APP.get("/checkedinpets", async (req, res) => {
 
 // endpoint to retrieve dog breeds
 APP.get("/dogbreeds", async (req, res) => {
-  await fetch("https://api.thedogapi.com/v1/breeds", {
-    "Content-Type": "application/json",
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => res.send(data));
+  const dogBreeds = await Breeds.findAll({
+    where: {
+      species: "dog",
+    },
+  });
+  res.send(dogBreeds);
 });
 
 // endpoint to retrieve cat breeds
 APP.get("/catbreeds", async (req, res) => {
-  await fetch("https://api.thecatapi.com/v1/breeds", {
-    "Content-Type": "application/json",
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => res.send(data));
+  const catBreeds = await Breeds.findAll({
+    where: {
+      species: "cat",
+    },
+  });
+  res.send(catBreeds);
 });
 
 // endpoint to create a new pet
