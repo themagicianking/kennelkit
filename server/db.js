@@ -1,37 +1,38 @@
 import { Sequelize, DataTypes } from "sequelize";
-import "dotenv/config";
 
-const databaseHelper = {
-  DATABASE: process.env.DATABASE,
-  USERNAME: process.env.USERNAME,
-  PASSWORD: process.env.PASSWORD,
+class databaseHelper {
+  constructor(database, username, password) {
+    this.DATABASE = database;
+    this.USERNAME = username;
+    this.PASSWORD = password;
 
-  db: new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
-    host: "localhost",
-    dialect: "postgres",
-  }),
+    this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
+      host: "localhost",
+      dialect: "postgres",
+    });
 
-  Pet: db.define("Pet", {
-    petname: { type: DataTypes.STRING, allowNull: false },
-    checkedin: { type: DataTypes.BOOLEAN, allowNull: false },
-    staytype: { type: DataTypes.STRING },
-    species: { type: DataTypes.STRING, allowNull: false },
-    breed: { type: DataTypes.STRING, allowNull: false },
-    sex: { type: DataTypes.STRING, allowNull: false },
-    altered: { type: DataTypes.STRING, allowNull: false },
-    birthday: { type: DataTypes.DATE, allowNull: false },
-    weight: { type: DataTypes.INTEGER },
-    physicaldesc: { type: DataTypes.STRING },
-    ownerid: { type: DataTypes.INTEGER, allowNull: false },
-  }),
+    this.Pet = this.db.define("Pet", {
+      petname: { type: DataTypes.STRING, allowNull: false },
+      checkedin: { type: DataTypes.BOOLEAN, allowNull: false },
+      staytype: { type: DataTypes.STRING },
+      species: { type: DataTypes.STRING, allowNull: false },
+      breed: { type: DataTypes.STRING, allowNull: false },
+      sex: { type: DataTypes.STRING, allowNull: false },
+      altered: { type: DataTypes.STRING, allowNull: false },
+      birthday: { type: DataTypes.DATE, allowNull: false },
+      weight: { type: DataTypes.INTEGER },
+      physicaldesc: { type: DataTypes.STRING },
+      ownerid: { type: DataTypes.INTEGER, allowNull: false },
+    });
 
-  Breed: db.define("Breed", {
-    species: { type: DataTypes.STRING, allowNull: false },
-    name: { type: DataTypes.STRING, allowNull: false },
-  }),
+    this.Breed = this.db.define("Breed", {
+      species: { type: DataTypes.STRING, allowNull: false },
+      name: { type: DataTypes.STRING, allowNull: false },
+    });
+  }
 
   // getting cat breeds from the api
-  getCatBreeds: function () {
+  getCatBreeds = function () {
     (async () => {
       await fetch("https://api.thecatapi.com/v1/breeds", {
         "Content-Type": "application/json",
@@ -58,10 +59,10 @@ const databaseHelper = {
           });
         });
     })();
-  },
+  };
 
   // getting dog breeds from the api
-  getDogBreeds: function () {
+  getDogBreeds = function () {
     (async () => {
       await fetch("https://api.thedogapi.com/v1/breeds", {
         "Content-Type": "application/json",
@@ -81,17 +82,17 @@ const databaseHelper = {
           let presets = [{ id: "Mixed", name: "Mixed" }];
           let allDogBreeds = json.concat(presets).sort(alphabetize);
           allDogBreeds.forEach((breed) => {
-            Breed.create({ species: "dog", name: breed.name });
+            this.Breed.create({ species: "dog", name: breed.name });
           });
         });
     })();
-  },
+  };
 
   // create sample pet
-  createSamplePet: function () {
+  createSamplePet = function () {
     (async () => {
-      await db.sync();
-      const arcadia = await Pet.create({
+      await this.db.sync();
+      const arcadia = await this.Pet.create({
         petname: "Arcadia",
         checkedin: true,
         staytype: "daycare",
@@ -106,7 +107,7 @@ const databaseHelper = {
       });
       console.log(arcadia.toJSON());
     })();
-  },
-};
+  };
+}
 
 export default databaseHelper;

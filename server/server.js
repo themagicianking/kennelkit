@@ -1,11 +1,21 @@
 import express from "express";
 import cors from "cors";
+import "dotenv/config";
 import databaseHelper from "./db.js";
 
 const APP = express();
 const PORT = 5000;
+const DATABASE = process.env.DATABASE;
+const USERNAME = process.env.USERNAME;
+const PASSWORD = process.env.PASSWORD;
 
-databaseHelper.db.sequelize.sync();
+const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
+
+dbhelper.createSamplePet();
+dbhelper.getCatBreeds();
+dbhelper.getDogBreeds();
+
+dbhelper.db.sync();
 
 APP.use(express.json());
 APP.use(cors());
@@ -13,7 +23,7 @@ APP.use(cors());
 // endpoint to retrieve pet id
 APP.get("/pet", async (req, res) => {
   try {
-    const pets = await databaseHelper.Pet.findAll({
+    const pets = await dbhelper.Pet.findAll({
       where: {
         id: req.query.id,
       },
@@ -30,13 +40,13 @@ APP.get("/pet", async (req, res) => {
 
 // endpoint to retrieve all pets
 APP.get("/allpets", async (req, res) => {
-  const petlist = await databaseHelper.Pet.findAll();
+  const petlist = await dbhelper.Pet.findAll();
   res.send(petlist);
 });
 
 // endpoint to retrieve all checked in pets
 APP.get("/checkedinpets", async (req, res) => {
-  const petlist = await databaseHelper.Pet.findAll({
+  const petlist = await dbhelper.Pet.findAll({
     where: {
       checkedin: true,
     },
@@ -46,7 +56,7 @@ APP.get("/checkedinpets", async (req, res) => {
 
 // endpoint to retrieve dog breeds
 APP.get("/dogbreeds", async (req, res) => {
-  const dogBreeds = await databaseHelper.Breed.findAll({
+  const dogBreeds = await dbhelper.Breed.findAll({
     where: {
       species: "dog",
     },
@@ -56,7 +66,7 @@ APP.get("/dogbreeds", async (req, res) => {
 
 // endpoint to retrieve cat breeds
 APP.get("/catbreeds", async (req, res) => {
-  const catBreeds = await databaseHelper.Breed.findAll({
+  const catBreeds = await dbhelper.Breed.findAll({
     where: {
       species: "cat",
     },
@@ -66,7 +76,7 @@ APP.get("/catbreeds", async (req, res) => {
 
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
-  await databaseHelper.db.sync();
+  await dbhelper.db.sync();
   const newpet = await Pet.create({
     petname: req.body.petname,
     checkedin: false,
@@ -85,7 +95,7 @@ APP.post("/pet", async (req, res) => {
 });
 
 APP.put("/pet", async (req, res) => {
-  await databaseHelper.Pet.update(
+  await dbhelper.Pet.update(
     {
       sex: req.body.sex,
       altered: req.body.altered,
@@ -100,7 +110,7 @@ APP.put("/pet", async (req, res) => {
 
 // endpoint to check pet in and out
 APP.put("/checkin", async (req, res) => {
-  await databaseHelper.Pet.update(
+  await dbhelper.Pet.update(
     { checkedin: req.body.checkedin },
     {
       where: { id: req.body.id },
