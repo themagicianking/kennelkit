@@ -1,147 +1,11 @@
 import express from "express";
 import cors from "cors";
-import "dotenv/config";
-import { Sequelize, DataTypes } from "sequelize";
+import databaseHelper from "./db.js";
 
 const APP = express();
 const PORT = 5000;
-const DATABASE = process.env.database;
-const USERNAME = process.env.username;
-const PASSWORD = process.env.password;
 
-const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
-  host: "localhost",
-  dialect: "postgres",
-});
-
-// defining pet table
-const Pet = sequelize.define("Pet", {
-  petname: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  checkedin: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  staytype: {
-    type: DataTypes.STRING,
-  },
-  species: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  breed: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  sex: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  altered: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  birthday: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  weight: {
-    type: DataTypes.INTEGER,
-  },
-  physicaldesc: {
-    type: DataTypes.STRING,
-  },
-  ownerid: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-});
-
-// defining breed table
-const Breeds = sequelize.define("Breeds", {
-  species: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
-
-
-// getting cat breeds from the api
-(async () => {
-  await fetch("https://api.thecatapi.com/v1/breeds", {
-    "Content-Type": "application/json",
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      function alphabetize(a, b) {
-        if (a.name < b.name) {
-          return -1;
-        } else if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      }
-      let presets = [
-        { id: "Domestic Longhair", name: "Domestic Longhair" },
-        { id: "Domestic Shorthair", name: "Domestic Shorthair" },
-      ];
-      let allCatBreeds = json.concat(presets).sort(alphabetize);
-      allCatBreeds.forEach((breed) => {
-        Breeds.create({ species: "cat", name: breed.name });
-      });
-    });
-})();
-
-// getting dog breeds from the api
-(async () => {
-  await fetch("https://api.thedogapi.com/v1/breeds", {
-    "Content-Type": "application/json",
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      function alphabetize(a, b) {
-        if (a.name < b.name) {
-          return -1;
-        } else if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      }
-      let presets = [{ id: "Mixed", name: "Mixed" }];
-      let allDogBreeds = json.concat(presets).sort(alphabetize);
-      allDogBreeds.forEach((breed) => {
-        Breeds.create({ species: "dog", name: breed.name });
-      });
-    });
-})();
-
-(async () => {
-  await sequelize.sync({ force: true });
-  const arcadia = await Pet.create({
-    petname: "Arcadia",
-    checkedin: true,
-    staytype: "daycare",
-    species: "cat",
-    breed: "Domestic Shorthair",
-    sex: "female",
-    altered: true,
-    birthday: "2023-07-13",
-    weight: 10,
-    physicaldesc: "Shorthaired tuxedo",
-    ownerid: 0,
-  });
-  console.log(arcadia.toJSON());
-})();
+databaseHelper.db.sequelize.sync();
 
 APP.use(express.json());
 APP.use(cors());
@@ -149,7 +13,7 @@ APP.use(cors());
 // endpoint to retrieve pet id
 APP.get("/pet", async (req, res) => {
   try {
-    const pets = await Pet.findAll({
+    const pets = await databaseHelper.Pet.findAll({
       where: {
         id: req.query.id,
       },
@@ -166,13 +30,13 @@ APP.get("/pet", async (req, res) => {
 
 // endpoint to retrieve all pets
 APP.get("/allpets", async (req, res) => {
-  const petlist = await Pet.findAll();
+  const petlist = await databaseHelper.Pet.findAll();
   res.send(petlist);
 });
 
 // endpoint to retrieve all checked in pets
 APP.get("/checkedinpets", async (req, res) => {
-  const petlist = await Pet.findAll({
+  const petlist = await databaseHelper.Pet.findAll({
     where: {
       checkedin: true,
     },
@@ -182,7 +46,7 @@ APP.get("/checkedinpets", async (req, res) => {
 
 // endpoint to retrieve dog breeds
 APP.get("/dogbreeds", async (req, res) => {
-  const dogBreeds = await Breeds.findAll({
+  const dogBreeds = await databaseHelper.Breed.findAll({
     where: {
       species: "dog",
     },
@@ -192,7 +56,7 @@ APP.get("/dogbreeds", async (req, res) => {
 
 // endpoint to retrieve cat breeds
 APP.get("/catbreeds", async (req, res) => {
-  const catBreeds = await Breeds.findAll({
+  const catBreeds = await databaseHelper.Breed.findAll({
     where: {
       species: "cat",
     },
@@ -202,7 +66,7 @@ APP.get("/catbreeds", async (req, res) => {
 
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
-  await sequelize.sync();
+  await databaseHelper.db.sync();
   const newpet = await Pet.create({
     petname: req.body.petname,
     checkedin: false,
@@ -221,7 +85,7 @@ APP.post("/pet", async (req, res) => {
 });
 
 APP.put("/pet", async (req, res) => {
-  await Pet.update(
+  await databaseHelper.Pet.update(
     {
       sex: req.body.sex,
       altered: req.body.altered,
@@ -236,7 +100,7 @@ APP.put("/pet", async (req, res) => {
 
 // endpoint to check pet in and out
 APP.put("/checkin", async (req, res) => {
-  await Pet.update(
+  await databaseHelper.Pet.update(
     { checkedin: req.body.checkedin },
     {
       where: { id: req.body.id },
