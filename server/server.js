@@ -19,11 +19,11 @@ try {
   console.error('Unable to connect to the database:', err)
 }
 
-dbhelper.db.sync();
+// dbhelper.db.sync();
 
-dbhelper.createSamplePet();
-dbhelper.getCatBreeds();
-dbhelper.getDogBreeds();
+// dbhelper.createSamplePet();
+// dbhelper.getCatBreeds();
+// dbhelper.getDogBreeds();
 
 APP.use(express.json());
 APP.use(cors());
