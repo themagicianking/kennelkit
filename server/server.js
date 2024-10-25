@@ -15,7 +15,7 @@ const APP = express();
 // const DATABASE = process.env.PGDATABASE;
 // const USERNAME = process.env.USER;
 // const PASSWORD = process.env.PGPASSWORD;
-// const PORT = process.env.PGPORT;
+const PORT = process.env.PGPORT;
 
 // const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
 
