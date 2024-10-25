@@ -13,11 +13,17 @@ const PORT = process.env.PGPORT;
 
 const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
 
+try {
+  await dbhelper.authenticate()
+} catch (err) {
+  console.error('Unable to connect to the database:', err)
+}
+
+dbhelper.db.sync();
+
 dbhelper.createSamplePet();
 dbhelper.getCatBreeds();
 dbhelper.getDogBreeds();
-
-dbhelper.db.sync();
 
 APP.use(express.json());
 APP.use(cors());
