@@ -1,0 +1,9 @@
+{
+  "dev": {
+    "driver": "postgres",
+    "host": "localhost",
+    "user": "root",
+    "password": ""
+  },
+  "prod": { "host": "localhost", "user": "root", "password": "" }
+}
