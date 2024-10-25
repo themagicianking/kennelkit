@@ -2,6 +2,12 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import databaseHelper from "./databasehelper.js";
+import https from "https";
+// const https = require("https");
+import fs from "fs";
+// const fs = require("fs");
+const key = fs.readFileSync("../.././localhost.pem");
+const cert = fs.readFileSync("../.././localhost-key.pem");
 
 const APP = express();
 
@@ -147,6 +153,7 @@ APP.put("/checkin", async (req, res) => {
   res.status(200).send("Pet's check in status has been changed.");
 });
 
-APP.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+https.createServer({ key, cert }, APP).listen(PORT);
+// APP.listen(PORT, () => {
+//   console.log(`Server listening on port ${PORT}`);
+// });
