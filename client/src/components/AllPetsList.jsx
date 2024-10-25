@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { PetListView } from "./PetListView";
 
-export function AllPetsList() {
+export function AllPetsList({ baseUrl }) {
   const [allPetsList, setAllPetsList] = useState([]);
 
   async function loadAllPets() {
     try {
-      // await fetch("http://localhost:5000/allpets")
-      await fetch("https://kennelkit-production.up.railway.app/allpets")
+      await fetch(`http://${baseUrl}/allpets`)
         .then((res) => {
           return res.json();
         })

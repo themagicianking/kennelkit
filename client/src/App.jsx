@@ -17,10 +17,14 @@ function App() {
         path="/pets/checkedin"
         element={<CheckedInPetsList baseURL={baseURL} />}
       />
-      <Route exact path="/pets" element={<AllPetsList />} />
-      <Route exact path="/pets/new" element={<CreatePetForm />} />
+      <Route exact path="/pets" element={<AllPetsList baseUrl={baseURL} />} />
+      <Route
+        exact
+        path="/pets/new"
+        element={<CreatePetForm baseURL={baseURL} />}
+      />
       <Route path="pets/:id" element={<PetProfile />} />
-      <Route path="pets/:id/edit" element={<EditPetForm />} />
+      <Route path="pets/:id/edit" element={<EditPetForm baseURL={baseURL}/>} />
     </Routes>
   );
 }

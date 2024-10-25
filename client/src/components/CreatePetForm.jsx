@@ -1,7 +1,6 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
 // to do: add more consistent/better styling to image upload
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
-// to do: add common mixes to presets
 
 import { useState, useEffect } from "react";
 import {
@@ -19,7 +18,7 @@ import {
 } from "@material-tailwind/react";
 import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 
-export function CreatePetForm() {
+export function CreatePetForm({ baseURL }) {
   const [species, setSpecies] = useState(null);
   const [catBreedList, setCatBreedList] = useState([]);
   const [dogBreedList, setDogBreedList] = useState([]);
@@ -45,8 +44,7 @@ export function CreatePetForm() {
   }
 
   async function postPet(newPet) {
-    // await fetch("http://localhost:5000/pet", {
-    await fetch("https://kennelkit-production.up.railway.app/pet", {
+    await fetch(`http://${baseURL}/pet`, {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
@@ -58,8 +56,7 @@ export function CreatePetForm() {
   }
 
   async function loadCatBreeds() {
-    // await fetch("http://localhost:5000/catbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/catbreeds")
+    await fetch(`http://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
@@ -69,8 +66,7 @@ export function CreatePetForm() {
   }
 
   async function loadDogBreeds() {
-    // await fetch("http://localhost:5000/dogbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/dogbreeds")
+    await fetch(`http://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })

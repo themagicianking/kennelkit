@@ -2,10 +2,10 @@ import { Sequelize, DataTypes } from "sequelize";
 
 class databaseHelper {
   // constructor() {
-    constructor(database, username, password) {
-      this.DATABASE = database;
-      this.USERNAME = username;
-      this.PASSWORD = password;
+  constructor(database, username, password) {
+    this.DATABASE = database;
+    this.USERNAME = username;
+    this.PASSWORD = password;
 
     this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
       host: "localhost",
@@ -46,19 +46,11 @@ class databaseHelper {
           return res.json();
         })
         .then((json) => {
-          function alphabetize(a, b) {
-            if (a.name < b.name) {
-              return -1;
-            } else if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          }
           let presets = [
             { id: "Domestic Longhair", name: "Domestic Longhair" },
             { id: "Domestic Shorthair", name: "Domestic Shorthair" },
           ];
-          let allCatBreeds = json.concat(presets).sort(alphabetize);
+          let allCatBreeds = json.concat(presets);
           allCatBreeds.forEach((breed) => {
             this.Breed.create({ species: "cat", name: breed.name });
           });
@@ -76,16 +68,8 @@ class databaseHelper {
           return res.json();
         })
         .then((json) => {
-          function alphabetize(a, b) {
-            if (a.name < b.name) {
-              return -1;
-            } else if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          }
           let presets = [{ id: "Mixed", name: "Mixed" }];
-          let allDogBreeds = json.concat(presets).sort(alphabetize);
+          let allDogBreeds = json.concat(presets);
           allDogBreeds.forEach((breed) => {
             this.Breed.create({ species: "dog", name: breed.name });
           });

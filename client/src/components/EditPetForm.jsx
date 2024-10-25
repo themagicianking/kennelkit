@@ -19,25 +19,28 @@ import {
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 
-export function EditPetForm() {
+export function EditPetForm({ baseURL }) {
   let id = useParams().id;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [species, setSpecies] = useState(null);
-  const [catBreedList, setCatBreedList] = useState([]);
-  const [dogBreedList, setDogBreedList] = useState([]);
+  const [currentBreedList, setCurrentBreedList] = useState(null);
+  const [catBreedList, setCatBreedList] = useState(null);
+  const [dogBreedList, setDogBreedList] = useState(null);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
     loadPet(id);
-    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
     loadCatBreeds();
     loadDogBreeds();
-  }, [species]);
+  }, []);
 
   function onSpeciesChange(value) {
     setSpecies(value);
+    value == "cat"
+      ? setCurrentBreedList(catBreedList)
+      : setCurrentBreedList(dogBreedList);
   }
 
   function onBreedChange(value) {
@@ -46,8 +49,7 @@ export function EditPetForm() {
 
   async function loadPet(id) {
     try {
-      // await fetch(`http://localhost:5000/pet?id=${id}`)
-      await fetch(`https://kennelkit-production.up.railway.app/pet?id=${id}`)
+      await fetch(`http://${baseURL}/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -58,6 +60,9 @@ export function EditPetForm() {
           setPet(json);
           setLoading(false);
           setSpecies(json.species);
+          json.species == "cat"
+            ? setCurrentBreedList(catBreedList)
+            : setCurrentBreedList(dogBreedList);
           setBreed(json.breed);
           setOwnerid(json.ownerid);
         });
@@ -69,8 +74,7 @@ export function EditPetForm() {
   }
 
   async function editPet(editedPet) {
-    // await fetch("http://localhost:5000/pet", {
-    await fetch("https://kennelkit-production.up.railway.app/pet", {
+    await fetch(`http://${baseURL}/pet`, {
       method: "PUT",
       body: JSON.stringify(editedPet),
       headers: { "Content-Type": "application/json" },
@@ -78,51 +82,26 @@ export function EditPetForm() {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data));
+      .then((json) => console.log(json));
   }
 
   async function loadCatBreeds() {
-    // await fetch("http://localhost:5000/catbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/catbreeds")
+    await fetch(`http://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-        function alphabetize(a, b) {
-          if (a.name < b.name) {
-            return -1;
-          } else if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        }
-        let presets = [
-          { id: "Domestic Longhair", name: "Domestic Longhair" },
-          { id: "Domestic Shorthair", name: "Domestic Shorthair" },
-        ];
-        let joinedList = data.concat(presets).sort(alphabetize);
-        setCatBreedList(joinedList);
+      .then((json) => {
+        setCatBreedList(json);
       });
   }
 
   async function loadDogBreeds() {
-    // await fetch("http://localhost:5000/dogbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/dogbreeds")
+    await fetch(`http://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-        function alphabetize(a, b) {
-          if (a.name < b.name) {
-            return -1;
-          } else if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        }
-        let presets = [{ id: "Mixed", name: "Mixed" }];
-        let joinedList = data.concat(presets).sort(alphabetize);
-        setDogBreedList(joinedList);
+      .then((json) => {
+        setDogBreedList(json);
       });
   }
 
@@ -158,9 +137,7 @@ export function EditPetForm() {
             color="transparent"
             className="rounded-b-none"
           >
-            <Typography variant="h2">
-              Edit {pet.petname} Lastname
-            </Typography>
+            <Typography variant="h2">Edit {pet.petname} Lastname</Typography>
           </CardHeader>
           <form id="create-pet" onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
@@ -261,25 +238,19 @@ export function EditPetForm() {
                   disabled={!species}
                   required
                 >
-                  {species == "cat"
-                    ? catBreedList.map((breed) => (
-                        <Option
-                          key={breed.id}
-                          name={breed.name}
-                          value={breed.name}
-                        >
-                          {breed.name}
-                        </Option>
-                      ))
-                    : dogBreedList.map((breed) => (
-                        <Option
-                          key={breed.id}
-                          name={breed.name}
-                          value={breed.name}
-                        >
-                          {breed.name}
-                        </Option>
-                      ))}
+                  {currentBreedList ? (
+                    currentBreedList.map((breed) => (
+                      <Option
+                        key={breed.id}
+                        name={breed.name}
+                        value={breed.name}
+                      >
+                        {breed.name}
+                      </Option>
+                    ))
+                  ) : (
+                    <></>
+                  )}
                 </Select>
                 {/* Weight input */}
                 <Input

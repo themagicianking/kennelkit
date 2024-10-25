@@ -22,9 +22,9 @@ const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
 // const dbhelper = new databaseHelper();
 
 try {
-  await dbhelper.db.authenticate()
+  await dbhelper.db.authenticate();
 } catch (err) {
-  console.error('Unable to connect to the database:', err)
+  console.error("Unable to connect to the database:", err);
 }
 
 dbhelper.db.sync();
@@ -35,6 +35,16 @@ dbhelper.getDogBreeds();
 
 APP.use(express.json());
 APP.use(cors());
+
+// function to alphabetize breed lists by name before sending to client
+function alphabetize(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
 
 // endpoint to retrieve pet id
 APP.get("/pet", async (req, res) => {
@@ -77,6 +87,7 @@ APP.get("/dogbreeds", async (req, res) => {
       species: "dog",
     },
   });
+  dogBreeds.sort(alphabetize);
   res.send(dogBreeds);
 });
 
@@ -87,6 +98,7 @@ APP.get("/catbreeds", async (req, res) => {
       species: "cat",
     },
   });
+  catBreeds.sort(alphabetize);
   res.send(catBreeds);
 });
 
