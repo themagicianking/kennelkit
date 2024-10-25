@@ -20,19 +20,19 @@ import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
 
 export function CreatePetForm({ baseURL }) {
   const [species, setSpecies] = useState(null);
-  const [catBreedList, setCatBreedList] = useState([]);
-  const [dogBreedList, setDogBreedList] = useState([]);
+  const [catBreedListOptions, setCatBreedListOptions] = useState([]);
+  const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
-    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
     loadCatBreeds();
     loadDogBreeds();
-  }, [species]);
+  }, []);
 
   function onSpeciesChange(value) {
     setSpecies(value);
+    setBreed(null);
   }
 
   function onOwnerChange(value) {
@@ -41,6 +41,8 @@ export function CreatePetForm({ baseURL }) {
 
   function onBreedChange(value) {
     setBreed(value);
+    console.log("value of breed right now:", value);
+    console.log("breed is set to the following:", breed);
   }
 
   async function postPet(newPet) {
@@ -52,7 +54,7 @@ export function CreatePetForm({ baseURL }) {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data));
+      .then((json) => console.log(json));
   }
 
   async function loadCatBreeds() {
@@ -61,7 +63,7 @@ export function CreatePetForm({ baseURL }) {
         return res.json();
       })
       .then((json) => {
-        setCatBreedList(json);
+        setCatBreedListOptions(createBreedListOptions(json));
       });
   }
 
@@ -71,8 +73,18 @@ export function CreatePetForm({ baseURL }) {
         return res.json();
       })
       .then((json) => {
-        setDogBreedList(json);
+        setDogBreedListOptions(createBreedListOptions(json));
       });
+  }
+
+  function createBreedListOptions(currentBreedList) {
+    let breedOptionsList = currentBreedList.map((breed) => (
+      <Option key={breed.id} name={breed.name} value={breed.name}>
+        {breed.name}
+      </Option>
+    ));
+
+    return breedOptionsList;
   }
 
   function handleSubmit(e) {
@@ -92,7 +104,6 @@ export function CreatePetForm({ baseURL }) {
 
     console.log(newPet);
     postPet(newPet);
-    setOpen(false);
     setSpecies(null), setBreed(null), setOwnerid(null);
     e.target.reset();
   }
@@ -164,34 +175,29 @@ export function CreatePetForm({ baseURL }) {
                 </Option>
               </Select>
               {/* Breed dropdown */}
-              <Select
-                label="Breed"
-                id="breed"
-                value={breed}
-                onChange={onBreedChange}
-                disabled={!species}
-                required
-              >
-                {species == "cat"
-                  ? catBreedList.map((breed) => (
-                      <Option
-                        key={breed.id}
-                        name={breed.name}
-                        value={breed.name}
-                      >
-                        {breed.name}
-                      </Option>
-                    ))
-                  : dogBreedList.map((breed) => (
-                      <Option
-                        key={breed.id}
-                        name={breed.name}
-                        value={breed.name}
-                      >
-                        {breed.name}
-                      </Option>
-                    ))}
-              </Select>
+              {species == "cat" ? (
+                <Select
+                  label="Breed"
+                  id="breed"
+                  value={breed}
+                  onChange={onBreedChange}
+                  disabled={!species}
+                  required
+                >
+                  {catBreedListOptions}
+                </Select>
+              ) : (
+                <Select
+                  label="Breed"
+                  id="breed"
+                  value={breed}
+                  onChange={onBreedChange}
+                  disabled={!species}
+                  required
+                >
+                  {dogBreedListOptions}
+                </Select>
+              )}
               {/* Birthday input */}
               <div>
                 <Input
