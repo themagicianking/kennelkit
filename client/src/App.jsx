@@ -23,7 +23,7 @@ function App() {
         path="/pets/new"
         element={<CreatePetForm baseURL={baseURL} />}
       />
-      <Route path="pets/:id" element={<PetProfile />} />
+      <Route path="pets/:id" element={<PetProfile baseURL={baseURL}/>} />
       <Route path="pets/:id/edit" element={<EditPetForm baseURL={baseURL}/>} />
     </Routes>
   );

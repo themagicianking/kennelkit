@@ -18,7 +18,7 @@ import { PetProfileTabs } from "./PetProfileTabs";
 import { useParams } from "react-router-dom";
 import { OWNER } from "../utilities/dummydata";
 
-export function PetProfile() {
+export function PetProfile({ baseURL }) {
   let id = useParams().id;
   let editLink = `/pets/${id}/edit`;
   let owner = OWNER;
@@ -26,12 +26,9 @@ export function PetProfile() {
   const [pet, setPet] = useState(null);
   const [isChecked, setIsChecked] = useState(null);
 
-  console.log("state of isChecked upon render", isChecked);
-
   async function loadPet(id) {
     try {
-      // await fetch(`http://localhost:5000/pet?id=${id}`)
-      await fetch(`https://kennelkit-production.up.railway.app/pet?id=${id}`)
+      await fetch(`http://${baseURL}/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -52,12 +49,12 @@ export function PetProfile() {
 
   async function toggleCheckIn(isChecked) {
     try {
-      // await fetch("http://localhost:5000/checkin", {
-      await fetch("https://kennelkit-production.up.railway.app/checkin", {
+      await fetch(`http://${baseURL}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },
       });
+      console.log(`Sent check in status ${isChecked} to the server.`)
     } catch {
       console.log("Server could not be updated.");
     }
@@ -110,7 +107,9 @@ export function PetProfile() {
             <PetProfileTabs />
           </CardBody>
           <CardFooter className="gap-4 pet-profile-footer">
-            <a href={editLink}><Button>Edit</Button></a>
+            <a href={editLink}>
+              <Button>Edit</Button>
+            </a>
             <Switch
               color="green"
               label="Checked In?"
