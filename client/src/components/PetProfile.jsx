@@ -31,7 +31,7 @@ export function PetProfile() {
   async function loadPet(id) {
     try {
       // await fetch(`http://localhost:5000/pet?id=${id}`)
-      await fetch(`kennelkit-production.up.railway.app/pet?id=${id}`)
+      await fetch(`https://kennelkit-production.up.railway.app/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -53,7 +53,7 @@ export function PetProfile() {
   async function toggleCheckIn(isChecked) {
     try {
       // await fetch("http://localhost:5000/checkin", {
-      await fetch("kennelkit-production.up.railway.app/checkin", {
+      await fetch("https://kennelkit-production.up.railway.app/checkin", {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },

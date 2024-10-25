@@ -6,7 +6,7 @@ export function CheckInToggle({ id, checkedin }) {
 
   async function toggleCheckIn(isChecked) {
     // await fetch("http://localhost:5000/checkin", {
-    await fetch("kennelkit-production.up.railway.app/checkin", {
+    await fetch("https://kennelkit-production.up.railway.app/checkin", {
       method: "PUT",
       body: JSON.stringify({ id: id, checkedin: isChecked }),
       headers: { "Content-Type": "application/json" },

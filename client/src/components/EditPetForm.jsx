@@ -47,7 +47,7 @@ export function EditPetForm() {
   async function loadPet(id) {
     try {
       // await fetch(`http://localhost:5000/pet?id=${id}`)
-      await fetch(`kennelkit-production.up.railway.app/pet?id=${id}`)
+      await fetch(`https://kennelkit-production.up.railway.app/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -70,7 +70,7 @@ export function EditPetForm() {
 
   async function editPet(editedPet) {
     // await fetch("http://localhost:5000/pet", {
-    await fetch("kennelkit-production.up.railway.app/pet", {
+    await fetch("https://kennelkit-production.up.railway.app/pet", {
       method: "PUT",
       body: JSON.stringify(editedPet),
       headers: { "Content-Type": "application/json" },
@@ -83,7 +83,7 @@ export function EditPetForm() {
 
   async function loadCatBreeds() {
     // await fetch("http://localhost:5000/catbreeds")
-    await fetch("kennelkit-production.up.railway.app/catbreeds")
+    await fetch("https://kennelkit-production.up.railway.app/catbreeds")
       .then((res) => {
         return res.json();
       })
@@ -107,7 +107,7 @@ export function EditPetForm() {
 
   async function loadDogBreeds() {
     // await fetch("http://localhost:5000/dogbreeds")
-    await fetch("kennelkit-production.up.railway.app/dogbreeds")
+    await fetch("https://kennelkit-production.up.railway.app/dogbreeds")
       .then((res) => {
         return res.json();
       })
