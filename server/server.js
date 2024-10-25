@@ -14,7 +14,7 @@ const PORT = process.env.PGPORT;
 const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
 
 try {
-  await dbhelper.authenticate()
+  await dbhelper.db.authenticate()
 } catch (err) {
   console.error('Unable to connect to the database:', err)
 }
