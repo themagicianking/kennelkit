@@ -8,6 +8,8 @@ import { PetProfile } from "./components/PetProfile";
 import { EditPetForm } from "./components/EditPetForm";
 const baseURL = import.meta.env.VITE_API_URL;
 
+console.log("Base URL:", baseURL);
+
 function App() {
   return (
     <Routes>
@@ -23,8 +25,8 @@ function App() {
         path="/pets/new"
         element={<CreatePetForm baseURL={baseURL} />}
       />
-      <Route path="pets/:id" element={<PetProfile baseURL={baseURL}/>} />
-      <Route path="pets/:id/edit" element={<EditPetForm baseURL={baseURL}/>} />
+      <Route path="pets/:id" element={<PetProfile baseURL={baseURL} />} />
+      <Route path="pets/:id/edit" element={<EditPetForm baseURL={baseURL} />} />
     </Routes>
   );
 }
