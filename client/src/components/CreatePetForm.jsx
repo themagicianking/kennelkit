@@ -45,7 +45,8 @@ export function CreatePetForm() {
   }
 
   async function postPet(newPet) {
-    await fetch("http://localhost:5000/pet", {
+    // await fetch("http://localhost:5000/pet", {
+    await fetch("kennelkit-production.up.railway.app/pet", {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
@@ -57,7 +58,8 @@ export function CreatePetForm() {
   }
 
   async function loadCatBreeds() {
-    await fetch("http://localhost:5000/catbreeds")
+    // await fetch("http://localhost:5000/catbreeds")
+    await fetch("kennelkit-production.up.railway.app/catbreeds")
       .then((res) => {
         return res.json();
       })
@@ -67,7 +69,8 @@ export function CreatePetForm() {
   }
 
   async function loadDogBreeds() {
-    await fetch("http://localhost:5000/dogbreeds")
+    // await fetch("http://localhost:5000/dogbreeds")
+    await fetch("kennelkit-production.up.railway.app/dogbreeds")
       .then((res) => {
         return res.json();
       })

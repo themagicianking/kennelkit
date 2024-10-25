@@ -7,7 +7,8 @@ export function CheckedInPetsList() {
 
   async function loadCheckedInPets() {
     try {
-      await fetch("http://localhost:5000/checkedinpets")
+      // await fetch("http://localhost:5000/checkedinpets")
+      await fetch("kennelkit-production.up.railway.app/checkedinpets")
         .then((res) => {
           return res.json();
         })

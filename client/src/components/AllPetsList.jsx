@@ -7,7 +7,8 @@ export function AllPetsList() {
 
   async function loadAllPets() {
     try {
-      await fetch("http://localhost:5000/allpets")
+      // await fetch("http://localhost:5000/allpets")
+      await fetch("kennelkit-production.up.railway.app/allpets")
         .then((res) => {
           return res.json();
         })
