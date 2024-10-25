@@ -1,20 +1,20 @@
 import { Sequelize, DataTypes } from "sequelize";
 
 class databaseHelper {
-  constructor() {
-    // constructor(database, username, password) {
-    //   this.DATABASE = database;
-    //   this.USERNAME = username;
-    //   this.PASSWORD = password;
+  // constructor() {
+    constructor(database, username, password) {
+      this.DATABASE = database;
+      this.USERNAME = username;
+      this.PASSWORD = password;
 
-    // this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
-    //   host: "localhost",
-    //   dialect: "postgres",
-    // });
+    this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
+      host: "localhost",
+      dialect: "postgres",
+    });
 
-    this.db = new Sequelize(
-      "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
-    );
+    // this.db = new Sequelize(
+    //   "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
+    // );
 
     this.Pet = this.db.define("Pet", {
       petname: { type: DataTypes.STRING, allowNull: false },

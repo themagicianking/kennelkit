@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { PetListView } from "./PetListView";
+import { useContext } from "react";
 
-export function CheckedInPetsList() {
+export function CheckedInPetsList({ baseURL }) {
   const [checkedInPetsList, setCheckedInPetsList] = useState([]);
 
   async function loadCheckedInPets() {
     try {
       // await fetch("http://localhost:5000/checkedinpets")
-      await fetch("https://kennelkit-production.up.railway.app/checkedinpets")
+      await fetch(`http://${baseURL}checkedinpets`)
         .then((res) => {
           return res.json();
         })

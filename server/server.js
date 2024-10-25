@@ -6,20 +6,20 @@ import databaseHelper from "./databasehelper.js";
 const APP = express();
 
 // dev environment vars
-// const DATABASE = process.env.DATABASE;
-// const USERNAME = process.env.USERNAME;
-// const PASSWORD = process.env.PASSWORD;
-// const PORT = 5000;
+const DATABASE = process.env.DATABASE;
+const USERNAME = process.env.USERNAME;
+const PASSWORD = process.env.PASSWORD;
+const PORT = 5000;
 
 // prod environment vars
 // const DATABASE = process.env.PGDATABASE;
 // const USERNAME = process.env.USER;
 // const PASSWORD = process.env.PGPASSWORD;
-const PORT = process.env.PGPORT;
+// const PORT = process.env.PGPORT;
 
-// const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
+const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
 
-const dbhelper = new databaseHelper();
+// const dbhelper = new databaseHelper();
 
 try {
   await dbhelper.db.authenticate()
