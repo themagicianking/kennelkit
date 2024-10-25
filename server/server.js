@@ -4,6 +4,7 @@ import "dotenv/config";
 import databaseHelper from "./databasehelper.js";
 
 const APP = express();
+
 // const PORT = 5000;
 const DATABASE = process.env.PGDATABASE;
 const USERNAME = process.env.USER;
