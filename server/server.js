@@ -3,11 +3,16 @@ import cors from "cors";
 import "dotenv/config";
 import databaseHelper from "./databasehelper.js";
 import https from "https";
-// const https = require("https");
+import path from 'path'
+import { fileURLToPath } from 'url'
 import fs from "fs";
-// const fs = require("fs");
-const key = fs.readFileSync("../.././localhost.pem");
-const cert = fs.readFileSync("../.././localhost-key.pem");
+
+// get directory name
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// obtaining ssl certificate
+const key = fs.readFileSync(`${__dirname}/certs/key.pem`, 'utf8');
+const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, 'utf8', "utf-8");
 
 const APP = express();
 
