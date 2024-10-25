@@ -7,7 +7,7 @@ export function CheckedInPetsList({ baseURL }) {
 
   async function loadCheckedInPets() {
     try {
-      await fetch(`http://${baseURL}/checkedinpets`)
+      await fetch(`https://${baseURL}/checkedinpets`)
         .then((res) => {
           return res.json();
         })

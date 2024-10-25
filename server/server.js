@@ -3,16 +3,16 @@ import cors from "cors";
 import "dotenv/config";
 import databaseHelper from "./databasehelper.js";
 import https from "https";
-import path from 'path'
-import { fileURLToPath } from 'url'
+import path from "path";
+import { fileURLToPath } from "url";
 import fs from "fs";
 
 // get directory name
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // obtaining ssl certificate
-const key = fs.readFileSync(`${__dirname}/certs/key.pem`, 'utf8');
-const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, 'utf8', "utf-8");
+const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
+const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
 
 const APP = express();
 
@@ -38,8 +38,10 @@ try {
   console.error("Unable to connect to the database:", err);
 }
 
-dbhelper.db.sync();
+await dbhelper.db.sync({force: true});
 
+dbhelper.createPet();
+dbhelper.createBreed();
 dbhelper.createSamplePet();
 dbhelper.getCatBreeds();
 dbhelper.getDogBreeds();

@@ -15,7 +15,10 @@ class databaseHelper {
     // this.db = new Sequelize(
     //   "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
     // );
+  }
 
+  // define pet table
+  createPet = function () {
     this.Pet = this.db.define("Pet", {
       petname: { type: DataTypes.STRING, allowNull: false },
       checkedin: { type: DataTypes.BOOLEAN, allowNull: false },
@@ -29,12 +32,15 @@ class databaseHelper {
       physicaldesc: { type: DataTypes.STRING },
       ownerid: { type: DataTypes.INTEGER, allowNull: false },
     });
+  };
 
+  // define breed table
+  createBreed = function () {
     this.Breed = this.db.define("Breed", {
       species: { type: DataTypes.STRING, allowNull: false },
       name: { type: DataTypes.STRING, allowNull: false },
     });
-  }
+  };
 
   // getting cat breeds from the api
   getCatBreeds = function () {
@@ -78,7 +84,7 @@ class databaseHelper {
   };
 
   // create sample pet
-  createSamplePet = function () {
+  createSamplePet = async function () {
     (async () => {
       await this.db.sync();
       const arcadia = await this.Pet.create({

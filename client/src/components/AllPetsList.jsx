@@ -7,7 +7,7 @@ export function AllPetsList({ baseUrl }) {
 
   async function loadAllPets() {
     try {
-      await fetch(`http://${baseUrl}/allpets`)
+      await fetch(`https://${baseUrl}/allpets`)
         .then((res) => {
           return res.json();
         })

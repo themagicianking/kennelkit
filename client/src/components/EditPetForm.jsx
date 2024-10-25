@@ -46,7 +46,7 @@ export function EditPetForm({ baseURL }) {
 
   async function loadPet(id) {
     try {
-      await fetch(`http://${baseURL}/pet?id=${id}`)
+      await fetch(`https://${baseURL}/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -68,7 +68,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function editPet(editedPet) {
-    await fetch(`http://${baseURL}/pet`, {
+    await fetch(`https://${baseURL}/pet`, {
       method: "PUT",
       body: JSON.stringify(editedPet),
       headers: { "Content-Type": "application/json" },
@@ -80,7 +80,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function loadCatBreeds() {
-    await fetch(`http://${baseURL}/catbreeds`)
+    await fetch(`https://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
@@ -90,7 +90,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function loadDogBreeds() {
-    await fetch(`http://${baseURL}/dogbreeds`)
+    await fetch(`https://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })

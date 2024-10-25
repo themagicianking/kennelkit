@@ -46,7 +46,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function postPet(newPet) {
-    await fetch(`http://${baseURL}/pet`, {
+    await fetch(`https://${baseURL}/pet`, {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function loadCatBreeds() {
-    await fetch(`http://${baseURL}/catbreeds`)
+    await fetch(`https://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
@@ -68,7 +68,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function loadDogBreeds() {
-    await fetch(`http://${baseURL}/dogbreeds`)
+    await fetch(`https://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })

@@ -28,7 +28,7 @@ export function PetProfile({ baseURL }) {
 
   async function loadPet(id) {
     try {
-      await fetch(`http://${baseURL}/pet?id=${id}`)
+      await fetch(`https://${baseURL}/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -49,7 +49,7 @@ export function PetProfile({ baseURL }) {
 
   async function toggleCheckIn(isChecked) {
     try {
-      await fetch(`http://${baseURL}/checkin`, {
+      await fetch(`https://${baseURL}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },
