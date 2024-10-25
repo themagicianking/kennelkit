@@ -24,9 +24,8 @@ export function EditPetForm({ baseURL }) {
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [species, setSpecies] = useState(null);
-  const [currentBreedList, setCurrentBreedList] = useState(null);
-  const [catBreedList, setCatBreedList] = useState(null);
-  const [dogBreedList, setDogBreedList] = useState(null);
+  const [catBreedListOptions, setCatBreedListOptions] = useState([]);
+  const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
 
@@ -38,9 +37,7 @@ export function EditPetForm({ baseURL }) {
 
   function onSpeciesChange(value) {
     setSpecies(value);
-    value == "cat"
-      ? setCurrentBreedList(catBreedList)
-      : setCurrentBreedList(dogBreedList);
+    setBreed(null);
   }
 
   function onBreedChange(value) {
@@ -60,9 +57,6 @@ export function EditPetForm({ baseURL }) {
           setPet(json);
           setLoading(false);
           setSpecies(json.species);
-          json.species == "cat"
-            ? setCurrentBreedList(catBreedList)
-            : setCurrentBreedList(dogBreedList);
           setBreed(json.breed);
           setOwnerid(json.ownerid);
         });
@@ -91,7 +85,7 @@ export function EditPetForm({ baseURL }) {
         return res.json();
       })
       .then((json) => {
-        setCatBreedList(json);
+        setCatBreedListOptions(createBreedListOptions(json));
       });
   }
 
@@ -101,8 +95,18 @@ export function EditPetForm({ baseURL }) {
         return res.json();
       })
       .then((json) => {
-        setDogBreedList(json);
+        setDogBreedListOptions(createBreedListOptions(json));
       });
+  }
+
+  function createBreedListOptions(currentBreedList) {
+    let breedOptionsList = currentBreedList.map((breed) => (
+      <Option key={breed.id} name={breed.name} value={breed.name}>
+        {breed.name}
+      </Option>
+    ));
+
+    return breedOptionsList;
   }
 
   function handleSubmit(e) {
@@ -230,28 +234,29 @@ export function EditPetForm({ baseURL }) {
                   </Option>
                 </Select>
                 {/* Breed dropdown */}
-                <Select
-                  label="Breed"
-                  id="breed"
-                  value={breed}
-                  onChange={onBreedChange}
-                  disabled={!species}
-                  required
-                >
-                  {currentBreedList ? (
-                    currentBreedList.map((breed) => (
-                      <Option
-                        key={breed.id}
-                        name={breed.name}
-                        value={breed.name}
-                      >
-                        {breed.name}
-                      </Option>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </Select>
+                {species == "cat" ? (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {catBreedListOptions}
+                  </Select>
+                ) : (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {dogBreedListOptions}
+                  </Select>
+                )}
                 {/* Weight input */}
                 <Input
                   type="number"
