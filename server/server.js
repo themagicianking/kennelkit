@@ -177,12 +177,10 @@ APP.put("/checkin", async (req, res) => {
   res.status(200).send("Pet's check in status has been changed.");
 });
 
-// checks whether to use local cert
+// development mode requires a cert in the cert directory in order to use https
 if (APP_ENV == "development") {
-  // obtaining ssl certificate for dev environment
   const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
   const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
-  // creating local https server
   https.createServer({ key, cert }, APP).listen(PORT);
 } else {
   APP.listen(PORT, "0.0.0.0", () => {
