@@ -18,20 +18,13 @@ class databaseHelper {
       );
     }
 
-    this.dropAllTables();
     this.createPet();
     this.createBreed();
-    this.db.sync();
   }
-
-  dropAllTables = function () {
-    this.db.query(`DROP TABLE IF EXISTS "Pets";`);
-    this.db.query(`DROP TABLE IF EXISTS "Breeds";`);
-  };
 
   // define pet table
   createPet = function () {
-    this.Pet = this.db.define("Pet", {
+    this.Pet = this.db.define("pet", {
       petname: { type: DataTypes.STRING, allowNull: false },
       checkedin: { type: DataTypes.BOOLEAN, allowNull: false },
       staytype: { type: DataTypes.STRING },
@@ -48,7 +41,7 @@ class databaseHelper {
 
   // define breed table
   createBreed = function () {
-    this.Breed = this.db.define("Breed", {
+    this.Breed = this.db.define("breed", {
       species: { type: DataTypes.STRING, allowNull: false },
       name: { type: DataTypes.STRING, allowNull: false },
     });

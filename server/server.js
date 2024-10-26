@@ -31,12 +31,36 @@ export const PORT = process.env.PORT;
 const dbhelper = new databaseHelper(APP_ENV);
 
 // pull cat & dog breeds from api, add them to preset list of breeds, and insert them into breeds table
-function populateBreedsTable() {
-  dbhelper.getCatBreeds();
-  dbhelper.getDogBreeds();
+async function populateBreedsTable() {
+  const dogBreeds = await dbhelper.Breed.findAll({
+    where: {
+      species: "dog",
+    },
+  });
+  const catBreeds = await dbhelper.Breed.findAll({
+    where: {
+      species: "cat",
+    },
+  });
+  dogBreeds.length < 1
+    ? dbhelper.getDogBreeds()
+    : console.log("Dog breeds have already loaded.");
+  catBreeds.length < 1
+    ? dbhelper.getCatBreeds()
+    : console.log("Cat breeds have already loaded.");
 }
 
 populateBreedsTable();
+
+// function to insert a sample pet into the database
+async function populatePetsTable() {
+  const petlist = await dbhelper.Pet.findAll();
+  petlist.length < 1
+    ? dbhelper.createSamplePet()
+    : console.log("A sample pet has already been added to the database.");
+}
+
+populatePetsTable();
 
 // function to alphabetize breed lists by name before sending to client
 function alphabetize(a, b) {
