@@ -41,8 +41,6 @@ export function CreatePetForm({ baseURL }) {
 
   function onBreedChange(value) {
     setBreed(value);
-    console.log("value of breed right now:", value);
-    console.log("breed is set to the following:", breed);
   }
 
   async function postPet(newPet) {
@@ -174,7 +172,17 @@ export function CreatePetForm({ baseURL }) {
                   Cat
                 </Option>
               </Select>
-              {/* Breed dropdown */}
+              {/* Breed dropdown (while disabled) */}
+              {!species ? (
+                <Select label="Breed" id="breed" disabled={!species}>
+                  <Option key={null} name={null} value={null}>
+                    Breed
+                  </Option>
+                </Select>
+              ) : (
+                <></>
+              )}
+              {/* Cat dropdown */}
               {species == "cat" ? (
                 <Select
                   label="Breed"
@@ -187,6 +195,10 @@ export function CreatePetForm({ baseURL }) {
                   {catBreedListOptions}
                 </Select>
               ) : (
+                <></>
+              )}
+              {/* Dog dropdown */}
+              {species == "dog" ? (
                 <Select
                   label="Breed"
                   id="breed"
@@ -197,6 +209,8 @@ export function CreatePetForm({ baseURL }) {
                 >
                   {dogBreedListOptions}
                 </Select>
+              ) : (
+                <></>
               )}
               {/* Birthday input */}
               <div>
