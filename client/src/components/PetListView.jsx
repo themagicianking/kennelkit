@@ -3,7 +3,7 @@
 import { List } from "@material-tailwind/react";
 import { PetItem } from "./PetItem";
 
-export function PetListView({ list }) {
+export function PetListView({ list, baseURL }) {
   return (
     <List>
       {list.map((listitem) => (

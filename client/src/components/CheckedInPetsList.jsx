@@ -29,7 +29,7 @@ export function CheckedInPetsList({ baseURL }) {
       <Navbar />
       <div>
         <h2>Checked in pets:</h2>
-        <PetListView list={checkedInPetsList} />
+        <PetListView list={checkedInPetsList} baseURL={baseURL} />
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export function AllPetsList({ baseUrl }) {
       <Navbar />
       <div className="flex flex-col">
         <h2>All pets:</h2>
-        <PetListView list={allPetsList} />
+        <PetListView list={allPetsList} baseURL={baseUrl}/>
       </div>
     </div>
   );
