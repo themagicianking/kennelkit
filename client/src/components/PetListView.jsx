@@ -7,7 +7,7 @@ export function PetListView({ list }) {
   return (
     <List>
       {list.map((listitem) => (
-        <PetItem key={listitem.id} pet={listitem} />
+        <PetItem key={listitem.id} pet={listitem} baseURL={baseURL}/>
       ))}
     </List>
   );
