@@ -76,7 +76,7 @@ export function EditPetForm({ baseURL }) {
       .then((res) => {
         return res.json();
       })
-      .then((json) => console.log(json));
+      .then((json) => console.log("Server response:", json));
   }
 
   async function loadCatBreeds() {
@@ -123,7 +123,7 @@ export function EditPetForm({ baseURL }) {
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(editedPet);
+    console.log("Request body:", editedPet);
     editPet(editedPet);
   }
 
@@ -233,16 +233,7 @@ export function EditPetForm({ baseURL }) {
                     Cat
                   </Option>
                 </Select>
-                {/* Breed dropdown (while disabled) */}
-                {!species ? (
-                  <Select label="Breed" id="breed" disabled={!species}>
-                    <Option key={null} name={null} value={null}>
-                      Breed
-                    </Option>
-                  </Select>
-                ) : (
-                  <></>
-                )}
+                {/* Breed dropdown */}
                 {/* Cat dropdown */}
                 {species == "cat" ? (
                   <Select

@@ -155,7 +155,10 @@ APP.put("/pet", async (req, res) => {
     },
     { where: { id: req.body.id } }
   );
-  res.status(200).send("Pet has been edited.");
+  const editedPets = await dbhelper.Pet.findAll({
+    where: { id: req.body.id },
+  });
+  res.status(200).send(editedPets[0]);
 });
 
 // endpoint to check pet in and out by id
@@ -166,7 +169,12 @@ APP.put("/checkin", async (req, res) => {
       where: { id: req.body.id },
     }
   );
-  res.status(200).send("Pet's check in status has been changed.");
+  const editedPets = await dbhelper.Pet.findAll({
+    where: {
+      id: req.body.id,
+    },
+  });
+  res.status(200).send(editedPets[0].checkedin);
 });
 
 // development mode requires a cert in the cert directory in order to use https

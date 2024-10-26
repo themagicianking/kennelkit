@@ -48,13 +48,19 @@ export function PetProfile({ baseURL }) {
   }
 
   async function toggleCheckIn(isChecked) {
+    console.log(`Sent check in status ${isChecked} to the server.`);
     try {
       await fetch(`https://${baseURL}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },
-      });
-      console.log(`Sent check in status ${isChecked} to the server.`)
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) =>
+          console.log("Pet's check in status has been changed to:", json)
+        );
     } catch {
       console.log("Server could not be updated.");
     }

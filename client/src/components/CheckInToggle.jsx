@@ -9,7 +9,13 @@ export function CheckInToggle({ baseURL, id, checkedin }) {
       method: "PUT",
       body: JSON.stringify({ id: id, checkedin: isChecked }),
       headers: { "Content-Type": "application/json" },
-    });
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) =>
+        console.log("Pet's check in status has been changed to:", json)
+      );
   }
 
   function handleChange(e) {

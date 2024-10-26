@@ -16,7 +16,7 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
+import { OWNERNAMES } from "../utilities/dummydata";
 
 export function CreatePetForm({ baseURL }) {
   const [species, setSpecies] = useState(null);
@@ -52,7 +52,7 @@ export function CreatePetForm({ baseURL }) {
       .then((res) => {
         return res.json();
       })
-      .then((json) => console.log(json));
+      .then((json) => console.log("Server response:", json));
   }
 
   async function loadCatBreeds() {
@@ -100,7 +100,7 @@ export function CreatePetForm({ baseURL }) {
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(newPet);
+    console.log("Request body:", newPet);
     postPet(newPet);
     setSpecies(null), setBreed(null), setOwnerid(null);
     e.target.reset();
@@ -230,7 +230,7 @@ export function CreatePetForm({ baseURL }) {
                 </Typography>
               </div>
               {/* Weight input */}
-              <Input type="number" id="weight" label="Weight"></Input>
+              <Input type="number" id="weight" label="Weight" required></Input>
             </div>
             {/* Column two */}
             <div className="mb-1 flex flex-col gap-6">
