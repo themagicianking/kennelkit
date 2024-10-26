@@ -66,7 +66,7 @@ async function populatePetsTable() {
 populatePetsTable();
 
 // function to alphabetize breed lists by name before sending to client
-function alphabetize(a, b) {
+function alphabetizeByName(a, b) {
   if (a.name < b.name) {
     return -1;
   } else if (a.name > b.name) {
@@ -116,7 +116,7 @@ APP.get("/dogbreeds", async (req, res) => {
       species: "dog",
     },
   });
-  dogBreeds.sort(alphabetize);
+  dogBreeds.sort(alphabetizeByName);
   res.send(dogBreeds);
 });
 
@@ -127,7 +127,7 @@ APP.get("/catbreeds", async (req, res) => {
       species: "cat",
     },
   });
-  catBreeds.sort(alphabetize);
+  catBreeds.sort(alphabetizeByName);
   res.send(catBreeds);
 });
 
