@@ -149,6 +149,7 @@ APP.put("/pet", async (req, res) => {
     {
       sex: req.body.sex,
       altered: req.body.altered,
+      species: req.body.species,
       breed: req.body.breed,
       weight: req.body.weight,
       physicaldesc: req.body.physicaldesc,
