@@ -75,7 +75,7 @@ function alphabetizeByName(a, b) {
   return 0;
 }
 
-// endpoint to retrieve pet id
+// endpoint to retrieve pet by id
 APP.get("/pet", async (req, res) => {
   try {
     const pets = await dbhelper.Pet.findAll({
@@ -151,7 +151,7 @@ APP.post("/pet", async (req, res) => {
   res.send(newpet);
 });
 
-// endpoint to edit pet
+// endpoint to edit pet by id
 APP.put("/pet", async (req, res) => {
   await dbhelper.Pet.update(
     {
@@ -166,7 +166,7 @@ APP.put("/pet", async (req, res) => {
   res.status(200).send("Pet has been edited.");
 });
 
-// endpoint to check pet in and out
+// endpoint to check pet in and out by id
 APP.put("/checkin", async (req, res) => {
   await dbhelper.Pet.update(
     { checkedin: req.body.checkedin },
