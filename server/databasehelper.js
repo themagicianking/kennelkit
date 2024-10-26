@@ -1,21 +1,33 @@
 import { Sequelize, DataTypes } from "sequelize";
+import { DATABASE, USERNAME, PASSWORD } from "./server.js";
 
 class databaseHelper {
-  // constructor() {
-  constructor(database, username, password) {
-    this.DATABASE = database;
-    this.USERNAME = username;
-    this.PASSWORD = password;
+  constructor(environment) {
+    if (environment == "development") {
+      this.DATABASE = DATABASE;
+      this.USERNAME = USERNAME;
+      this.PASSWORD = PASSWORD;
 
-    this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
-      host: "localhost",
-      dialect: "postgres",
-    });
+      this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
+        host: "localhost",
+        dialect: "postgres",
+      });
+    } else {
+      this.db = new Sequelize(
+        "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
+      );
+    }
 
-    // this.db = new Sequelize(
-    //   "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
-    // );
+    this.dropAllTables();
+    this.createPet();
+    this.createBreed();
+    this.db.sync();
   }
+
+  dropAllTables = function () {
+    this.db.query(`DROP TABLE IF EXISTS "Pets";`);
+    this.db.query(`DROP TABLE IF EXISTS "Breeds";`);
+  };
 
   // define pet table
   createPet = function () {
@@ -53,13 +65,15 @@ class databaseHelper {
         })
         .then((json) => {
           let presets = [
-            { id: "Domestic Longhair", name: "Domestic Longhair" },
-            { id: "Domestic Shorthair", name: "Domestic Shorthair" },
+            { species: "cat", name: "Domestic Longhair" },
+            { species: "cat", name: "Domestic Shorthair" },
           ];
-          let allCatBreeds = json.concat(presets);
-          allCatBreeds.forEach((breed) => {
-            this.Breed.create({ species: "cat", name: breed.name });
-          });
+          let apiCatBreeds = json.map((breed) => ({
+            species: "cat",
+            name: breed.name,
+          }));
+          let allCatBreeds = apiCatBreeds.concat(presets);
+          this.Breed.bulkCreate(allCatBreeds);
         });
     })();
   };
@@ -74,33 +88,35 @@ class databaseHelper {
           return res.json();
         })
         .then((json) => {
-          let presets = [{ id: "Mixed", name: "Mixed" }];
-          let allDogBreeds = json.concat(presets);
-          allDogBreeds.forEach((breed) => {
-            this.Breed.create({ species: "dog", name: breed.name });
-          });
+          let presets = [{ species: "dog", name: "Mixed" }];
+          let apiDogBreeds = json.map((breed) => ({
+            species: "dog",
+            name: breed.name,
+          }));
+          let allDogBreeds = apiDogBreeds.concat(presets);
+          this.Breed.bulkCreate(allDogBreeds);
         });
     })();
   };
 
   // create sample pet
-  createSamplePet = async function () {
+  createSamplePet = function () {
     (async () => {
-      await this.db.sync();
-      const arcadia = await this.Pet.create({
-        petname: "Arcadia",
-        checkedin: true,
-        staytype: "daycare",
-        species: "cat",
-        breed: "Domestic Shorthair",
-        sex: "female",
-        altered: true,
-        birthday: "2023-07-13",
-        weight: 10,
-        physicaldesc: "Shorthaired tuxedo",
-        ownerid: 0,
-      });
-      console.log(arcadia.toJSON());
+      await this.Pet.bulkCreate([
+        {
+          petname: "Arcadia",
+          checkedin: true,
+          staytype: "daycare",
+          species: "cat",
+          breed: "Domestic Shorthair",
+          sex: "female",
+          altered: true,
+          birthday: "2023-07-13",
+          weight: 10,
+          physicaldesc: "Shorthaired tuxedo",
+          ownerid: 0,
+        },
+      ]);
     })();
   };
 }

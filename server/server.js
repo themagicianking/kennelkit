@@ -1,53 +1,46 @@
+// importing needed modules
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import databaseHelper from "./databasehelper.js";
 import https from "https";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+// importing custom sequelize class
+import databaseHelper from "./databasehelper.js";
+
+// create express app
+const APP = express();
+APP.use(express.json());
+APP.use(cors());
 
 // get directory name
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// obtaining ssl certificate
+// obtaining ssl certificate for dev environment
 const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
 const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
 
-const APP = express();
+// current app environment
+const APP_ENV = process.env.APP_ENV;
+console.log("App environment:", APP_ENV);
 
 // dev environment vars
-const DATABASE = process.env.DATABASE;
-const USERNAME = process.env.USERNAME;
-const PASSWORD = process.env.PASSWORD;
-const PORT = 5000;
+export const DATABASE = process.env.DATABASE;
+export const USERNAME = process.env.USERNAME;
+export const PASSWORD = process.env.PASSWORD;
+export const PORT = process.env.PORT;
 
-// prod environment vars
-// const DATABASE = process.env.PGDATABASE;
-// const USERNAME = process.env.USER;
-// const PASSWORD = process.env.PGPASSWORD;
-// const PORT = process.env.PGPORT;
+// creates a sequelize instance
+const dbhelper = new databaseHelper(APP_ENV);
 
-const dbhelper = new databaseHelper(DATABASE, USERNAME, PASSWORD);
-
-// const dbhelper = new databaseHelper();
-
-try {
-  await dbhelper.db.authenticate();
-} catch (err) {
-  console.error("Unable to connect to the database:", err);
+// pull cat & dog breeds from api, add them to preset list of breeds, and insert them into breeds table
+function populateBreedsTable() {
+  dbhelper.getCatBreeds();
+  dbhelper.getDogBreeds();
 }
 
-await dbhelper.db.sync({force: true});
-
-dbhelper.createPet();
-dbhelper.createBreed();
-dbhelper.createSamplePet();
-dbhelper.getCatBreeds();
-dbhelper.getDogBreeds();
-
-APP.use(express.json());
-APP.use(cors());
+populateBreedsTable();
 
 // function to alphabetize breed lists by name before sending to client
 function alphabetize(a, b) {
@@ -135,6 +128,7 @@ APP.post("/pet", async (req, res) => {
   res.send(newpet);
 });
 
+// endpoint to edit pet
 APP.put("/pet", async (req, res) => {
   await dbhelper.Pet.update(
     {
@@ -160,7 +154,11 @@ APP.put("/checkin", async (req, res) => {
   res.status(200).send("Pet's check in status has been changed.");
 });
 
-https.createServer({ key, cert }, APP).listen(PORT);
-// APP.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
+// checks whether to use local cert
+if (APP_ENV == "development") {
+  https.createServer({ key, cert }, APP).listen(PORT);
+} else {
+  APP.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
