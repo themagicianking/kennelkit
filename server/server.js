@@ -158,7 +158,7 @@ if (APP_ENV == "development") {
   // creating local https server
   https.createServer({ key, cert }, APP).listen(PORT);
 } else {
-  APP.listen(PORT, () => {
+  APP.listen(PORT, "0.0.0.0", () => {
     console.log(`Server listening on port ${PORT}`);
   });
 }
