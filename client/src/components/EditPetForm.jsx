@@ -233,7 +233,17 @@ export function EditPetForm({ baseURL }) {
                     Cat
                   </Option>
                 </Select>
-                {/* Breed dropdown */}
+                {/* Breed dropdown (while disabled) */}
+                {!species ? (
+                  <Select label="Breed" id="breed" disabled={!species}>
+                    <Option key={null} name={null} value={null}>
+                      Breed
+                    </Option>
+                  </Select>
+                ) : (
+                  <></>
+                )}
+                {/* Cat dropdown */}
                 {species == "cat" ? (
                   <Select
                     label="Breed"
@@ -246,6 +256,10 @@ export function EditPetForm({ baseURL }) {
                     {catBreedListOptions}
                   </Select>
                 ) : (
+                  <></>
+                )}
+                {/* Dog dropdown */}
+                {species == "dog" ? (
                   <Select
                     label="Breed"
                     id="breed"
@@ -256,6 +270,8 @@ export function EditPetForm({ baseURL }) {
                   >
                     {dogBreedListOptions}
                   </Select>
+                ) : (
+                  <></>
                 )}
                 {/* Weight input */}
                 <Input
