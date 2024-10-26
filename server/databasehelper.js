@@ -1,21 +1,15 @@
 import { Sequelize, DataTypes } from "sequelize";
-import { DATABASE, USERNAME, PASSWORD } from "./server.js";
+import { DATABASE, USERNAME, PASSWORD, DATABASE_URL } from "./server.js";
 
 class databaseHelper {
   constructor(environment) {
     if (environment == "development") {
-      this.DATABASE = DATABASE;
-      this.USERNAME = USERNAME;
-      this.PASSWORD = PASSWORD;
-
-      this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
+      this.db = new Sequelize(DATABASE, USERNAME, PASSWORD, {
         host: "localhost",
         dialect: "postgres",
       });
     } else {
-      this.db = new Sequelize(
-        "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
-      );
+      this.db = new Sequelize(DATABASE_URL);
     }
 
     this.createPet();

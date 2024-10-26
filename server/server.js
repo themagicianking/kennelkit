@@ -27,6 +27,9 @@ export const USERNAME = process.env.USERNAME;
 export const PASSWORD = process.env.PASSWORD;
 export const PORT = process.env.PORT;
 
+// prod environment vars
+export const DATABASE_URL = process.env.DATABASE_URL;
+
 // creates a sequelize instance
 const dbhelper = new databaseHelper(APP_ENV);
 
