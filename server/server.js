@@ -17,10 +17,6 @@ APP.use(cors());
 // get directory name
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// obtaining ssl certificate for dev environment
-const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
-const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
-
 // current app environment
 const APP_ENV = process.env.APP_ENV;
 console.log("App environment:", APP_ENV);
@@ -156,6 +152,10 @@ APP.put("/checkin", async (req, res) => {
 
 // checks whether to use local cert
 if (APP_ENV == "development") {
+  // obtaining ssl certificate for dev environment
+  const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
+  const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
+  // creating local https server
   https.createServer({ key, cert }, APP).listen(PORT);
 } else {
   APP.listen(PORT, () => {
