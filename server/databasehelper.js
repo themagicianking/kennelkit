@@ -1,16 +1,8 @@
 import { Sequelize, DataTypes } from "sequelize";
-import { DATABASE, USERNAME, PASSWORD, DATABASE_URL } from "./server.js";
 
 class databaseHelper {
-  constructor(environment) {
-    if (environment == "development") {
-      this.db = new Sequelize(DATABASE, USERNAME, PASSWORD, {
-        host: "localhost",
-        dialect: "postgres",
-      });
-    } else {
-      this.db = new Sequelize(DATABASE_URL);
-    }
+  constructor(DATABASE_URL) {
+    this.db = new Sequelize(DATABASE_URL);
 
     this.createPet();
     this.createBreed();

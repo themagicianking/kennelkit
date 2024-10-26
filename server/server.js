@@ -17,21 +17,13 @@ APP.use(cors());
 // get directory name
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// current app environment
+// environment variables
 const APP_ENV = process.env.APP_ENV;
-console.log("App environment:", APP_ENV);
-
-// dev environment vars
-export const DATABASE = process.env.DATABASE;
-export const USERNAME = process.env.USERNAME;
-export const PASSWORD = process.env.PASSWORD;
-export const PORT = process.env.PORT;
-
-// prod environment vars
-export const DATABASE_URL = process.env.DATABASE_URL;
+const PORT = process.env.PORT;
+const DATABASE_URL = process.env.DATABASE_URL;
 
 // creates a sequelize instance
-const dbhelper = new databaseHelper(APP_ENV);
+const dbhelper = new databaseHelper(DATABASE_URL);
 
 // pull cat & dog breeds from api, add them to preset list of breeds, and insert them into breeds table
 async function populateBreedsTable() {
@@ -134,7 +126,7 @@ APP.get("/catbreeds", async (req, res) => {
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
   await dbhelper.db.sync();
-  const newpet = await Pet.create({
+  const newpet = await dbhelper.Pet.create({
     petname: req.body.petname,
     checkedin: false,
     staytype: null,
