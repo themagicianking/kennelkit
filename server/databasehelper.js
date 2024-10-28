@@ -1,22 +1,16 @@
 import { Sequelize, DataTypes } from "sequelize";
 
 class databaseHelper {
-  constructor() {
-    // constructor(database, username, password) {
-    //   this.DATABASE = database;
-    //   this.USERNAME = username;
-    //   this.PASSWORD = password;
+  constructor(DATABASE_URL) {
+    this.db = new Sequelize(DATABASE_URL);
 
-    // this.db = new Sequelize(this.DATABASE, this.USERNAME, this.PASSWORD, {
-    //   host: "localhost",
-    //   dialect: "postgres",
-    // });
+    this.createPet();
+    this.createBreed();
+  }
 
-    this.db = new Sequelize(
-      "postgresql://postgres:TcsqgayINAiUgfGjBdzcfLHOVAqukiZH@postgres-4tco.railway.internal:5432/railway"
-    );
-
-    this.Pet = this.db.define("Pet", {
+  // define pet table
+  createPet = function () {
+    this.Pet = this.db.define("pet", {
       petname: { type: DataTypes.STRING, allowNull: false },
       checkedin: { type: DataTypes.BOOLEAN, allowNull: false },
       staytype: { type: DataTypes.STRING },
@@ -29,12 +23,15 @@ class databaseHelper {
       physicaldesc: { type: DataTypes.STRING },
       ownerid: { type: DataTypes.INTEGER, allowNull: false },
     });
+  };
 
-    this.Breed = this.db.define("Breed", {
+  // define breed table
+  createBreed = function () {
+    this.Breed = this.db.define("breed", {
       species: { type: DataTypes.STRING, allowNull: false },
       name: { type: DataTypes.STRING, allowNull: false },
     });
-  }
+  };
 
   // getting cat breeds from the api
   getCatBreeds = function () {
@@ -46,22 +43,16 @@ class databaseHelper {
           return res.json();
         })
         .then((json) => {
-          function alphabetize(a, b) {
-            if (a.name < b.name) {
-              return -1;
-            } else if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          }
           let presets = [
-            { id: "Domestic Longhair", name: "Domestic Longhair" },
-            { id: "Domestic Shorthair", name: "Domestic Shorthair" },
+            { species: "cat", name: "Domestic Longhair" },
+            { species: "cat", name: "Domestic Shorthair" },
           ];
-          let allCatBreeds = json.concat(presets).sort(alphabetize);
-          allCatBreeds.forEach((breed) => {
-            this.Breed.create({ species: "cat", name: breed.name });
-          });
+          let apiCatBreeds = json.map((breed) => ({
+            species: "cat",
+            name: breed.name,
+          }));
+          let allCatBreeds = apiCatBreeds.concat(presets);
+          this.Breed.bulkCreate(allCatBreeds);
         });
     })();
   };
@@ -76,19 +67,13 @@ class databaseHelper {
           return res.json();
         })
         .then((json) => {
-          function alphabetize(a, b) {
-            if (a.name < b.name) {
-              return -1;
-            } else if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          }
-          let presets = [{ id: "Mixed", name: "Mixed" }];
-          let allDogBreeds = json.concat(presets).sort(alphabetize);
-          allDogBreeds.forEach((breed) => {
-            this.Breed.create({ species: "dog", name: breed.name });
-          });
+          let presets = [{ species: "dog", name: "Mixed" }];
+          let apiDogBreeds = json.map((breed) => ({
+            species: "dog",
+            name: breed.name,
+          }));
+          let allDogBreeds = apiDogBreeds.concat(presets);
+          this.Breed.bulkCreate(allDogBreeds);
         });
     })();
   };
@@ -96,21 +81,21 @@ class databaseHelper {
   // create sample pet
   createSamplePet = function () {
     (async () => {
-      await this.db.sync();
-      const arcadia = await this.Pet.create({
-        petname: "Arcadia",
-        checkedin: true,
-        staytype: "daycare",
-        species: "cat",
-        breed: "Domestic Shorthair",
-        sex: "female",
-        altered: true,
-        birthday: "2023-07-13",
-        weight: 10,
-        physicaldesc: "Shorthaired tuxedo",
-        ownerid: 0,
-      });
-      console.log(arcadia.toJSON());
+      await this.Pet.bulkCreate([
+        {
+          petname: "Arcadia",
+          checkedin: true,
+          staytype: "daycare",
+          species: "cat",
+          breed: "Domestic Shorthair",
+          sex: "female",
+          altered: true,
+          birthday: "2023-07-13",
+          weight: 10,
+          physicaldesc: "Shorthaired tuxedo",
+          ownerid: 0,
+        },
+      ]);
     })();
   };
 }

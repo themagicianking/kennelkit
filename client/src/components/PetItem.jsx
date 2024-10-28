@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { CheckInToggle } from "./CheckInToggle";
 
-export function PetItem({ pet }) {
+export function PetItem({ pet, baseURL }) {
   let link = `/pets/${pet.id}`;
 
   return (
@@ -28,10 +28,15 @@ export function PetItem({ pet }) {
         )}
       </ListItemPrefix>
       <a href={link}>
-      <Typography variant="h6"> {pet.petname}</Typography></a>
+        <Typography variant="h6"> {pet.petname}</Typography>
+      </a>
       <ListItemSuffix>
         <div className="flex gap-4">
-          <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
+          <CheckInToggle
+            id={pet.id}
+            checkedin={pet.checkedin}
+            baseURL={baseURL}
+          />
           <IconButton>
             <i className="fas fa-pen-to-square" />
           </IconButton>

@@ -19,25 +19,25 @@ import {
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 
-export function EditPetForm() {
+export function EditPetForm({ baseURL }) {
   let id = useParams().id;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [species, setSpecies] = useState(null);
-  const [catBreedList, setCatBreedList] = useState([]);
-  const [dogBreedList, setDogBreedList] = useState([]);
+  const [catBreedListOptions, setCatBreedListOptions] = useState([]);
+  const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
     loadPet(id);
-    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
     loadCatBreeds();
     loadDogBreeds();
-  }, [species]);
+  }, []);
 
   function onSpeciesChange(value) {
     setSpecies(value);
+    setBreed(null);
   }
 
   function onBreedChange(value) {
@@ -46,8 +46,7 @@ export function EditPetForm() {
 
   async function loadPet(id) {
     try {
-      // await fetch(`http://localhost:5000/pet?id=${id}`)
-      await fetch(`https://kennelkit-production.up.railway.app/pet?id=${id}`)
+      await fetch(`https://${baseURL}/pet?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -69,8 +68,7 @@ export function EditPetForm() {
   }
 
   async function editPet(editedPet) {
-    // await fetch("http://localhost:5000/pet", {
-    await fetch("https://kennelkit-production.up.railway.app/pet", {
+    await fetch(`https://${baseURL}/pet`, {
       method: "PUT",
       body: JSON.stringify(editedPet),
       headers: { "Content-Type": "application/json" },
@@ -78,52 +76,37 @@ export function EditPetForm() {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data));
+      .then((json) => console.log("Server response:", json));
   }
 
   async function loadCatBreeds() {
-    // await fetch("http://localhost:5000/catbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/catbreeds")
+    await fetch(`https://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-        function alphabetize(a, b) {
-          if (a.name < b.name) {
-            return -1;
-          } else if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        }
-        let presets = [
-          { id: "Domestic Longhair", name: "Domestic Longhair" },
-          { id: "Domestic Shorthair", name: "Domestic Shorthair" },
-        ];
-        let joinedList = data.concat(presets).sort(alphabetize);
-        setCatBreedList(joinedList);
+      .then((json) => {
+        setCatBreedListOptions(createBreedListOptions(json));
       });
   }
 
   async function loadDogBreeds() {
-    // await fetch("http://localhost:5000/dogbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/dogbreeds")
+    await fetch(`https://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-        function alphabetize(a, b) {
-          if (a.name < b.name) {
-            return -1;
-          } else if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        }
-        let presets = [{ id: "Mixed", name: "Mixed" }];
-        let joinedList = data.concat(presets).sort(alphabetize);
-        setDogBreedList(joinedList);
+      .then((json) => {
+        setDogBreedListOptions(createBreedListOptions(json));
       });
+  }
+
+  function createBreedListOptions(currentBreedList) {
+    let breedOptionsList = currentBreedList.map((breed) => (
+      <Option key={breed.id} name={breed.name} value={breed.name}>
+        {breed.name}
+      </Option>
+    ));
+
+    return breedOptionsList;
   }
 
   function handleSubmit(e) {
@@ -140,7 +123,7 @@ export function EditPetForm() {
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(editedPet);
+    console.log("Request body:", editedPet);
     editPet(editedPet);
   }
 
@@ -158,9 +141,7 @@ export function EditPetForm() {
             color="transparent"
             className="rounded-b-none"
           >
-            <Typography variant="h2">
-              Edit {pet.petname} Lastname
-            </Typography>
+            <Typography variant="h2">Edit {pet.petname} Lastname</Typography>
           </CardHeader>
           <form id="create-pet" onSubmit={handleSubmit}>
             <CardBody className="flex gap-6">
@@ -253,34 +234,36 @@ export function EditPetForm() {
                   </Option>
                 </Select>
                 {/* Breed dropdown */}
-                <Select
-                  label="Breed"
-                  id="breed"
-                  value={breed}
-                  onChange={onBreedChange}
-                  disabled={!species}
-                  required
-                >
-                  {species == "cat"
-                    ? catBreedList.map((breed) => (
-                        <Option
-                          key={breed.id}
-                          name={breed.name}
-                          value={breed.name}
-                        >
-                          {breed.name}
-                        </Option>
-                      ))
-                    : dogBreedList.map((breed) => (
-                        <Option
-                          key={breed.id}
-                          name={breed.name}
-                          value={breed.name}
-                        >
-                          {breed.name}
-                        </Option>
-                      ))}
-                </Select>
+                {/* Cat dropdown */}
+                {species == "cat" ? (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {catBreedListOptions}
+                  </Select>
+                ) : (
+                  <></>
+                )}
+                {/* Dog dropdown */}
+                {species == "dog" ? (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {dogBreedListOptions}
+                  </Select>
+                ) : (
+                  <></>
+                )}
                 {/* Weight input */}
                 <Input
                   type="number"

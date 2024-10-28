@@ -1,7 +1,6 @@
 // to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
 // to do: add more consistent/better styling to image upload
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
-// to do: add common mixes to presets
 
 import { useState, useEffect } from "react";
 import {
@@ -17,23 +16,23 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES, CATBREEDS, DOGBREEDS } from "../utilities/dummydata";
+import { OWNERNAMES } from "../utilities/dummydata";
 
-export function CreatePetForm() {
+export function CreatePetForm({ baseURL }) {
   const [species, setSpecies] = useState(null);
-  const [catBreedList, setCatBreedList] = useState([]);
-  const [dogBreedList, setDogBreedList] = useState([]);
+  const [catBreedListOptions, setCatBreedListOptions] = useState([]);
+  const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
-    // species == "cat" ? setBreedList(CATBREEDS) : setBreedList(DOGBREEDS);
     loadCatBreeds();
     loadDogBreeds();
-  }, [species]);
+  }, []);
 
   function onSpeciesChange(value) {
     setSpecies(value);
+    setBreed(null);
   }
 
   function onOwnerChange(value) {
@@ -45,8 +44,7 @@ export function CreatePetForm() {
   }
 
   async function postPet(newPet) {
-    // await fetch("http://localhost:5000/pet", {
-    await fetch("https://kennelkit-production.up.railway.app/pet", {
+    await fetch(`https://${baseURL}/pet`, {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
@@ -54,29 +52,37 @@ export function CreatePetForm() {
       .then((res) => {
         return res.json();
       })
-      .then((data) => console.log(data));
+      .then((json) => console.log("Server response:", json));
   }
 
   async function loadCatBreeds() {
-    // await fetch("http://localhost:5000/catbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/catbreeds")
+    await fetch(`https://${baseURL}/catbreeds`)
       .then((res) => {
         return res.json();
       })
       .then((json) => {
-        setCatBreedList(json);
+        setCatBreedListOptions(createBreedListOptions(json));
       });
   }
 
   async function loadDogBreeds() {
-    // await fetch("http://localhost:5000/dogbreeds")
-    await fetch("https://kennelkit-production.up.railway.app/dogbreeds")
+    await fetch(`https://${baseURL}/dogbreeds`)
       .then((res) => {
         return res.json();
       })
       .then((json) => {
-        setDogBreedList(json);
+        setDogBreedListOptions(createBreedListOptions(json));
       });
+  }
+
+  function createBreedListOptions(currentBreedList) {
+    let breedOptionsList = currentBreedList.map((breed) => (
+      <Option key={breed.id} name={breed.name} value={breed.name}>
+        {breed.name}
+      </Option>
+    ));
+
+    return breedOptionsList;
   }
 
   function handleSubmit(e) {
@@ -94,9 +100,8 @@ export function CreatePetForm() {
       physicaldesc: e.target.physicaldesc.value,
     };
 
-    console.log(newPet);
+    console.log("Request body:", newPet);
     postPet(newPet);
-    setOpen(false);
     setSpecies(null), setBreed(null), setOwnerid(null);
     e.target.reset();
   }
@@ -167,35 +172,46 @@ export function CreatePetForm() {
                   Cat
                 </Option>
               </Select>
-              {/* Breed dropdown */}
-              <Select
-                label="Breed"
-                id="breed"
-                value={breed}
-                onChange={onBreedChange}
-                disabled={!species}
-                required
-              >
-                {species == "cat"
-                  ? catBreedList.map((breed) => (
-                      <Option
-                        key={breed.id}
-                        name={breed.name}
-                        value={breed.name}
-                      >
-                        {breed.name}
-                      </Option>
-                    ))
-                  : dogBreedList.map((breed) => (
-                      <Option
-                        key={breed.id}
-                        name={breed.name}
-                        value={breed.name}
-                      >
-                        {breed.name}
-                      </Option>
-                    ))}
-              </Select>
+              {/* Breed dropdown (while disabled) */}
+              {!species ? (
+                <Select label="Breed" id="breed" disabled={!species}>
+                  <Option key={null} name={null} value={null}>
+                    Breed
+                  </Option>
+                </Select>
+              ) : (
+                <></>
+              )}
+              {/* Cat dropdown */}
+              {species == "cat" ? (
+                <Select
+                  label="Breed"
+                  id="breed"
+                  value={breed}
+                  onChange={onBreedChange}
+                  disabled={!species}
+                  required
+                >
+                  {catBreedListOptions}
+                </Select>
+              ) : (
+                <></>
+              )}
+              {/* Dog dropdown */}
+              {species == "dog" ? (
+                <Select
+                  label="Breed"
+                  id="breed"
+                  value={breed}
+                  onChange={onBreedChange}
+                  disabled={!species}
+                  required
+                >
+                  {dogBreedListOptions}
+                </Select>
+              ) : (
+                <></>
+              )}
               {/* Birthday input */}
               <div>
                 <Input
@@ -214,7 +230,7 @@ export function CreatePetForm() {
                 </Typography>
               </div>
               {/* Weight input */}
-              <Input type="number" id="weight" label="Weight"></Input>
+              <Input type="number" id="weight" label="Weight" required></Input>
             </div>
             {/* Column two */}
             <div className="mb-1 flex flex-col gap-6">
