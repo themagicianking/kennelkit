@@ -15,16 +15,16 @@ export function PetItem({ pet, baseURL }) {
     <ListItem>
       <ListItemPrefix>
         {pet.species == "dog" ? (
-          <i className="fas fa-dog" />
+          <i className="fas fa-dog" id="species-icon" />
         ) : (
-          <i className="fas fa-cat" />
+          <i className="fas fa-cat" id="species-icon" />
         )}
       </ListItemPrefix>
       <ListItemPrefix>
         {pet.sex == "male" ? (
-          <i className="fas fa-mars" />
+          <i className="fas fa-mars" id="sex-icon" />
         ) : (
-          <i className="fas fa-venus" />
+          <i className="fas fa-venus" id="sex-icon" />
         )}
       </ListItemPrefix>
       <a href={link}>
