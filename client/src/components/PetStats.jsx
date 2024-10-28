@@ -9,19 +9,19 @@ export function PetStats({ pet, owner }) {
     <ul>
       <li>
         {pet.species == "dog" ? (
-          <i className="fas fa-dog" />
+          <i className="fas fa-dog" data-testid="profile-dog-species-icon" />
         ) : (
-          <i className="fas fa-cat" />
+          <i className="fas fa-cat" data-testid="profile-cat-species-icon" />
         )}{" "}
         {pet.breed}
       </li>
-      <li>
+      <li role="sex-data">
         {pet.sex == "male" ? (
-          <i className="fas fa-mars" id="profile-sex-icon" />
+          <i className="fas fa-mars" data-testid="profile-male-sex-icon" />
         ) : (
-          <i className="fas fa-venus" id="profile-sex-icon" />
+          <i className="fas fa-venus" data-testid="profile-female-sex-icon" />
         )}{" "}
-        {alteredString}
+        <p data-testid="altered-string"> {alteredString}</p>
       </li>
       <li>
         {age} · {pet.weight}lbs
