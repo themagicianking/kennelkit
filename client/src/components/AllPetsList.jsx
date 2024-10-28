@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { PetListView } from "./PetListView";
 
-export function AllPetsList() {
+export function AllPetsList({ baseUrl }) {
   const [allPetsList, setAllPetsList] = useState([]);
 
   async function loadAllPets() {
     try {
-      await fetch("http://localhost:5000/allpets")
+      await fetch(`https://${baseUrl}/allpets`)
         .then((res) => {
           return res.json();
         })
@@ -29,7 +29,7 @@ export function AllPetsList() {
       <Navbar />
       <div className="flex flex-col">
         <h2>All pets:</h2>
-        <PetListView list={allPetsList} />
+        <PetListView list={allPetsList} baseURL={baseUrl}/>
       </div>
     </div>
   );

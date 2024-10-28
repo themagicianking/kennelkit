@@ -86,13 +86,13 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 | Story 2 | Add testing                         | Add testing for owner theme | Work on boarding | Work on boarding | Feeding Theme                    |
 | Story 3 | Add testing                         | Work on boarding            | Work on boarding | Work on boarding | Medication Theme                 |
 
-### Week Three
+### Week Three (10/28/24 - 11/3/24)
 
 |         | Monday                                     | Tuesday          | Wednesday                           | Thursday              | Friday                              |
 | ------- | ------------------------------------------ | ---------------- | ----------------------------------- | --------------------- | ----------------------------------- |
-| Story 1 | Finish any functionality left for boarding | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
-| Story 2 | Finish any functionality left for vaccines | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
-| Story 3 | Continue 1 & 2                             | Clean up styling | Go back & work on finishing touches | Work on documentation | Go back & work on finishing touches |
+| Story 1 | Add all unresolved comments to issues & merge in dev-prod-refactor branch | Owner Theme | Clean up styling | Work on documentation | Go back & work on finishing touches |
+| Story 2 | Add testing | Clean up styling | Owner Theme | Clean up styling | Go back & work on finishing touches |
+| Story 3 | Add testing | Clean up styling | Feed/medication Themes | Clean up styling | Go back & work on finishing touches |
 
 ### Week Four
 
@@ -100,6 +100,6 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 - [ ] Record week 1 milestones
 - [ ] Add testing
-- [ ] Refactor schedule
+- [x] Refactor schedule
 - [ ] Update trello board to match refactored schedule
 - [ ] Replace as many custom classes as possible with Material Tailwind classes

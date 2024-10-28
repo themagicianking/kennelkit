@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { PetListView } from "./PetListView";
 
-export function CheckedInPetsList() {
+export function CheckedInPetsList({ baseURL }) {
   const [checkedInPetsList, setCheckedInPetsList] = useState([]);
 
   async function loadCheckedInPets() {
     try {
-      await fetch("http://localhost:5000/checkedinpets")
+      await fetch(`https://${baseURL}/checkedinpets`)
         .then((res) => {
           return res.json();
         })
@@ -29,7 +29,7 @@ export function CheckedInPetsList() {
       <Navbar />
       <div>
         <h2>Checked in pets:</h2>
-        <PetListView list={checkedInPetsList} />
+        <PetListView list={checkedInPetsList} baseURL={baseURL} />
       </div>
     </div>
   );
