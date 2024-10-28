@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { PetItem } from "./PetItem";
 
 let maleDog = {
@@ -17,26 +17,38 @@ let femaleCat = {
   species: "cat",
 };
 
-describe.skip("Pet Item", () => {
-  const maleDogListItem = render(<PetItem pet={maleDog} />);
-  const femaleCatListItem = render(<PetItem pet={femaleCat} />);
-  const maleSexIcon = maleDogListItem.container.querySelector("#sex-icon");
-  const femaleSexIcon = femaleCatListItem.container.querySelector("#sex-icon");
-  const catIcon = femaleCatListItem.container.querySelector("#species-icon");
-  const dogIcon = maleDogListItem.container.querySelector("#species-icon");
+describe("Renders the pet item correctly", () => {
+  describe("renders male dog item correctly", () => {
+    const maleDogListItem = render(<PetItem pet={maleDog} />);
+    const dogSpeciesIcon = screen.getByTestId("list-dog-species-icon");
+    const maleSexIcon = screen.getByTestId("list-male-sex-icon");
 
-  it("renders the item", () => {
-    expect(maleDogListItem);
+    it("renders the item", () => {
+      expect(maleDogListItem);
+    });
+    it("renders the dog species icon", () => {
+      expect(dogSpeciesIcon.classList.contains("fa-dog")).toBe(true);
+    });
+    it("renders the male sex icon", () => {
+      expect(maleSexIcon.classList.contains("fa-mars")).toBe(true);
+    });
   });
 
-  it("renders the correct species icon", () => {
-    expect(catIcon.classList.contains("fa-cat")).toBe(true);
-    expect(dogIcon.classList.contains("fa-dog")).toBe(true);
-  });
+  describe("renders female cat item correctly", () => {
+    const femaleCatListItem = render(<PetItem pet={femaleCat} />);
+    const femaleSexIcon = screen.getByTestId("list-female-sex-icon");
+    const catSpeciesIcon = screen.getByTestId("list-cat-species-icon");
 
-  it("renders the correct sex icon", () => {
-    expect(maleSexIcon.classList.contains("fa-mars")).toBe(true);
-    expect(femaleSexIcon.classList.contains("fa-venus")).toBe(true);
+    it("renders the item", () => {
+      expect(femaleCatListItem);
+    });
+
+    it("renders the correct species icon", () => {
+      expect(catSpeciesIcon.classList.contains("fa-cat")).toBe(true);
+    });
+
+    it("renders the correct sex icon", () => {
+      expect(femaleSexIcon.classList.contains("fa-venus")).toBe(true);
+    });
   });
-  // screen.debug();
 });

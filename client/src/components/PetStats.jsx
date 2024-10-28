@@ -8,7 +8,6 @@ export function PetStats({ pet, owner }) {
   return (
     <ul>
       <li>
-        {" "}
         {pet.species == "dog" ? (
           <i className="fas fa-dog" />
         ) : (
@@ -17,11 +16,10 @@ export function PetStats({ pet, owner }) {
         {pet.breed}
       </li>
       <li>
-        {" "}
         {pet.sex == "male" ? (
-          <i className="fas fa-mars" />
+          <i className="fas fa-mars" id="profile-sex-icon" />
         ) : (
-          <i className="fas fa-venus" />
+          <i className="fas fa-venus" id="profile-sex-icon" />
         )}{" "}
         {alteredString}
       </li>
