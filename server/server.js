@@ -57,6 +57,16 @@ async function populatePetsTable() {
 
 populatePetsTable();
 
+// function to insert a sample owner into the database
+async function populateOwnersTable() {
+  const ownerlist = await dbhelper.Owner.findAll();
+  ownerlist.length < 1
+    ? dbhelper.createSampleOwner()
+    : console.log("A sample owner has already been created.");
+}
+
+populateOwnersTable();
+
 // function to alphabetize breed lists by name before sending to client
 function alphabetizeByName(a, b) {
   if (a.name < b.name) {
