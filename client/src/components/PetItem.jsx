@@ -27,7 +27,7 @@ export function PetItem({ pet, baseURL }) {
           <i className="fas fa-venus" data-testid="list-sex-icon" />
         )}
       </ListItemPrefix>
-      <a href={link}>
+      <a href={link} data-testid="link">
         <Typography variant="h6"> {pet.petname}</Typography>
       </a>
       <ListItemSuffix>

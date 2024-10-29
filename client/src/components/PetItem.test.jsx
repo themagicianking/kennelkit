@@ -17,11 +17,13 @@ let femaleCat = {
   species: "cat",
 };
 
-describe.skip("Renders the pet item correctly", () => {
+describe("Renders the pet item correctly", () => {
   describe("renders male dog item correctly", () => {
     const dogItem = render(<PetItem pet={maleDog} id="dog" />);
     const speciesIcon = screen.getByTestId("list-species-icon");
     const sexIcon = screen.getByTestId("list-sex-icon");
+    const link = screen.getByTestId("link").getAttribute("href");
+    screen.debug();
     it("renders the dog item", () => {
       expect(dogItem);
     });
@@ -31,6 +33,9 @@ describe.skip("Renders the pet item correctly", () => {
     it("renders the male sex icon", () => {
       expect(sexIcon.classList.contains("fa-mars")).toBe(true);
     });
+    it("generates a link", () => {
+      expect(link).toBe("/pets/1")
+    })
     dogItem.unmount();
   });
 
