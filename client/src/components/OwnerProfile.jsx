@@ -14,8 +14,9 @@ import { useParams } from "react-router-dom";
 export function OwnerProfile({ baseURL }) {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
+  const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   async function loadOwner(id) {
     try {
       await fetch(`https://${baseURL}/owner?id=${id}`)
@@ -36,8 +37,19 @@ export function OwnerProfile({ baseURL }) {
     }
   }
 
+  async function loadPets(id) {
+    await fetch(`https://${baseURL}/petsbyowner?id=${id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setPets(json);
+      });
+  }
+
   useEffect(() => {
     loadOwner(id);
+    loadPets(id);
   }, []);
 
   if (loading) {
@@ -62,7 +74,7 @@ export function OwnerProfile({ baseURL }) {
           <li>Phone: {OWNER.ecphone}</li>
           <li>Email: {OWNER.ecemail}</li>
         </ul>
-        <OwnerProfileTabs baseURL={baseURL} />
+        <OwnerProfileTabs pets={pets} baseURL={baseURL} />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
         <a href={""}>

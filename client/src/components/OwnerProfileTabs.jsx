@@ -7,9 +7,9 @@ import {
 } from "@material-tailwind/react";
 import { PetListView } from "./PetListView";
 
-export function OwnerProfileTabs({ baseURL }) {
+export function OwnerProfileTabs({ pets, baseURL }) {
   return (
-    <Tabs className="rounded-lg" value="Notes">
+    <Tabs className="rounded-lg" value="Pets">
       <TabsHeader>
         <Tab key="Pets" value="Pets">
           Pets
@@ -26,7 +26,7 @@ export function OwnerProfileTabs({ baseURL }) {
       </TabsHeader>
       <TabsBody>
         <TabPanel key="Pets" value="Pets">
-          <PetListView list={[]} baseURL={baseURL}></PetListView>
+          <PetListView list={pets} baseURL={baseURL}></PetListView>
         </TabPanel>
         <TabPanel key="Notes" value="Notes">
           Notes go here

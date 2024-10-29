@@ -80,13 +80,9 @@ function alphabetizeByName(a, b) {
 // endpoint to retrieve pet by id
 APP.get("/pet", async (req, res) => {
   try {
-    const pets = await dbhelper.Pet.findAll({
-      where: {
-        id: req.query.id,
-      },
-    });
-    if (pets.length > 0) {
-      res.send(pets[0]);
+    const pet = await dbhelper.Pet.findOne({ where: { id: req.query.id } });
+    if (pet !== null) {
+      res.send(pet);
     } else {
       throw error;
     }
@@ -106,6 +102,16 @@ APP.get("/checkedinpets", async (req, res) => {
   const petlist = await dbhelper.Pet.findAll({
     where: {
       checkedin: true,
+    },
+  });
+  res.send(petlist);
+});
+
+// endpoint to retrieve pets by owner
+APP.get("/petsbyowner", async (req, res) => {
+  const petlist = await dbhelper.Pet.findAll({
+    where: {
+      ownerid: req.query.id,
     },
   });
   res.send(petlist);
@@ -136,13 +142,9 @@ APP.get("/catbreeds", async (req, res) => {
 // endpoint to retrieve owner by id
 APP.get("/owner", async (req, res) => {
   try {
-    const owners = await dbhelper.Owner.findAll({
-      where: {
-        id: req.query.id,
-      },
-    });
-    if (owners.length > 0) {
-      res.send(owners[0]);
+    const owner = await dbhelper.Owner.findOne({ where: { id: req.query.id } });
+    if (owner !== null) {
+      res.send(owner);
     } else {
       throw error;
     }
@@ -160,6 +162,9 @@ APP.get("/allowners", async (req, res) => {
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
   await dbhelper.db.sync();
+  const owner = await dbhelper.Owner.findOne({
+    where: { id: req.body.ownerid },
+  });
   const newpet = await dbhelper.Pet.create({
     petname: req.body.petname,
     checkedin: false,
@@ -173,6 +178,9 @@ APP.post("/pet", async (req, res) => {
     physicaldesc: req.body.physicaldesc,
     ownerid: req.body.ownerid,
   });
+
+  console.log(owner);
+
   console.log(newpet.toJSON());
   res.send(newpet);
 });
