@@ -9,6 +9,7 @@ export function PetProfileIconBar({ isChecked, staytype }) {
             <IconButton
               variant="gradient"
               className="rounded-full pet-profile-header-item"
+              data-testid="checked-in-tooltip"
             >
               <i className="fas fa-check" />
             </IconButton>
@@ -17,6 +18,7 @@ export function PetProfileIconBar({ isChecked, staytype }) {
             <IconButton
               variant="gradient"
               className="rounded-full pet-profile-header-item"
+              data-testid="staytype-tooltip"
             >
               <i className="fas fa-sun" />
             </IconButton>
@@ -28,6 +30,7 @@ export function PetProfileIconBar({ isChecked, staytype }) {
             <IconButton
               variant="gradient"
               className="rounded-full pet-profile-header-item"
+              data-testid="checked-in-tooltip"
             >
               <i className="fas fa-check" />
             </IconButton>
@@ -36,6 +39,7 @@ export function PetProfileIconBar({ isChecked, staytype }) {
             <IconButton
               variant="gradient"
               className="rounded-full pet-profile-header-item"
+              data-testid="staytype-tooltip"
             >
               <i className="fas fa-moon" />
             </IconButton>
