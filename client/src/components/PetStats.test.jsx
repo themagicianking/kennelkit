@@ -44,7 +44,7 @@ describe("Pet Stats", () => {
     const maleDogStats = render(<PetStats pet={maleDog} owner={owner} />);
     const speciesIcon = screen.getByTestId("profile-species-icon");
     const sexIcon = screen.getByTestId("profile-sex-icon");
-    const alteredString = screen.getByTestId("altered-string").textContent;  
+    const alteredString = screen.getByTestId("altered-string").textContent;
     it("renders the stats", () => {
       expect(maleDogStats);
     });
@@ -55,7 +55,7 @@ describe("Pet Stats", () => {
       expect(sexIcon.classList.contains("fa-mars")).toBe(true);
     });
     it("generates the correct altered string", () => {
-      expect(alteredString.includes("Neutered"));
+      expect(alteredString).toBe(" Neutered");
     });
     // screen.debug();
     maleDogStats.unmount();
@@ -78,7 +78,7 @@ describe("Pet Stats", () => {
       expect(sexIcon.classList.contains("fa-venus")).toBe(true);
     });
     it("generates the correct altered string", () => {
-      expect(alteredString.includes("Spayed")).toBe(true);
+      expect(alteredString).toBe(" Spayed");
     });
     femaleCatStats.unmount();
   });
@@ -88,7 +88,7 @@ describe("Pet Stats", () => {
     const alteredString = screen.getByTestId("altered-string").textContent;
 
     it("generates the intact string", () => {
-      expect(alteredString.includes("Intact")).toBe(true);
+      expect(alteredString).toBe(" Intact");
     });
   });
 });
