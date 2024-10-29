@@ -16,16 +16,18 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { OWNERNAMES } from "../utilities/dummydata";
+import { DropdownFilter } from "./DropdownFilter";
 
 export function CreatePetForm({ baseURL }) {
   const [species, setSpecies] = useState(null);
   const [catBreedListOptions, setCatBreedListOptions] = useState([]);
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
+  const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
 
   useEffect(() => {
+    loadOwners();
     loadCatBreeds();
     loadDogBreeds();
   }, []);
@@ -35,8 +37,8 @@ export function CreatePetForm({ baseURL }) {
     setBreed(null);
   }
 
-  function onOwnerChange(value) {
-    setOwnerid(value);
+  function onOwnerChange(owner) {
+    setOwnerid(owner.value);
   }
 
   function onBreedChange(value) {
@@ -53,6 +55,16 @@ export function CreatePetForm({ baseURL }) {
         return res.json();
       })
       .then((json) => console.log("Server response:", json));
+  }
+
+  async function loadOwners() {
+    await fetch(`https://${baseURL}/allowners`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setOwnerListOptions(createOwnerListOptions(json));
+      });
   }
 
   async function loadCatBreeds() {
@@ -73,6 +85,13 @@ export function CreatePetForm({ baseURL }) {
       .then((json) => {
         setDogBreedListOptions(createBreedListOptions(json));
       });
+  }
+
+  function createOwnerListOptions(ownerListOptions) {
+    return ownerListOptions.map((owner) => ({
+      value: owner.id,
+      label: `${owner.firstname} ${owner.lastname}`,
+    }));
   }
 
   function createBreedListOptions(currentBreedList) {
@@ -122,19 +141,16 @@ export function CreatePetForm({ baseURL }) {
             {/* Column one */}
             <div className="mb-1 flex flex-col gap-6">
               {/* Owner's name dropdown */}
-              <Select
-                label="Owner Name"
-                id="owners"
-                value={ownerid}
-                onChange={onOwnerChange}
-                required
-              >
-                {OWNERNAMES.map((owner) => (
-                  <Option key={owner.name} name={owner.name} value={owner.id}>
-                    {owner.name}
-                  </Option>
-                ))}
-              </Select>
+              {ownerListOptions ? (
+                <DropdownFilter
+                  options={ownerListOptions}
+                  placeholder="Owner Name"
+                  onChange={onOwnerChange}
+                  required
+                />
+              ) : (
+                <></>
+              )}
               {/* Pet name input */}
               <Input id="petname" label="Pet Name" required />
               {/* Sex radios */}
