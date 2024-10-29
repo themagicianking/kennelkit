@@ -133,6 +133,30 @@ APP.get("/catbreeds", async (req, res) => {
   res.send(catBreeds);
 });
 
+// endpoint to retrieve owner by id
+APP.get("/owner", async (req, res) => {
+  try {
+    const owners = await dbhelper.Owner.findAll({
+      where: {
+        id: req.query.id,
+      },
+    });
+    if (owners.length > 0) {
+      res.send(owners[0]);
+    } else {
+      throw error;
+    }
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
+
+// endpoint to retrieve all owners
+APP.get("/allowners", async (req, res) => {
+  const owners = await dbhelper.Owner.findAll();
+  res.send(owners);
+});
+
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
   await dbhelper.db.sync();
