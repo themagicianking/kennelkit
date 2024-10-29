@@ -62,7 +62,9 @@ export function EditPetForm({ baseURL }) {
         });
     } catch (e) {
       setPet(null);
-      setLoading(false);
+      if (owner) {
+        setLoading(false);
+      }
       console.log("Could not fetch pet.");
     }
   }
@@ -78,7 +80,9 @@ export function EditPetForm({ baseURL }) {
         })
         .then((json) => {
           setOwner(json);
-          setLoading(false);
+          if (pet) {
+            setLoading(false);
+          }
         });
     } catch (e) {
       setOwner(null);
@@ -151,7 +155,7 @@ export function EditPetForm({ baseURL }) {
     return <div>Loading...</div>;
   }
 
-  return pet || owner ? (
+  return pet && owner ? (
     <Card>
       <CardHeader
         floated={false}
@@ -159,7 +163,9 @@ export function EditPetForm({ baseURL }) {
         color="transparent"
         className="rounded-b-none"
       >
-        <Typography variant="h2">Edit {pet.petname} Lastname</Typography>
+        <Typography variant="h2">
+          Edit {pet.petname} {owner.lastname}
+        </Typography>
       </CardHeader>
       <form id="create-pet" onSubmit={handleSubmit}>
         <CardBody className="flex gap-6">
@@ -328,7 +334,9 @@ export function EditPetForm({ baseURL }) {
         </CardFooter>
       </form>
     </Card>
-  ) : (
+  ) : !loading && !pet ? (
     <p>Could not find pet.</p>
+  ) : (
+    <p>Loading...</p>
   );
 }

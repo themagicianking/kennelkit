@@ -27,6 +27,14 @@ export function Navbar() {
           All Pets
         </ListItem>
       </a>
+      <a href="/owners">
+        <ListItem>
+          <ListItemPrefix>
+            <i className="fas fa-user" />
+          </ListItemPrefix>
+          All Owners
+        </ListItem>
+      </a>
       <a href="/pets/new">
       <ListItem>
         <ListItemPrefix>

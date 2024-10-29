@@ -4,7 +4,7 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 ## Component List
 
-- [ ] All Owners List
+- [x] All Owners List
 - [x] All Pets List
 - [x] Checked In Pets List
 - [x] Check In Toggle
@@ -14,9 +14,9 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 - [x] Homepage
 - [x] Navbar
 - [x] Owner Creation Form
-- [ ] Owner Item
+- [x] Owner Item
 -     Props: owner
-- [ ] Owner List View
+- [x] Owner List View
 -     Props: list
 - [x] Owner Profile
 - [x] Pet Creation Form
