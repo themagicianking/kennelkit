@@ -101,7 +101,9 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 ## To Do
 
 - [ ] Record week 1 milestones
-- [ ] Add testing
+- [x] Add testing
 - [x] Refactor schedule
 - [ ] Update trello board to match refactored schedule
 - [ ] Replace as many custom classes as possible with Material Tailwind classes
+- [ ] Replace Material Tailwind dropdowns with react-select dropdown and style to match
+- [ ] Put routes in their own file in client side and server side

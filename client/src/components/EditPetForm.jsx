@@ -27,7 +27,7 @@ export function EditPetForm({ baseURL }) {
   const [catBreedListOptions, setCatBreedListOptions] = useState([]);
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
-  const [ownerid, setOwnerid] = useState(null);
+  const [owner, setOwner] = useState(null);
 
   useEffect(() => {
     loadPet(id);
@@ -58,12 +58,32 @@ export function EditPetForm({ baseURL }) {
           setLoading(false);
           setSpecies(json.species);
           setBreed(json.breed);
-          setOwnerid(json.ownerid);
+          loadOwner(json.ownerid);
         });
     } catch (e) {
       setPet(null);
       setLoading(false);
       console.log("Could not fetch pet.");
+    }
+  }
+
+  async function loadOwner(id) {
+    try {
+      await fetch(`https://${baseURL}/owner?id=${id}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
+          return res.json();
+        })
+        .then((json) => {
+          setOwner(json);
+          setLoading(false);
+        });
+    } catch (e) {
+      setOwner(null);
+      setLoading(false);
+      console.log("Could not fetch owner.");
     }
   }
 
@@ -131,188 +151,184 @@ export function EditPetForm({ baseURL }) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <>
-      {pet ? (
-        <Card>
-          <CardHeader
-            floated={false}
-            shadow={false}
-            color="transparent"
-            className="rounded-b-none"
-          >
-            <Typography variant="h2">Edit {pet.petname} Lastname</Typography>
-          </CardHeader>
-          <form id="create-pet" onSubmit={handleSubmit}>
-            <CardBody className="flex gap-6">
-              {/* Column one */}
-              <div className="mb-1 flex flex-col gap-6">
-                {/* Owner's name dropdown */}
-                <Input
-                  id="owner"
-                  label="Owner Name"
-                  defaultValue="Firstname Lastname"
-                  disabled
-                ></Input>
-                <Input
-                  id="petname"
-                  label="Pet Name"
-                  defaultValue={pet.petname}
-                  disabled
-                />
-                {/* Sex radios */}
-                {pet.sex == "male" ? (
-                  <div className="flex gap-8">
-                    <Radio
-                      name="sex"
-                      value="male"
-                      label="Male"
-                      required
-                      defaultChecked
-                    />
-                    <Radio name="sex" value="female" label="Female" required />
-                  </div>
-                ) : (
-                  <div className="flex gap-8">
-                    <Radio name="sex" value="male" label="Male" required />
-                    <Radio
-                      name="sex"
-                      value="female"
-                      label="Female"
-                      required
-                      defaultChecked
-                    />
-                  </div>
-                )}
-                {/* Altered radios */}
-                {pet.altered ? (
-                  <div className="flex gap-4">
-                    <Radio
-                      name="altered"
-                      value="altered"
-                      label="Altered"
-                      defaultChecked
-                      required
-                    />
-                    <Radio
-                      name="altered"
-                      value="unaltered"
-                      label="Unaltered"
-                      required
-                    />
-                  </div>
-                ) : (
-                  <div className="flex gap-4">
-                    <Radio
-                      name="altered"
-                      value="altered"
-                      label="Altered"
-                      required
-                    />
-                    <Radio
-                      name="altered"
-                      value="unaltered"
-                      label="Unaltered"
-                      defaultChecked
-                      required
-                    />
-                  </div>
-                )}
-                {/* Species dropdown */}
-                <Select
-                  label="Species"
-                  id="species"
-                  value={species}
-                  onChange={onSpeciesChange}
+  return pet || owner ? (
+    <Card>
+      <CardHeader
+        floated={false}
+        shadow={false}
+        color="transparent"
+        className="rounded-b-none"
+      >
+        <Typography variant="h2">Edit {pet.petname} Lastname</Typography>
+      </CardHeader>
+      <form id="create-pet" onSubmit={handleSubmit}>
+        <CardBody className="flex gap-6">
+          {/* Column one */}
+          <div className="mb-1 flex flex-col gap-6">
+            {/* Owner's name dropdown */}
+            <Input
+              id="owner"
+              label="Owner Name"
+              defaultValue={`${owner.firstname} ${owner.lastname}`}
+              disabled
+            ></Input>
+            <Input
+              id="petname"
+              label="Pet Name"
+              defaultValue={pet.petname}
+              disabled
+            />
+            {/* Sex radios */}
+            {pet.sex == "male" ? (
+              <div className="flex gap-8">
+                <Radio
+                  name="sex"
+                  value="male"
+                  label="Male"
                   required
-                >
-                  <Option name="species" value="dog">
-                    Dog
-                  </Option>
-                  <Option name="species" value="cat">
-                    Cat
-                  </Option>
-                </Select>
-                {/* Breed dropdown */}
-                {/* Cat dropdown */}
-                {species == "cat" ? (
-                  <Select
-                    label="Breed"
-                    id="breed"
-                    value={breed}
-                    onChange={onBreedChange}
-                    disabled={!species}
-                    required
-                  >
-                    {catBreedListOptions}
-                  </Select>
-                ) : (
-                  <></>
-                )}
-                {/* Dog dropdown */}
-                {species == "dog" ? (
-                  <Select
-                    label="Breed"
-                    id="breed"
-                    value={breed}
-                    onChange={onBreedChange}
-                    disabled={!species}
-                    required
-                  >
-                    {dogBreedListOptions}
-                  </Select>
-                ) : (
-                  <></>
-                )}
-                {/* Weight input */}
-                <Input
-                  type="number"
-                  id="weight"
-                  label="Weight"
-                  defaultValue={pet.weight}
-                ></Input>
+                  defaultChecked
+                />
+                <Radio name="sex" value="female" label="Female" required />
               </div>
-              {/* Column two */}
-              <div className="mb-1 flex flex-col gap-6">
-                {/* Physical description input */}
-                <div>
-                  <Textarea
-                    id="physicaldesc"
-                    label="Physical Description"
-                    defaultValue={pet.physicaldesc}
-                  ></Textarea>
-                  <Typography
-                    variant="small"
-                    color="gray"
-                    className="mt-2 flex items-center gap-2 font-normal"
-                  >
-                    <i className="fas fa-circle-info"></i>
-                    Physical description: coat color and type, markings, unusual
-                    features
-                  </Typography>
-                </div>
-                {/* Notes input */}
-                <div>
-                  <Textarea label="Notes"></Textarea>
-                  <Typography
-                    variant="small"
-                    color="gray"
-                    className="mt-2 flex items-center gap-2 font-normal"
-                  >
-                    <i className="fas fa-circle-info"></i>Personality, specific
-                    concerns or quirks
-                  </Typography>
-                </div>
+            ) : (
+              <div className="flex gap-8">
+                <Radio name="sex" value="male" label="Male" required />
+                <Radio
+                  name="sex"
+                  value="female"
+                  label="Female"
+                  required
+                  defaultChecked
+                />
               </div>
-            </CardBody>
-            <CardFooter>
-              <Button type="submit">Submit</Button>
-            </CardFooter>
-          </form>
-        </Card>
-      ) : (
-        <p>Could not find pet.</p>
-      )}
-    </>
+            )}
+            {/* Altered radios */}
+            {pet.altered ? (
+              <div className="flex gap-4">
+                <Radio
+                  name="altered"
+                  value="altered"
+                  label="Altered"
+                  defaultChecked
+                  required
+                />
+                <Radio
+                  name="altered"
+                  value="unaltered"
+                  label="Unaltered"
+                  required
+                />
+              </div>
+            ) : (
+              <div className="flex gap-4">
+                <Radio
+                  name="altered"
+                  value="altered"
+                  label="Altered"
+                  required
+                />
+                <Radio
+                  name="altered"
+                  value="unaltered"
+                  label="Unaltered"
+                  defaultChecked
+                  required
+                />
+              </div>
+            )}
+            {/* Species dropdown */}
+            <Select
+              label="Species"
+              id="species"
+              value={species}
+              onChange={onSpeciesChange}
+              required
+            >
+              <Option name="species" value="dog">
+                Dog
+              </Option>
+              <Option name="species" value="cat">
+                Cat
+              </Option>
+            </Select>
+            {/* Breed dropdown */}
+            {/* Cat dropdown */}
+            {species == "cat" ? (
+              <Select
+                label="Breed"
+                id="breed"
+                value={breed}
+                onChange={onBreedChange}
+                disabled={!species}
+                required
+              >
+                {catBreedListOptions}
+              </Select>
+            ) : (
+              <></>
+            )}
+            {/* Dog dropdown */}
+            {species == "dog" ? (
+              <Select
+                label="Breed"
+                id="breed"
+                value={breed}
+                onChange={onBreedChange}
+                disabled={!species}
+                required
+              >
+                {dogBreedListOptions}
+              </Select>
+            ) : (
+              <></>
+            )}
+            {/* Weight input */}
+            <Input
+              type="number"
+              id="weight"
+              label="Weight"
+              defaultValue={pet.weight}
+            ></Input>
+          </div>
+          {/* Column two */}
+          <div className="mb-1 flex flex-col gap-6">
+            {/* Physical description input */}
+            <div>
+              <Textarea
+                id="physicaldesc"
+                label="Physical Description"
+                defaultValue={pet.physicaldesc}
+              ></Textarea>
+              <Typography
+                variant="small"
+                color="gray"
+                className="mt-2 flex items-center gap-2 font-normal"
+              >
+                <i className="fas fa-circle-info"></i>
+                Physical description: coat color and type, markings, unusual
+                features
+              </Typography>
+            </div>
+            {/* Notes input */}
+            <div>
+              <Textarea label="Notes"></Textarea>
+              <Typography
+                variant="small"
+                color="gray"
+                className="mt-2 flex items-center gap-2 font-normal"
+              >
+                <i className="fas fa-circle-info"></i>Personality, specific
+                concerns or quirks
+              </Typography>
+            </div>
+          </div>
+        </CardBody>
+        <CardFooter>
+          <Button type="submit">Submit</Button>
+        </CardFooter>
+      </form>
+    </Card>
+  ) : (
+    <p>Could not find pet.</p>
   );
 }
