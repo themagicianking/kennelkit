@@ -4,7 +4,7 @@ import { PetItem } from "./PetItem";
 let maleDog = {
   id: 1,
   checkedin: true,
-  petname: "name",
+  petname: "Dog",
   sex: "male",
   species: "dog",
 };
@@ -12,43 +12,40 @@ let maleDog = {
 let femaleCat = {
   id: 2,
   checkedin: false,
-  petname: "name",
+  petname: "Cat",
   sex: "female",
   species: "cat",
 };
 
 describe("Renders the pet item correctly", () => {
   describe("renders male dog item correctly", () => {
-    const maleDogListItem = render(<PetItem pet={maleDog} />);
-    const dogSpeciesIcon = screen.getByTestId("list-dog-species-icon");
-    const maleSexIcon = screen.getByTestId("list-male-sex-icon");
-
-    it("renders the item", () => {
-      expect(maleDogListItem);
+    const dogItem = render(<PetItem pet={maleDog} id="dog" />);
+    const speciesIcon = screen.getByTestId("list-species-icon");
+    const sexIcon = screen.getByTestId("list-sex-icon");
+    it("renders the dog item", () => {
+      expect(dogItem);
     });
     it("renders the dog species icon", () => {
-      expect(dogSpeciesIcon.classList.contains("fa-dog")).toBe(true);
+      expect(speciesIcon.classList.contains("fa-dog")).toBe(true);
     });
     it("renders the male sex icon", () => {
-      expect(maleSexIcon.classList.contains("fa-mars")).toBe(true);
+      expect(sexIcon.classList.contains("fa-mars")).toBe(true);
     });
+    dogItem.unmount();
   });
 
   describe("renders female cat item correctly", () => {
-    const femaleCatListItem = render(<PetItem pet={femaleCat} />);
-    const femaleSexIcon = screen.getByTestId("list-female-sex-icon");
-    const catSpeciesIcon = screen.getByTestId("list-cat-species-icon");
-
-    it("renders the item", () => {
-      expect(femaleCatListItem);
+    const catItem = render(<PetItem pet={femaleCat} id="cat" />);
+    const speciesIcon = screen.getByTestId("list-species-icon");
+    const sexIcon = screen.getByTestId("list-sex-icon");
+    it("renders the cat item", () => {
+      expect(catItem);
     });
-
-    it("renders the correct species icon", () => {
-      expect(catSpeciesIcon.classList.contains("fa-cat")).toBe(true);
+    it("renders the cat species icon", () => {
+      expect(speciesIcon.classList.contains("fa-cat")).toBe(true);
     });
-
-    it("renders the correct sex icon", () => {
-      expect(femaleSexIcon.classList.contains("fa-venus")).toBe(true);
+    it("renders the female sex icon", () => {
+      expect(sexIcon.classList.contains("fa-venus")).toBe(true);
     });
   });
 });

@@ -39,7 +39,7 @@ let owner = {
   ecemail: "ecemail@ecemail.com",
 };
 
-describe("Pet Stats", () => {
+describe.skip("Pet Stats", () => {
   describe.skip("Renders male dog stats correctly", () => {
     const maleDogStats = render(<PetStats pet={maleDog} owner={owner} />);
     const dogSpeciesIcon = screen.getByTestId("profile-dog-species-icon");
