@@ -113,7 +113,7 @@ class databaseHelper {
   // create sample owner
   createSampleOwner = function () {
     (async () => {
-      await this.owner.bulkCreate([
+      await this.Owner.bulkCreate([
         {
           firstname: "Cara",
           lastname: "Coleman",
