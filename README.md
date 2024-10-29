@@ -28,15 +28,17 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 ## Testing
 
-- All components: test that they are being rendered
-- Pet Item: Test that dog icon renders for dogs and cat icon render for cats
-- Pet Item: Test that the sex icon is being rendered correctly
-- Pet Profile: Test that sex icon and altered string renders correctly in all combinations
-- Pet Profile: Test that check in icon is only rendered if pet is checked in and correct stay type icon is rendered
-- All Pets List & Checked In Pets List: Test that the list view correctly renders individual items OR a message indicating that there are no items in the list
-- All Pets List & Checked In Pets List: Test that links are being generated for each item
-- Create Pet Form: Test that when no species is selected, breeds are disabled, when cats are selected, cat breeds are rendered, and when dogs are selected, dog breeds are rendered
-- Edit Pet Form: Test that all default information renders
+- [x] All components: test that they are being rendered
+- [x] Pet Item: Test that dog icon renders for dogs and cat icon render for cats
+- [x] Pet Item: Test that the sex icon is being rendered correctly
+- [x] Pet Stats: Test that dog icon renders for dogs and cat icon renders for cats
+- [x] Pet Stats: Test that sex icon is being rendered correctly
+- [x] Pet Stats: Test that altered string renders correctly in all combinations
+- [x] Pet Profile Icon Bar: Test that check in icon is only rendered if pet is checked in and correct stay type icon is rendered
+- [x] Pet List View: Test that the list view correctly renders individual items OR a message indicating that there are no items in the list
+- [x] Pet Item: Test that links are being generated for each item
+- [ ] Create Pet Form: Test that when no species is selected, breeds are disabled, when cats are selected, cat breeds are rendered, and when dogs are selected, dog breeds are rendered
+- [ ] Edit Pet Form: Test that all default information renders
 
 ## Saving, Sending, and Updating Data
 
