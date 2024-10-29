@@ -216,7 +216,9 @@ APP.put("/checkin", async (req, res) => {
 if (APP_ENV == "development") {
   const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
   const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
-  https.createServer({ key, cert }, APP).listen(PORT);
+  https.createServer({ key, cert }, APP).listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 } else {
   APP.listen(PORT, "0.0.0.0", () => {
     console.log(`Server listening on port ${PORT}`);
