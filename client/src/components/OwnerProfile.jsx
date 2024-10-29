@@ -29,7 +29,7 @@ export function OwnerProfile({ baseURl }) {
           <li>Phone: {OWNER.ecphone}</li>
           <li>Email: {OWNER.ecemail}</li>
         </ul>
-        <OwnerProfileTabs />
+        <OwnerProfileTabs baseURL={baseURl} />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
         <a href={""}>
