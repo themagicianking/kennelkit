@@ -39,57 +39,56 @@ let owner = {
   ecemail: "ecemail@ecemail.com",
 };
 
-describe.skip("Pet Stats", () => {
-  describe.skip("Renders male dog stats correctly", () => {
+describe("Pet Stats", () => {
+  describe("Renders male dog stats correctly", () => {
     const maleDogStats = render(<PetStats pet={maleDog} owner={owner} />);
-    const dogSpeciesIcon = screen.getByTestId("profile-dog-species-icon");
-    const maleSexIcon = screen.getByTestId("profile-male-sex-icon");
-    const neuteredString = screen.getByText("Neutered");
-
+    const speciesIcon = screen.getByTestId("profile-species-icon");
+    const sexIcon = screen.getByTestId("profile-sex-icon");
+    const alteredString = screen.getByTestId("altered-string").textContent;  
     it("renders the stats", () => {
       expect(maleDogStats);
     });
     it("renders the dog species icon", () => {
-      expect(dogSpeciesIcon.classList.contains("fa-dog")).toBe(true);
+      expect(speciesIcon.classList.contains("fa-dog")).toBe(true);
     });
     it("renders the male sex icon", () => {
-      expect(maleSexIcon.classList.contains("fa-mars")).toBe(true);
+      expect(sexIcon.classList.contains("fa-mars")).toBe(true);
     });
     it("generates the correct altered string", () => {
-      expect(neuteredString);
+      expect(alteredString.includes("Neutered"));
     });
+    // screen.debug();
+    maleDogStats.unmount();
   });
 
-  describe.skip("renders female cat stats correctly", () => {
+  describe("renders female cat stats correctly", () => {
     const femaleCatStats = render(<PetStats pet={femaleCat} owner={owner} />);
-    const femaleSexIcon = screen.getByTestId("profile-female-sex-icon");
-    const catSpeciesIcon = screen.getByTestId("profile-cat-species-icon");
-    const spayedString = screen.getByText("Spayed");
-
+    const speciesIcon = screen.getByTestId("profile-species-icon");
+    const sexIcon = screen.getByTestId("profile-sex-icon");
+    const alteredString = screen.getByTestId("altered-string").textContent;
     it("renders the item", () => {
       expect(femaleCatStats);
     });
 
     it("renders the correct species icon", () => {
-      expect(catSpeciesIcon.classList.contains("fa-cat")).toBe(true);
+      expect(speciesIcon.classList.contains("fa-cat")).toBe(true);
     });
 
     it("renders the correct sex icon", () => {
-      expect(femaleSexIcon.classList.contains("fa-venus")).toBe(true);
+      expect(sexIcon.classList.contains("fa-venus")).toBe(true);
     });
     it("generates the correct altered string", () => {
-      expect(spayedString);
+      expect(alteredString.includes("Spayed")).toBe(true);
     });
+    femaleCatStats.unmount();
   });
 
   describe("renders intact string", () => {
     render(<PetStats pet={maleCat} owner={owner} />);
-    const intactString = screen.getByText("Intact");
+    const alteredString = screen.getByTestId("altered-string").textContent;
 
     it("generates the intact string", () => {
-      expect(intactString);
+      expect(alteredString.includes("Intact")).toBe(true);
     });
-
-    screen.debug();
   });
 });
