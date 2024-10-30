@@ -4,7 +4,7 @@ import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
 export function AllPetsList() {
-  const [allPetsList, setAllPetsList] = useState([]);
+  const [allPetsList, setAllPetsList] = useState(null);
   const link = useBaseLink();
 
   async function loadAllPets() {
@@ -15,10 +15,7 @@ export function AllPetsList() {
         })
         .then((data) => setAllPetsList(data));
     } catch (e) {
-      console.log(
-        "Could not fetch pets. The following error occurred:",
-        e
-      );
+      console.log("Could not fetch pets. The following error occurred:", e);
     }
   }
 
@@ -31,7 +28,11 @@ export function AllPetsList() {
       <Navbar />
       <div className="flex flex-col">
         <h2>All pets:</h2>
-        <PetListView list={allPetsList} />
+        {allPetsList ? (
+          <PetListView list={allPetsList} />
+        ) : (
+          <p>List could not be found.</p>
+        )}
       </div>
     </div>
   );

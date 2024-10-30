@@ -4,7 +4,7 @@ import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
 
 export function AllOwnersList() {
-  const [allOwnersList, setAllOwnersList] = useState([]);
+  const [allOwnersList, setAllOwnersList] = useState(null);
   const link = useBaseLink();
 
   async function loadAllOwners() {
@@ -31,7 +31,11 @@ export function AllOwnersList() {
       <Navbar />
       <div className="flex flex-col">
         <h2>All owners:</h2>
-        <OwnerListView list={allOwnersList} />
+        {allOwnersList ? (
+          <OwnerListView list={allOwnersList} />
+        ) : (
+          <p>List could not be found.</p>
+        )}
       </div>
     </div>
   );

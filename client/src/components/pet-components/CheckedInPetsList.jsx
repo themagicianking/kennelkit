@@ -4,7 +4,7 @@ import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
 export function CheckedInPetsList() {
-  const [checkedInPetsList, setCheckedInPetsList] = useState([]);
+  const [checkedInPetsList, setCheckedInPetsList] = useState(null);
   const link = useBaseLink();
 
   async function loadCheckedInPets() {
@@ -15,10 +15,7 @@ export function CheckedInPetsList() {
         })
         .then((data) => setCheckedInPetsList(data));
     } catch (e) {
-      console.log(
-        "Could not connect to server. The following error occured:",
-        e
-      );
+      console.log("Could not fetch pets. The following error occured:", e);
     }
   }
 
@@ -31,7 +28,11 @@ export function CheckedInPetsList() {
       <Navbar />
       <div>
         <h2>Checked in pets:</h2>
-        <PetListView list={checkedInPetsList} />
+        {checkedInPetsList ? (
+          <PetListView list={checkedInPetsList} />
+        ) : (
+          <p>List could not be found.</p>
+        )}
       </div>
     </div>
   );
