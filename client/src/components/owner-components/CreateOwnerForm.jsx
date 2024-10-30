@@ -12,15 +12,19 @@ import {
 export function CreateOwnerForm() {
   const link = useBaseLink();
   async function postOwner(newOwner) {
-    await fetch(`https://${link}/owner`, {
-      method: "POST",
-      body: JSON.stringify(newOwner),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        return res.json();
+    try {
+      await fetch(`https://${link}/owner`, {
+        method: "POST",
+        body: JSON.stringify(newOwner),
+        headers: { "Content-Type": "application/json" },
       })
-      .then((json) => console.log("Server response:", json));
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => console.log("Server response:", json));
+    } catch (e) {
+      console.log("Could not create owner. The following error occurred:", e);
+    }
   }
 
   function handleSubmit(e) {
