@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import { Switch } from "@material-tailwind/react";
 
-export function CheckInToggle({ baseURL, id, checkedin }) {
+export function CheckInToggle({ id, checkedin }) {
   const [isChecked, setIsChecked] = useState(checkedin);
+  const link = useBaseLink();
 
   async function toggleCheckIn(isChecked) {
-    await fetch(`https://${baseURL}/checkin`, {
+    await fetch(`https://${link}/checkin`, {
       method: "PUT",
       body: JSON.stringify({ id: id, checkedin: isChecked }),
       headers: { "Content-Type": "application/json" },

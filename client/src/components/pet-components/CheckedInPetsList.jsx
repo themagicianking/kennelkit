@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
-export function CheckedInPetsList({ baseURL }) {
+export function CheckedInPetsList() {
   const [checkedInPetsList, setCheckedInPetsList] = useState([]);
+  const link = useBaseLink();
 
   async function loadCheckedInPets() {
     try {
-      await fetch(`https://${baseURL}/checkedinpets`)
+      await fetch(`https://${link}/checkedinpets`)
         .then((res) => {
           return res.json();
         })
@@ -29,7 +31,7 @@ export function CheckedInPetsList({ baseURL }) {
       <Navbar />
       <div>
         <h2>Checked in pets:</h2>
-        <PetListView list={checkedInPetsList} baseURL={baseURL} />
+        <PetListView list={checkedInPetsList} />
       </div>
     </div>
   );

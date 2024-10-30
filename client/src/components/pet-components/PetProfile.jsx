@@ -2,6 +2,7 @@
 // todo: change styling for tooltip info
 // todo: change color scheme
 // todo: add title font
+// todo: change owner to real owner
 import {
   Card,
   CardHeader,
@@ -12,23 +13,25 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
 import { useParams } from "react-router-dom";
 import { OWNER } from "../../utilities/dummydata";
 
-export function PetProfile({ baseURL }) {
-  let id = useParams().id;
-  let editLink = `/pets/${id}/edit`;
+export function PetProfile() {
+  const id = useParams().id;
+  const editLink = `/pets/${id}/edit`;
   let owner = OWNER;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [isChecked, setIsChecked] = useState(null);
+  const link = useBaseLink();
 
   async function loadPet(id) {
     try {
-      await fetch(`https://${baseURL}/petbyid?id=${id}`)
+      await fetch(`https://${link}/petbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -50,7 +53,7 @@ export function PetProfile({ baseURL }) {
   async function toggleCheckIn(isChecked) {
     console.log(`Sent check in status ${isChecked} to the server.`);
     try {
-      await fetch(`https://${baseURL}/checkin`, {
+      await fetch(`https://${link}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },

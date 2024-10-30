@@ -3,6 +3,7 @@
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
 
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import {
   Button,
   Card,
@@ -25,6 +26,7 @@ export function CreatePetForm({ baseURL }) {
   const [breed, setBreed] = useState(null);
   const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
+  const link = useBaseLink();
 
   useEffect(() => {
     loadOwners();
@@ -46,7 +48,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function postPet(newPet) {
-    await fetch(`https://${baseURL}/pet`, {
+    await fetch(`https://${link}/pet`, {
       method: "POST",
       body: JSON.stringify(newPet),
       headers: { "Content-Type": "application/json" },
@@ -58,7 +60,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function loadOwners() {
-    await fetch(`https://${baseURL}/allowners`)
+    await fetch(`https://${link}/allowners`)
       .then((res) => {
         return res.json();
       })
@@ -78,7 +80,7 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function loadDogBreeds() {
-    await fetch(`https://${baseURL}/dogbreeds`)
+    await fetch(`https://${link}/dogbreeds`)
       .then((res) => {
         return res.json();
       })

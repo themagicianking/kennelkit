@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
-export function AllPetsList({ baseUrl }) {
+export function AllPetsList() {
   const [allPetsList, setAllPetsList] = useState([]);
+  const link = useBaseLink();
 
   async function loadAllPets() {
     try {
-      await fetch(`https://${baseUrl}/allpets`)
+      await fetch(`https://${link}/allpets`)
         .then((res) => {
           return res.json();
         })
@@ -29,7 +31,7 @@ export function AllPetsList({ baseUrl }) {
       <Navbar />
       <div className="flex flex-col">
         <h2>All pets:</h2>
-        <PetListView list={allPetsList} baseURL={baseUrl}/>
+        <PetListView list={allPetsList} />
       </div>
     </div>
   );

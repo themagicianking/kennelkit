@@ -1,3 +1,5 @@
+// to do: add edit link
+
 import {
   Card,
   CardHeader,
@@ -10,16 +12,18 @@ import { OwnerProfileTabs } from "./OwnerProfileTabs";
 import { OWNER } from "../../utilities/dummydata";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useBaseLink } from "../../BaseLinkProvider";
 
-export function OwnerProfile({ baseURL }) {
+export function OwnerProfile() {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const link = useBaseLink();
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${baseURL}/ownerbyid?id=${id}`)
+      await fetch(`https://${link}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -38,7 +42,7 @@ export function OwnerProfile({ baseURL }) {
   }
 
   async function loadPets(id) {
-    await fetch(`https://${baseURL}/petsbyowner?id=${id}`)
+    await fetch(`https://${link}/petsbyowner?id=${id}`)
       .then((res) => {
         return res.json();
       })
@@ -74,7 +78,7 @@ export function OwnerProfile({ baseURL }) {
           <li>Phone: {OWNER.ecphone}</li>
           <li>Email: {OWNER.ecemail}</li>
         </ul>
-        <OwnerProfileTabs pets={pets} baseURL={baseURL} />
+        <OwnerProfileTabs pets={pets} />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
         <a href={""}>

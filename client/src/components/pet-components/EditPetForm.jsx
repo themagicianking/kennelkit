@@ -18,8 +18,9 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
+import { useBaseLink } from "../../BaseLinkProvider";
 
-export function EditPetForm({ baseURL }) {
+export function EditPetForm() {
   let id = useParams().id;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
@@ -28,6 +29,7 @@ export function EditPetForm({ baseURL }) {
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [owner, setOwner] = useState(null);
+  const link = useBaseLink();
 
   useEffect(() => {
     loadPet(id);
@@ -46,7 +48,7 @@ export function EditPetForm({ baseURL }) {
 
   async function loadPet(id) {
     try {
-      await fetch(`https://${baseURL}/petbyid?id=${id}`)
+      await fetch(`https://${link}/petbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -71,7 +73,7 @@ export function EditPetForm({ baseURL }) {
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${baseURL}/owner?id=${id}`)
+      await fetch(`https://${link}/owner?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -92,7 +94,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function editPet(editedPet) {
-    await fetch(`https://${baseURL}/pet`, {
+    await fetch(`https://${link}/pet`, {
       method: "PUT",
       body: JSON.stringify(editedPet),
       headers: { "Content-Type": "application/json" },
@@ -104,7 +106,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function loadCatBreeds() {
-    await fetch(`https://${baseURL}/catbreeds`)
+    await fetch(`https://${link}/catbreeds`)
       .then((res) => {
         return res.json();
       })
@@ -114,7 +116,7 @@ export function EditPetForm({ baseURL }) {
   }
 
   async function loadDogBreeds() {
-    await fetch(`https://${baseURL}/dogbreeds`)
+    await fetch(`https://${link}/dogbreeds`)
       .then((res) => {
         return res.json();
       })

@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
 
-export function AllOwnersList({ baseUrl }) {
+export function AllOwnersList() {
   const [allOwnersList, setAllOwnersList] = useState([]);
+  const link = useBaseLink();
 
   async function loadAllOwners() {
     try {
-      await fetch(`https://${baseUrl}/allowners`)
+      await fetch(`https://${link}/allowners`)
         .then((res) => {
           return res.json();
         })

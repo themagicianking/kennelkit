@@ -9,11 +9,13 @@ import {
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useBaseLink } from "../../BaseLinkProvider";
 
-export function EditOwnerForm({ baseURL }) {
+export function EditOwnerForm() {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
   const [loading, setLoading] = useState(true);
+  const link = useBaseLink();
 
   useEffect(() => {
     loadOwner(id);
@@ -21,7 +23,7 @@ export function EditOwnerForm({ baseURL }) {
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${baseURL}/ownerbyid?id=${id}`)
+      await fetch(`https://${link}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -40,7 +42,7 @@ export function EditOwnerForm({ baseURL }) {
   }
 
   async function editOwner(editedOwner) {
-    await fetch(`https://${baseURL}/owner`, {
+    await fetch(`https://${link}/owner`, {
       method: "PUT",
       body: JSON.stringify(editedOwner),
       headers: { "Content-Type": "application/json" },
@@ -79,7 +81,9 @@ export function EditOwnerForm({ baseURL }) {
         color="transparent"
         className="rounded-b-none"
       >
-        <Typography variant="h2">Edit {owner.firstname} {owner.lastname}</Typography>
+        <Typography variant="h2">
+          Edit {owner.firstname} {owner.lastname}
+        </Typography>
       </CardHeader>
       <form id="create-pet" onSubmit={handleSubmit}>
         <CardBody className="flex gap-6">

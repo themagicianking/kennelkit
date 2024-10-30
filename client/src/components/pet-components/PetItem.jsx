@@ -8,8 +8,8 @@ import {
 } from "@material-tailwind/react";
 import { CheckInToggle } from "./CheckInToggle";
 
-export function PetItem({ pet, baseURL }) {
-  let link = `/pets/${pet.id}`;
+export function PetItem({ pet }) {
+  const link = `/pets/${pet.id}`;
 
   return (
     <ListItem>
@@ -32,11 +32,7 @@ export function PetItem({ pet, baseURL }) {
       </a>
       <ListItemSuffix>
         <div className="flex gap-4">
-          <CheckInToggle
-            id={pet.id}
-            checkedin={pet.checkedin}
-            baseURL={baseURL}
-          />
+          <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
           {/* This is to edit reservations and should only show if the pet is checked in */}
           {pet.checkedin ? (
             <IconButton>
