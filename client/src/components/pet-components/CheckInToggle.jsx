@@ -7,6 +7,7 @@ export function CheckInToggle({ id, checkedin }) {
   const link = useBaseLink();
 
   async function toggleCheckIn(isChecked) {
+    console.log(`Sending check in status ${isChecked} to the server.`);
     try {
       await fetch(`https://${link}/checkin`, {
         method: "PUT",

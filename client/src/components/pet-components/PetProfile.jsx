@@ -46,12 +46,12 @@ export function PetProfile() {
     } catch (e) {
       setPet(null);
       setLoading(false);
-      console.log("Could not fetch pet.");
+      console.log("Could not get pet. The following error occurred:", e);
     }
   }
 
   async function toggleCheckIn(isChecked) {
-    console.log(`Sent check in status ${isChecked} to the server.`);
+    console.log(`Sending check in status ${isChecked} to the server.`);
     try {
       await fetch(`https://${link}/checkin`, {
         method: "PUT",
@@ -64,8 +64,11 @@ export function PetProfile() {
         .then((json) =>
           console.log("Pet's check in status has been changed to:", json)
         );
-    } catch {
-      console.log("Server could not be updated.");
+    } catch (e) {
+      console.log(
+        "Could not update check in status. The following error occurred:",
+        e
+      );
     }
   }
 
