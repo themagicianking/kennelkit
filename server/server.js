@@ -229,6 +229,25 @@ APP.put("/checkin", async (req, res) => {
   res.status(200).send(editedPets[0].checkedin);
 });
 
+// endpoint to edit owner
+APP.put("/owner", async (req, res) => {
+  await dbhelper.Owner.update(
+    {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      phone: req.body.phone,
+      email: req.body.email,
+    },
+    { where: { id: req.body.id } }
+  );
+  const editedOwners = await dbhelper.Owner.findAll({
+    where: {
+      id: req.body.id,
+    },
+  });
+  res.status(200).send(editedOwners[0]);
+});
+
 // development mode requires a cert in the cert directory in order to use https
 if (APP_ENV == "development") {
   const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
