@@ -64,10 +64,7 @@ export function EditPetForm() {
         });
     } catch (e) {
       setPet(null);
-      if (owner) {
-        setLoading(false);
-      }
-      console.log("Could not fetch pet.");
+      console.log("Could not get pet. The following error occurred:", e);
     }
   }
 
@@ -89,40 +86,52 @@ export function EditPetForm() {
     } catch (e) {
       setOwner(null);
       setLoading(false);
-      console.log("Could not fetch owner.");
+      console.log("Could not get owner. The following error occurred:", e);
     }
   }
 
   async function editPet(editedPet) {
-    await fetch(`https://${link}/pet`, {
-      method: "PUT",
-      body: JSON.stringify(editedPet),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        return res.json();
+    try {
+      await fetch(`https://${link}/pet`, {
+        method: "PUT",
+        body: JSON.stringify(editedPet),
+        headers: { "Content-Type": "application/json" },
       })
-      .then((json) => console.log("Server response:", json));
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => console.log("Server response:", json));
+    } catch (e) {
+      console.log("Could not update pet. The following error occurred:", e);
+    }
   }
 
   async function loadCatBreeds() {
-    await fetch(`https://${link}/catbreeds`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setCatBreedListOptions(createBreedListOptions(json));
-      });
+    try {
+      await fetch(`https://${link}/catbreeds`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          setCatBreedListOptions(createBreedListOptions(json));
+        });
+    } catch (e) {
+      console.log("Could not get cat breeds. The following error occurred:", e);
+    }
   }
 
   async function loadDogBreeds() {
-    await fetch(`https://${link}/dogbreeds`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setDogBreedListOptions(createBreedListOptions(json));
-      });
+    try {
+      await fetch(`https://${link}/dogbreeds`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          setDogBreedListOptions(createBreedListOptions(json));
+        });
+    } catch (e) {
+      console.log("Could not get dog breeds. The following error occurred:", e);
+    }
   }
 
   function createBreedListOptions(currentBreedList) {
