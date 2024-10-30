@@ -37,7 +37,7 @@ export function EditOwnerForm() {
     } catch (e) {
       setOwner(null);
       setLoading(false);
-      console.log("Could not fetch owner.");
+      console.log("Could not fetch owner. The following error occurred:", e);
     }
   }
 
