@@ -38,11 +38,11 @@ export function PetStats({ pet, owner }) {
       </li>
       <li>
         <Typography variant="h5">
-          Emergency Contact: {owner.ecfirstname} {owner.eclastname}
+          Emergency Contact: {"Firstname"} {"Lastname"}
         </Typography>
         <ul>
           <li>
-            {owner.ecphone} · {owner.ecemail}
+            {"1234567890"} · {"email@email.com"}
           </li>
         </ul>
       </li>
