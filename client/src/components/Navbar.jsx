@@ -43,6 +43,14 @@ export function Navbar() {
         Create a Pet
       </ListItem>
       </a>
+      <a href="/owners/new">
+      <ListItem>
+        <ListItemPrefix>
+          <i className="fas fa-plus" />
+        </ListItemPrefix>
+        Create an Owner
+      </ListItem>
+      </a>
     </List>
   );
 }
