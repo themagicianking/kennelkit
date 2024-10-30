@@ -9,7 +9,9 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 - [x] Checked In Pets List
 - [x] Check In Toggle
 -     Props: id, checkedin
+- [x] Create Owner Form
 - [x] Create Pet Form
+- [ ] Edit Owner Form
 - [x] Edit Pet Form
 - [x] Homepage
 - [x] Navbar
