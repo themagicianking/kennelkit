@@ -6,6 +6,7 @@ class databaseHelper {
 
     this.createPet();
     this.createBreed();
+    this.createOwner();
   }
 
   // define pet table
@@ -30,6 +31,16 @@ class databaseHelper {
     this.Breed = this.db.define("breed", {
       species: { type: DataTypes.STRING, allowNull: false },
       name: { type: DataTypes.STRING, allowNull: false },
+    });
+  };
+
+  // define owner table
+  createOwner = function () {
+    this.Owner = this.db.define("owner", {
+      firstname: { type: DataTypes.STRING, allowNull: false },
+      lastname: { type: DataTypes.STRING, allowNull: false },
+      phone: { type: DataTypes.STRING, allowNull: false },
+      email: { type: DataTypes.STRING, allowNull: false },
     });
   };
 
@@ -94,6 +105,20 @@ class databaseHelper {
           weight: 10,
           physicaldesc: "Shorthaired tuxedo",
           ownerid: 0,
+        },
+      ]);
+    })();
+  };
+
+  // create sample owner
+  createSampleOwner = function () {
+    (async () => {
+      await this.Owner.bulkCreate([
+        {
+          firstname: "Cara",
+          lastname: "Coleman",
+          phone: "123-456-7890",
+          email: "email@email.com",
         },
       ]);
     })();

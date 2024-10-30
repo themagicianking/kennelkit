@@ -57,6 +57,16 @@ async function populatePetsTable() {
 
 populatePetsTable();
 
+// function to insert a sample owner into the database
+async function populateOwnersTable() {
+  const ownerlist = await dbhelper.Owner.findAll();
+  ownerlist.length < 1
+    ? dbhelper.createSampleOwner()
+    : console.log("A sample owner has already been created.");
+}
+
+populateOwnersTable();
+
 // function to alphabetize breed lists by name before sending to client
 function alphabetizeByName(a, b) {
   if (a.name < b.name) {
@@ -70,13 +80,9 @@ function alphabetizeByName(a, b) {
 // endpoint to retrieve pet by id
 APP.get("/pet", async (req, res) => {
   try {
-    const pets = await dbhelper.Pet.findAll({
-      where: {
-        id: req.query.id,
-      },
-    });
-    if (pets.length > 0) {
-      res.send(pets[0]);
+    const pet = await dbhelper.Pet.findOne({ where: { id: req.query.id } });
+    if (pet !== null) {
+      res.send(pet);
     } else {
       throw error;
     }
@@ -96,6 +102,16 @@ APP.get("/checkedinpets", async (req, res) => {
   const petlist = await dbhelper.Pet.findAll({
     where: {
       checkedin: true,
+    },
+  });
+  res.send(petlist);
+});
+
+// endpoint to retrieve pets by owner
+APP.get("/petsbyowner", async (req, res) => {
+  const petlist = await dbhelper.Pet.findAll({
+    where: {
+      ownerid: req.query.id,
     },
   });
   res.send(petlist);
@@ -123,10 +139,30 @@ APP.get("/catbreeds", async (req, res) => {
   res.send(catBreeds);
 });
 
+// endpoint to retrieve owner by id
+APP.get("/owner", async (req, res) => {
+  try {
+    const owner = await dbhelper.Owner.findOne({ where: { id: req.query.id } });
+    if (owner !== null) {
+      res.send(owner);
+    } else {
+      throw error;
+    }
+  } catch (e) {
+    res.status(404).send(e);
+  }
+});
+
+// endpoint to retrieve all owners
+APP.get("/allowners", async (req, res) => {
+  const owners = await dbhelper.Owner.findAll();
+  res.send(owners);
+});
+
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
   await dbhelper.db.sync();
-  const newpet = await dbhelper.Pet.create({
+  const newPet = await dbhelper.Pet.create({
     petname: req.body.petname,
     checkedin: false,
     staytype: null,
@@ -139,8 +175,23 @@ APP.post("/pet", async (req, res) => {
     physicaldesc: req.body.physicaldesc,
     ownerid: req.body.ownerid,
   });
-  console.log(newpet.toJSON());
-  res.send(newpet);
+
+  console.log(newPet.toJSON());
+  res.send(newPet);
+});
+
+// endpoint to create a new owner
+APP.post("/owner", async (req, res) => {
+  await dbhelper.db.sync();
+  const newOwner = await dbhelper.Owner.create({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    phone: req.body.phone,
+    email: req.body.email,
+  });
+
+  console.log(newOwner.toJSON());
+  res.send(newOwner);
 });
 
 // endpoint to edit pet by id
@@ -178,11 +229,32 @@ APP.put("/checkin", async (req, res) => {
   res.status(200).send(editedPets[0].checkedin);
 });
 
+// endpoint to edit owner
+APP.put("/owner", async (req, res) => {
+  await dbhelper.Owner.update(
+    {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      phone: req.body.phone,
+      email: req.body.email,
+    },
+    { where: { id: req.body.id } }
+  );
+  const editedOwners = await dbhelper.Owner.findAll({
+    where: {
+      id: req.body.id,
+    },
+  });
+  res.status(200).send(editedOwners[0]);
+});
+
 // development mode requires a cert in the cert directory in order to use https
 if (APP_ENV == "development") {
   const key = fs.readFileSync(`${__dirname}/certs/key.pem`, "utf8");
   const cert = fs.readFileSync(`${__dirname}/certs/cert.pem`, "utf8", "utf-8");
-  https.createServer({ key, cert }, APP).listen(PORT);
+  https.createServer({ key, cert }, APP).listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
 } else {
   APP.listen(PORT, "0.0.0.0", () => {
     console.log(`Server listening on port ${PORT}`);

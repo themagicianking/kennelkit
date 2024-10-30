@@ -37,9 +37,14 @@ export function PetItem({ pet, baseURL }) {
             checkedin={pet.checkedin}
             baseURL={baseURL}
           />
-          <IconButton>
-            <i className="fas fa-pen-to-square" />
-          </IconButton>
+          {/* This is to edit reservations and should only show if the pet is checked in */}
+          {pet.checkedin ? (
+            <IconButton>
+              <i className="fas fa-pen-to-square" />
+            </IconButton>
+          ) : (
+            <></>
+          )}
         </div>
       </ListItemSuffix>
     </ListItem>

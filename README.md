@@ -4,21 +4,23 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 
 ## Component List
 
-- [ ] All Owners List
+- [x] All Owners List
 - [x] All Pets List
 - [x] Checked In Pets List
 - [x] Check In Toggle
 -     Props: id, checkedin
+- [x] Create Owner Form
 - [x] Create Pet Form
+- [x] Edit Owner Form
 - [x] Edit Pet Form
 - [x] Homepage
 - [x] Navbar
 - [x] Owner Creation Form
-- [ ] Owner Item
+- [x] Owner Item
 -     Props: owner
-- [ ] Owner List View
+- [x] Owner List View
 -     Props: list
-- [ ] Owner Profile
+- [x] Owner Profile
 - [x] Pet Creation Form
 - [x] Pet Item
 -     Props: pet
@@ -101,7 +103,9 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 ## To Do
 
 - [ ] Record week 1 milestones
-- [ ] Add testing
+- [x] Add testing
 - [x] Refactor schedule
 - [ ] Update trello board to match refactored schedule
 - [ ] Replace as many custom classes as possible with Material Tailwind classes
+- [ ] Replace Material Tailwind dropdowns with react-select dropdown and style to match
+- [ ] Put routes in their own file in client side and server side
