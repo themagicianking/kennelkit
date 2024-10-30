@@ -16,7 +16,7 @@ export function AllOwnersList() {
         .then((json) => setAllOwnersList(json));
     } catch (e) {
       console.log(
-        "Could not connect to the server. The following error occurred:",
+        "Could not get owner list. The following error occurred:",
         e
       );
     }

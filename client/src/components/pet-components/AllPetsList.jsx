@@ -15,7 +15,7 @@ export function AllPetsList() {
         })
         .then((data) => setAllPetsList(data));
     } catch (e) {
-      console.log("Could not fetch pets. The following error occurred:", e);
+      console.log("Could not get pet list. The following error occurred:", e);
     }
   }
 

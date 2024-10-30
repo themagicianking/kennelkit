@@ -37,7 +37,7 @@ export function EditOwnerForm() {
     } catch (e) {
       setOwner(null);
       setLoading(false);
-      console.log("Could not fetch owner. The following error occurred:", e);
+      console.log("Could not get owner. The following error occurred:", e);
     }
   }
 
@@ -119,6 +119,6 @@ export function EditOwnerForm() {
       </form>
     </Card>
   ) : (
-    <p>Could not find owner.</p>
+    <p>Owner could not be found.</p>
   );
 }

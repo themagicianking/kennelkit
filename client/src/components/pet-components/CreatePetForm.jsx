@@ -48,45 +48,61 @@ export function CreatePetForm({ baseURL }) {
   }
 
   async function postPet(newPet) {
-    await fetch(`https://${link}/pet`, {
-      method: "POST",
-      body: JSON.stringify(newPet),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        return res.json();
+    try {
+      await fetch(`https://${link}/pet`, {
+        method: "POST",
+        body: JSON.stringify(newPet),
+        headers: { "Content-Type": "application/json" },
       })
-      .then((json) => console.log("Server response:", json));
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => console.log("Server response:", json));
+    } catch (e) {
+      console.log("Could not create pet. The following error occurred:", e);
+    }
   }
 
   async function loadOwners() {
-    await fetch(`https://${link}/allowners`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setOwnerListOptions(createOwnerListOptions(json));
-      });
+    try {
+      await fetch(`https://${link}/allowners`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          setOwnerListOptions(createOwnerListOptions(json));
+        });
+    } catch (e) {
+      console.log("Could not get owners. The following error occurred:", e);
+    }
   }
 
   async function loadCatBreeds() {
-    await fetch(`https://${baseURL}/catbreeds`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setCatBreedListOptions(createBreedListOptions(json));
-      });
+    try {
+      await fetch(`https://${baseURL}/catbreeds`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          setCatBreedListOptions(createBreedListOptions(json));
+        });
+    } catch (e) {
+      console.log("Could not get cat breeds. The following error occurred:", e);
+    }
   }
 
   async function loadDogBreeds() {
-    await fetch(`https://${link}/dogbreeds`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setDogBreedListOptions(createBreedListOptions(json));
-      });
+    try {
+      await fetch(`https://${link}/dogbreeds`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          setDogBreedListOptions(createBreedListOptions(json));
+        });
+    } catch (e) {
+      console.log("Could not get dog breeds. The following error occurred:", e);
+    }
   }
 
   function createOwnerListOptions(ownerListOptions) {

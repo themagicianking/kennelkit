@@ -15,7 +15,7 @@ export function CheckedInPetsList() {
         })
         .then((data) => setCheckedInPetsList(data));
     } catch (e) {
-      console.log("Could not fetch pets. The following error occured:", e);
+      console.log("Could not get pet list. The following error occured:", e);
     }
   }
 
