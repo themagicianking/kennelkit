@@ -162,10 +162,7 @@ APP.get("/allowners", async (req, res) => {
 // endpoint to create a new pet
 APP.post("/pet", async (req, res) => {
   await dbhelper.db.sync();
-  const owner = await dbhelper.Owner.findOne({
-    where: { id: req.body.ownerid },
-  });
-  const newpet = await dbhelper.Pet.create({
+  const newPet = await dbhelper.Pet.create({
     petname: req.body.petname,
     checkedin: false,
     staytype: null,
@@ -179,10 +176,22 @@ APP.post("/pet", async (req, res) => {
     ownerid: req.body.ownerid,
   });
 
-  console.log(owner);
+  console.log(newPet.toJSON());
+  res.send(newPet);
+});
 
-  console.log(newpet.toJSON());
-  res.send(newpet);
+// endpoint to create a new owner
+APP.post("/owner", async (req, res) => {
+  await dbhelper.db.sync();
+  const newOwner = await dbhelper.Owner.create({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    phone: req.body.phone,
+    email: req.body.email,
+  });
+
+  console.log(newOwner.toJSON());
+  res.send(newOwner);
 });
 
 // endpoint to edit pet by id
