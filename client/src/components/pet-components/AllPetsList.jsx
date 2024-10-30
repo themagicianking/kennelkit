@@ -16,7 +16,7 @@ export function AllPetsList() {
         .then((data) => setAllPetsList(data));
     } catch (e) {
       console.log(
-        "Could not connect to the server. The following error occurred:",
+        "Could not fetch pets. The following error occurred:",
         e
       );
     }
