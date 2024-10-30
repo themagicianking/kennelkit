@@ -57,8 +57,12 @@ export const POPULATE = {
 
 export const GET = {
   allOwners: async (req, res) => {
-    const owners = await dbhelper.Owner.findAll();
-    res.send(owners);
+    try {
+      const owners = await dbhelper.Owner.findAll();
+      res.send(owners);
+    } catch (e) {
+      res.status(404).send(e);
+    }
   },
 
   ownerById: async (req, res) => {

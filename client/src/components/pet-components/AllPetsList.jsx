@@ -11,6 +11,9 @@ export function AllPetsList() {
     try {
       await fetch(`https://${link}/allpets`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((data) => setAllPetsList(data));

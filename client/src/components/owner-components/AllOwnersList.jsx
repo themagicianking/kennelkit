@@ -11,14 +11,14 @@ export function AllOwnersList() {
     try {
       await fetch(`https://${link}/allowners`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((json) => setAllOwnersList(json));
     } catch (e) {
-      console.log(
-        "Could not get owner list. The following error occurred:",
-        e
-      );
+      console.log("Could not get owner list. The following error occurred:", e);
     }
   }
 

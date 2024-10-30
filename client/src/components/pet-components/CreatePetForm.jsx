@@ -55,6 +55,9 @@ export function CreatePetForm({ baseURL }) {
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((json) => console.log("Server response:", json));
@@ -67,6 +70,9 @@ export function CreatePetForm({ baseURL }) {
     try {
       await fetch(`https://${link}/allowners`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((json) => {
@@ -81,6 +87,9 @@ export function CreatePetForm({ baseURL }) {
     try {
       await fetch(`https://${baseURL}/catbreeds`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((json) => {
@@ -95,6 +104,9 @@ export function CreatePetForm({ baseURL }) {
     try {
       await fetch(`https://${link}/dogbreeds`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((json) => {

@@ -48,6 +48,9 @@ export function EditOwnerForm() {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => {
+        if (res.status >= 400) {
+          throw res.status;
+        }
         return res.json();
       })
       .then((json) => console.log("Server response:", json));

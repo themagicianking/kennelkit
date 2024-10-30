@@ -11,6 +11,9 @@ export function CheckedInPetsList() {
     try {
       await fetch(`https://${link}/checkedinpets`)
         .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
           return res.json();
         })
         .then((data) => setCheckedInPetsList(data));
