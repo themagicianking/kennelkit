@@ -21,7 +21,7 @@ export function EditOwnerForm({ baseURL }) {
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${baseURL}/owner?id=${id}`)
+      await fetch(`https://${baseURL}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;

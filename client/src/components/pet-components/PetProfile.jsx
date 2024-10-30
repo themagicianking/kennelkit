@@ -28,7 +28,7 @@ export function PetProfile({ baseURL }) {
 
   async function loadPet(id) {
     try {
-      await fetch(`https://${baseURL}/pet?id=${id}`)
+      await fetch(`https://${baseURL}/petbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
