@@ -7,17 +7,24 @@ export function CheckInToggle({ id, checkedin }) {
   const link = useBaseLink();
 
   async function toggleCheckIn(isChecked) {
-    await fetch(`https://${link}/checkin`, {
-      method: "PUT",
-      body: JSON.stringify({ id: id, checkedin: isChecked }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        return res.json();
+    try {
+      await fetch(`https://${link}/checkin`, {
+        method: "PUT",
+        body: JSON.stringify({ id: id, checkedin: isChecked }),
+        headers: { "Content-Type": "application/json" },
       })
-      .then((json) =>
-        console.log("Pet's check in status has been changed to:", json)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) =>
+          console.log("Pet's check in status has been changed to:", json)
+        );
+    } catch (e) {
+      console.log(
+        "Could not update check in status. The following error occurred:",
+        e
       );
+    }
   }
 
   function handleChange(e) {
