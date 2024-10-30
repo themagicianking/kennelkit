@@ -57,20 +57,22 @@ export function CreateOwnerForm() {
       </CardHeader>
       <form id="create-pet" onSubmit={handleSubmit}>
         <CardBody className="flex gap-6">
-          <Input id="firstname" label="First Name"></Input>
-          <Input id="lastname" label="Last Name"></Input>
+          <Input id="firstname" label="First Name" type="text" required></Input>
+          <Input id="lastname" label="Last Name" type="text" required></Input>
           <Input
             id="phone"
             label="Phone"
             placeholder="(123) 456 - 7890"
             type="tel"
             pattern="[0-9]{10}"
+            required
           ></Input>
           <Input
             id="email"
             label="Email"
             placeholder="email@email.com"
             type="email"
+            required
           ></Input>
         </CardBody>
         <CardFooter>

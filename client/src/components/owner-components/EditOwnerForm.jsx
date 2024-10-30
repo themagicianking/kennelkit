@@ -94,11 +94,13 @@ export function EditOwnerForm() {
             id="firstname"
             label="First Name"
             defaultValue={owner.firstname}
+            required
           ></Input>
           <Input
             id="lastname"
             label="Last Name"
             defaultValue={owner.lastname}
+            required
           ></Input>
           <Input
             id="phone"
@@ -107,6 +109,7 @@ export function EditOwnerForm() {
             type="tel"
             pattern="[0-9]{10}"
             defaultValue={owner.phone}
+            required
           ></Input>
           <Input
             id="email"
@@ -114,6 +117,7 @@ export function EditOwnerForm() {
             placeholder="email@email.com"
             type="email"
             defaultValue={owner.email}
+            required
           ></Input>
         </CardBody>
         <CardFooter>
