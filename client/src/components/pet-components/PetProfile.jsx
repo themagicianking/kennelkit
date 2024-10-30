@@ -16,7 +16,7 @@ import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
 import { useParams } from "react-router-dom";
-import { OWNER } from "../utilities/dummydata";
+import { OWNER } from "../../utilities/dummydata";
 
 export function PetProfile({ baseURL }) {
   let id = useParams().id;

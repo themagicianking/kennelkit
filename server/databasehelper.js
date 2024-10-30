@@ -104,7 +104,7 @@ class databaseHelper {
           birthday: "2023-07-13",
           weight: 10,
           physicaldesc: "Shorthaired tuxedo",
-          ownerid: 0,
+          ownerid: 1,
         },
       ]);
     })();

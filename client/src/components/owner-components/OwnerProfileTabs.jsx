@@ -5,7 +5,7 @@ import {
   TabPanel,
   TabsBody,
 } from "@material-tailwind/react";
-import { PetListView } from "./PetListView";
+import { PetListView } from "../pet-components/PetListView";
 
 export function OwnerProfileTabs({ pets, baseURL }) {
   return (

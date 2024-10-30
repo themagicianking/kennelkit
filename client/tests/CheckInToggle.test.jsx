@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { CheckInToggle } from "./CheckInToggle";
+import { CheckInToggle } from "../src/components/pet-components/CheckInToggle";
 const baseURL = import.meta.env.VITE_API_URL;
 
 describe("Check In Toggle", () => {

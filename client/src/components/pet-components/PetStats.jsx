@@ -1,5 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-import { getAltered, getAge } from "../utilities/pets";
+import { getAltered, getAge } from "../../utilities/pets";
 
 export function PetStats({ pet, owner }) {
   let alteredString = getAltered(pet.altered, pet.sex);

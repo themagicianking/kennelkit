@@ -1,20 +1,20 @@
 import { ThemeProvider } from "@material-tailwind/react";
 import { Homepage } from "./components/Homepage";
-import { CheckedInPetsList } from "./components/CheckedInPetsList";
+import { CheckedInPetsList } from "./components/pet-components/CheckedInPetsList";
 import { Route, Routes } from "react-router-dom";
-import { AllPetsList } from "./components/AllPetsList";
-import { CreatePetForm } from "./components/CreatePetForm";
-import { PetProfile } from "./components/PetProfile";
-import { EditPetForm } from "./components/EditPetForm";
-import { OwnerProfile } from "./components/OwnerProfile";
-import { AllOwnersList } from "./components/AllOwnersList";
-import { CreateOwnerForm } from "./components/CreateOwnerForm";
-import { EditOwnerForm } from "./components/EditOwnerForm";
+import { AllPetsList } from "./components/pet-components/AllPetsList";
+import { CreatePetForm } from "./components/pet-components/CreatePetForm";
+import { PetProfile } from "./components/pet-components/PetProfile";
+import { EditPetForm } from "./components/pet-components/EditPetForm";
+import { OwnerProfile } from "./components/owner-components/OwnerProfile";
+import { AllOwnersList } from "./components/owner-components/AllOwnersList";
+import { CreateOwnerForm } from "./components/owner-components/CreateOwnerForm";
+import { EditOwnerForm } from "./components/owner-components/EditOwnerForm";
 const baseURL = import.meta.env.VITE_API_URL;
 
 console.log("Base URL:", baseURL);
 
-function App() {
+export function App() {
   return (
     <Routes>
       <Route exact path="/" element={<Homepage />} />
@@ -49,5 +49,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

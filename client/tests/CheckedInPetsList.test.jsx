@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { CheckedInPetsList } from "./CheckedInPetsList";
+import { CheckedInPetsList } from "../src/components/pet-components/CheckedInPetsList";
 const baseURL = import.meta.env.VITE_API_URL;
 
 describe("Checked In Pets List", () => {

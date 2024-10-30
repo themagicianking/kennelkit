@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
 
 export function AllOwnersList({ baseUrl }) {

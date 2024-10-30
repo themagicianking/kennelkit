@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PetStats } from "./PetStats";
+import { PetStats } from "../src/components/pet-components/PetStats";
 
 let maleDog = {
   id: 1,

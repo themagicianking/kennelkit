@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PetListView } from "./PetListView";
+import { PetListView } from "../src/components/pet-components/PetListView";
 const baseURL = import.meta.env.VITE_API_URL;
 
 let list = [
@@ -31,7 +31,7 @@ describe("Pet List View", () => {
     render(<PetListView list={[]} baseURL={baseURL} />);
     const message = screen.getByTestId("message").textContent;
     it("returns the message", () => {
-      expect(message).toBe("No pets found.")
+      expect(message).toBe("No pets found.");
     });
   });
 });

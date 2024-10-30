@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { PetProfileIconBar } from "./PetProfileIconBar";
+import { PetProfileIconBar } from "../src/components/pet-components/PetProfileIconBar";
 
-describe.skip("Pet Profile Icon Bar", () => {
+describe("Pet Profile Icon Bar", () => {
   describe("renders daycare pet", () => {
     const daycareIconBar = render(
       <PetProfileIconBar isChecked={true} staytype={"daycare"} />

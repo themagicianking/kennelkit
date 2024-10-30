@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { OwnerProfileTabs } from "./OwnerProfileTabs";
-import { OWNER } from "../utilities/dummydata";
+import { OWNER } from "../../utilities/dummydata";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 

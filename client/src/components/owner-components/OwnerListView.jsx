@@ -1,5 +1,5 @@
 import { List } from "@material-tailwind/react";
-import { OwnerItem } from "./OwnerItem";
+import { OwnerItem } from "../owner-components/OwnerItem";
 
 export function OwnerListView({ list }) {
   return list.length > 0 ? (
