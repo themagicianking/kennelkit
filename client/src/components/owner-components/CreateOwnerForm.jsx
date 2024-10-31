@@ -1,4 +1,4 @@
-import { useServerName } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import {
   Button,
   Card,

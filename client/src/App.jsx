@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@material-tailwind/react";
-import { BaseLinkProvider } from "./BaseLinkProvider";
+import { ServerNameProvider } from "./ServerNameProvider";
 import { Homepage } from "./components/Homepage";
 import { CheckedInPetsList } from "./components/pet-components/CheckedInPetsList";
 import { Route, Routes } from "react-router-dom";
@@ -14,7 +14,7 @@ import { EditOwnerForm } from "./components/owner-components/EditOwnerForm";
 
 export function App() {
   return (
-    <BaseLinkProvider>
+    <ServerNameProvider>
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route exact path="/pets/checkedin" element={<CheckedInPetsList />} />
@@ -27,6 +27,6 @@ export function App() {
         <Route path="owners/:id" element={<OwnerProfile />} />
         <Route path="owners/:id/edit" element={<EditOwnerForm />} />
       </Routes>
-    </BaseLinkProvider>
+    </ServerNameProvider>
   );
 }

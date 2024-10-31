@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useServerName } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import { Switch } from "@material-tailwind/react";
 
 export function CheckInToggle({ id, checkedin }) {

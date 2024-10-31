@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useServerName } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 

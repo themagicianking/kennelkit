@@ -12,7 +12,7 @@ import { OwnerProfileTabs } from "./OwnerProfileTabs";
 import { OWNER } from "../../utilities/dummydata";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useServerName } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 
 export function OwnerProfile() {
   let id = useParams().id;
