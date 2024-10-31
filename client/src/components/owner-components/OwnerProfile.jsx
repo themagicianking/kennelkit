@@ -12,14 +12,14 @@ import { OwnerProfileTabs } from "./OwnerProfileTabs";
 import { OWNER } from "../../utilities/dummydata";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../BaseLinkProvider";
 
 export function OwnerProfile() {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const link = useBaseLink();
+  const link = useServerName();
 
   async function loadOwner(id) {
     try {

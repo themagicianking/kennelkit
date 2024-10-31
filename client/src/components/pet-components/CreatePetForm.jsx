@@ -3,7 +3,7 @@
 // to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
 
 import { useState, useEffect } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import {
   Button,
   Card,
@@ -26,7 +26,7 @@ export function CreatePetForm({ baseURL }) {
   const [breed, setBreed] = useState(null);
   const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
-  const link = useBaseLink();
+  const serverName = useServerName();
 
   useEffect(() => {
     loadOwners();
@@ -49,7 +49,7 @@ export function CreatePetForm({ baseURL }) {
 
   async function postPet(newPet) {
     try {
-      await fetch(`https://${link}/pet`, {
+      await fetch(`https://${serverName}/pet`, {
         method: "POST",
         body: JSON.stringify(newPet),
         headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ export function CreatePetForm({ baseURL }) {
 
   async function loadOwners() {
     try {
-      await fetch(`https://${link}/allowners`)
+      await fetch(`https://${serverName}/allowners`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -102,7 +102,7 @@ export function CreatePetForm({ baseURL }) {
 
   async function loadDogBreeds() {
     try {
-      await fetch(`https://${link}/dogbreeds`)
+      await fetch(`https://${serverName}/dogbreeds`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;

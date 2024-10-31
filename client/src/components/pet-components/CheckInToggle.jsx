@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../BaseLinkProvider";
 import { Switch } from "@material-tailwind/react";
 
 export function CheckInToggle({ id, checkedin }) {
   const [isChecked, setIsChecked] = useState(checkedin);
-  const link = useBaseLink();
+  const link = useServerName();
 
   async function toggleCheckIn(isChecked) {
     console.log(`Sending check in status ${isChecked} to the server.`);

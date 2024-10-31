@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
 
 export function AllOwnersList() {
   const [allOwnersList, setAllOwnersList] = useState(null);
-  const link = useBaseLink();
+  const serverName = useServerName();
 
   async function loadAllOwners() {
     try {
-      await fetch(`https://${link}/allowners`)
+      await fetch(`https://${serverName}/allowners`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;

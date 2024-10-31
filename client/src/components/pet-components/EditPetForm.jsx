@@ -18,7 +18,7 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 
 export function EditPetForm() {
   let id = useParams().id;
@@ -29,7 +29,7 @@ export function EditPetForm() {
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [owner, setOwner] = useState(null);
-  const link = useBaseLink();
+  const serverName = useServerName();
 
   useEffect(() => {
     loadPet(id);
@@ -48,7 +48,7 @@ export function EditPetForm() {
 
   async function loadPet(id) {
     try {
-      await fetch(`https://${link}/petbyid?id=${id}`)
+      await fetch(`https://${serverName}/petbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -70,7 +70,7 @@ export function EditPetForm() {
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${link}/owner?id=${id}`)
+      await fetch(`https://${serverName}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -92,7 +92,7 @@ export function EditPetForm() {
 
   async function editPet(editedPet) {
     try {
-      await fetch(`https://${link}/pet`, {
+      await fetch(`https://${serverName}/pet`, {
         method: "PUT",
         body: JSON.stringify(editedPet),
         headers: { "Content-Type": "application/json" },
@@ -108,7 +108,7 @@ export function EditPetForm() {
 
   async function loadCatBreeds() {
     try {
-      await fetch(`https://${link}/catbreeds`)
+      await fetch(`https://${serverName}/catbreeds`)
         .then((res) => {
           return res.json();
         })
@@ -122,7 +122,7 @@ export function EditPetForm() {
 
   async function loadDogBreeds() {
     try {
-      await fetch(`https://${link}/dogbreeds`)
+      await fetch(`https://${serverName}/dogbreeds`)
         .then((res) => {
           return res.json();
         })

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../BaseLinkProvider";
 import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
 export function AllPetsList() {
   const [allPetsList, setAllPetsList] = useState(null);
-  const link = useBaseLink();
+  const link = useServerName();
 
   async function loadAllPets() {
     try {

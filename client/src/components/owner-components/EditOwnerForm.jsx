@@ -9,13 +9,13 @@ import {
 } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 
 export function EditOwnerForm() {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
   const [loading, setLoading] = useState(true);
-  const link = useBaseLink();
+  const serverName = useServerName();
 
   useEffect(() => {
     loadOwner(id);
@@ -23,7 +23,7 @@ export function EditOwnerForm() {
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${link}/ownerbyid?id=${id}`)
+      await fetch(`https://${serverName}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -42,7 +42,7 @@ export function EditOwnerForm() {
   }
 
   async function editOwner(editedOwner) {
-    await fetch(`https://${link}/owner`, {
+    await fetch(`https://${serverName}/owner`, {
       method: "PUT",
       body: JSON.stringify(editedOwner),
       headers: { "Content-Type": "application/json" },

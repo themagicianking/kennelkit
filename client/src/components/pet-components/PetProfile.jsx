@@ -13,7 +13,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../ServerNameProvider";
 import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
@@ -27,11 +27,11 @@ export function PetProfile() {
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
   const [isChecked, setIsChecked] = useState(null);
-  const link = useBaseLink();
+  const serverName = useServerName();
 
   async function loadPet(id) {
     try {
-      await fetch(`https://${link}/petbyid?id=${id}`)
+      await fetch(`https://${serverName}/petbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -53,7 +53,7 @@ export function PetProfile() {
   async function toggleCheckIn(isChecked) {
     console.log(`Sending check in status ${isChecked} to the server.`);
     try {
-      await fetch(`https://${link}/checkin`, {
+      await fetch(`https://${serverName}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: pet.id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },

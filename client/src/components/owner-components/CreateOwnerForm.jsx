@@ -1,4 +1,4 @@
-import { useBaseLink } from "../../BaseLinkProvider";
+import { useServerName } from "../../BaseLinkProvider";
 import {
   Button,
   Card,
@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 
 export function CreateOwnerForm() {
-  const link = useBaseLink();
+  const link = useServerName();
   async function postOwner(newOwner) {
     try {
       await fetch(`https://${link}/owner`, {

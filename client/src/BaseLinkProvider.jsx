@@ -1,17 +1,17 @@
 import { createContext, useContext } from "react";
 
-const BaseLinkContext = createContext();
+const ServerNameContext = createContext();
 
-export const useBaseLink = () => {
-  return useContext(BaseLinkContext);
+export const useServerName = () => {
+  return useContext(ServerNameContext);
 };
 
-export const BaseLinkProvider = ({ children }) => {
+export const ServerNameProvider = ({ children }) => {
   const baseURL = import.meta.env.VITE_API_URL;
 
   return (
-    <BaseLinkContext.Provider value={baseURL}>
+    <ServerNameContext.Provider value={baseURL}>
       {children}
-    </BaseLinkContext.Provider>
+    </ServerNameContext.Provider>
   );
 };
