@@ -19,10 +19,10 @@ import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
 import { useParams } from "react-router-dom";
 import { OWNER } from "../../utilities/dummydata";
+import { EditPetForm } from "./EditPetForm";
 
 export function PetProfile() {
   const id = useParams().id;
-  const editLink = `/pets/${id}/edit`;
   let owner = OWNER;
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
@@ -120,9 +120,7 @@ export function PetProfile() {
         <PetProfileTabs />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
-        <a href={editLink}>
-          <Button>Edit</Button>
-        </a>
+        <EditPetForm pet={pet} owner={owner}/>
         <Switch
           color="green"
           label="Checked In?"

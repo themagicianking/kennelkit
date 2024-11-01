@@ -152,6 +152,7 @@ export function CreatePetForm() {
       birthday: e.target.birthday.value,
       weight: e.target.weight.value,
       physicaldesc: e.target.physicaldesc.value,
+      staytype: "daycare",
     };
 
     console.log("Request body:", newPet);

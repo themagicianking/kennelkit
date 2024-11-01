@@ -1,29 +1,26 @@
-// to do: add edit link
-
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
-  Button,
   Typography,
 } from "@material-tailwind/react";
 import { OwnerProfileTabs } from "./OwnerProfileTabs";
-import { OWNER } from "../../utilities/dummydata";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useServerName } from "../../ServerNameProvider";
+import { EditOwnerForm } from "./EditOwnerForm";
 
 export function OwnerProfile() {
   let id = useParams().id;
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const link = useServerName();
+  const serverName = useServerName();
 
   async function loadOwner(id) {
     try {
-      await fetch(`https://${link}/ownerbyid?id=${id}`)
+      await fetch(`https://${serverName}/ownerbyid?id=${id}`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
@@ -42,7 +39,7 @@ export function OwnerProfile() {
   }
 
   async function loadPets(id) {
-    await fetch(`https://${link}/petsbyowner?id=${id}`)
+    await fetch(`https://${serverName}/petsbyowner?id=${id}`)
       .then((res) => {
         return res.json();
       })
@@ -75,15 +72,13 @@ export function OwnerProfile() {
         </ul>
         <Typography variant="h4">Emergency Contact</Typography>
         <ul>
-          <li>Phone: {OWNER.ecphone}</li>
-          <li>Email: {OWNER.ecemail}</li>
+          <li>Phone: Emergency contact phone</li>
+          <li>Email: Emergency contact email</li>
         </ul>
         <OwnerProfileTabs pets={pets} />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
-        <a href={""}>
-          <Button>Edit</Button>
-        </a>
+        <EditOwnerForm owner={owner} />
       </CardFooter>
     </Card>
   ) : (
