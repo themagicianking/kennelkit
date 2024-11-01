@@ -1,4 +1,6 @@
 import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
+import { CreateOwnerForm } from "./owner-components/CreateOwnerForm";
+import { CreatePetForm } from "./pet-components/CreatePetForm";
 
 export function Navbar() {
   return (
@@ -35,22 +37,8 @@ export function Navbar() {
           All Owners
         </ListItem>
       </a>
-      <a href="/pets/new">
-      <ListItem>
-        <ListItemPrefix>
-          <i className="fas fa-plus" />
-        </ListItemPrefix>
-        Create a Pet
-      </ListItem>
-      </a>
-      <a href="/owners/new">
-      <ListItem>
-        <ListItemPrefix>
-          <i className="fas fa-plus" />
-        </ListItemPrefix>
-        Create an Owner
-      </ListItem>
-      </a>
+      <CreatePetForm />
+      <CreateOwnerForm />
     </List>
   );
 }

@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   CardHeader,
+  Dialog,
   Typography,
   CardBody,
   Input,
@@ -26,6 +27,7 @@ export function CreatePetForm({ baseURL }) {
   const [breed, setBreed] = useState(null);
   const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
+  const [size, setSize] = useState(null);
   const serverName = useServerName();
 
   useEffect(() => {
@@ -33,6 +35,8 @@ export function CreatePetForm({ baseURL }) {
     loadCatBreeds();
     loadDogBreeds();
   }, []);
+
+  const handleOpen = (value) => setSize(value);
 
   function onSpeciesChange(value) {
     setSpecies(value);
@@ -157,178 +161,188 @@ export function CreatePetForm({ baseURL }) {
 
   return (
     <>
-      <Card>
-        <CardHeader
-          floated={false}
-          shadow={false}
-          color="transparent"
-          className="rounded-b-none"
-        >
-          <Typography variant="h2">Create a Pet</Typography>
-        </CardHeader>
-        <form id="create-pet" onSubmit={handleSubmit}>
-          <CardBody className="flex gap-6">
-            {/* Column one */}
-            <div className="mb-1 flex flex-col gap-6">
-              {/* Owner's name dropdown */}
-              {ownerListOptions ? (
-                <DropdownFilter
-                  options={ownerListOptions}
-                  placeholder="Owner Name"
-                  onChange={onOwnerChange}
+      <Button onClick={() => handleOpen("xxl")}>
+        <i className="fas fa-plus" /> Create a Pet
+      </Button>
+      <Dialog open={size === "xxl"} handler={handleOpen} size={size || "xxl"}>
+        <Card>
+          <CardHeader
+            floated={false}
+            shadow={false}
+            color="transparent"
+            className="rounded-b-none"
+          >
+            <Typography variant="h2">Create a Pet</Typography>
+          </CardHeader>
+          <form id="create-pet" onSubmit={handleSubmit}>
+            <CardBody className="flex gap-6">
+              {/* Column one */}
+              <div className="mb-1 flex flex-col gap-6">
+                {/* Owner's name dropdown */}
+                {ownerListOptions ? (
+                  <DropdownFilter
+                    options={ownerListOptions}
+                    placeholder="Owner Name"
+                    onChange={onOwnerChange}
+                    required
+                  />
+                ) : (
+                  <></>
+                )}
+                {/* Pet name input */}
+                <Input id="petname" label="Pet Name" required />
+                {/* Sex radios */}
+                <div className="flex gap-8">
+                  <Radio name="sex" value="male" label="Male" required />
+                  <Radio name="sex" value="female" label="Female" required />
+                </div>
+                {/* Altered radios */}
+                <div className="flex gap-4">
+                  <Radio
+                    name="altered"
+                    value="altered"
+                    label="Altered"
+                    required
+                  />
+                  <Radio
+                    name="altered"
+                    value="unaltered"
+                    label="Unaltered"
+                    required
+                  />
+                </div>
+                {/* Species dropdown */}
+                <Select
+                  label="Species"
+                  id="species"
+                  value={species}
+                  onChange={onSpeciesChange}
                   required
-                />
-              ) : (
-                <></>
-              )}
-              {/* Pet name input */}
-              <Input id="petname" label="Pet Name" required />
-              {/* Sex radios */}
-              <div className="flex gap-8">
-                <Radio name="sex" value="male" label="Male" required />
-                <Radio name="sex" value="female" label="Female" required />
-              </div>
-              {/* Altered radios */}
-              <div className="flex gap-4">
-                <Radio
-                  name="altered"
-                  value="altered"
-                  label="Altered"
-                  required
-                />
-                <Radio
-                  name="altered"
-                  value="unaltered"
-                  label="Unaltered"
-                  required
-                />
-              </div>
-              {/* Species dropdown */}
-              <Select
-                label="Species"
-                id="species"
-                value={species}
-                onChange={onSpeciesChange}
-                required
-              >
-                <Option name="species" value="dog">
-                  Dog
-                </Option>
-                <Option name="species" value="cat">
-                  Cat
-                </Option>
-              </Select>
-              {/* Breed dropdown (while disabled) */}
-              {!species ? (
-                <Select label="Breed" id="breed" disabled={!species}>
-                  <Option key={null} name={null} value={null}>
-                    Breed
+                >
+                  <Option name="species" value="dog">
+                    Dog
+                  </Option>
+                  <Option name="species" value="cat">
+                    Cat
                   </Option>
                 </Select>
-              ) : (
-                <></>
-              )}
-              {/* Cat dropdown */}
-              {species == "cat" ? (
-                <Select
-                  label="Breed"
-                  id="breed"
-                  value={breed}
-                  onChange={onBreedChange}
-                  disabled={!species}
-                  required
-                >
-                  {catBreedListOptions}
-                </Select>
-              ) : (
-                <></>
-              )}
-              {/* Dog dropdown */}
-              {species == "dog" ? (
-                <Select
-                  label="Breed"
-                  id="breed"
-                  value={breed}
-                  onChange={onBreedChange}
-                  disabled={!species}
-                  required
-                >
-                  {dogBreedListOptions}
-                </Select>
-              ) : (
-                <></>
-              )}
-              {/* Birthday input */}
-              <div>
+                {/* Breed dropdown (while disabled) */}
+                {!species ? (
+                  <Select label="Breed" id="breed" disabled={!species}>
+                    <Option key={null} name={null} value={null}>
+                      Breed
+                    </Option>
+                  </Select>
+                ) : (
+                  <></>
+                )}
+                {/* Cat dropdown */}
+                {species == "cat" ? (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {catBreedListOptions}
+                  </Select>
+                ) : (
+                  <></>
+                )}
+                {/* Dog dropdown */}
+                {species == "dog" ? (
+                  <Select
+                    label="Breed"
+                    id="breed"
+                    value={breed}
+                    onChange={onBreedChange}
+                    disabled={!species}
+                    required
+                  >
+                    {dogBreedListOptions}
+                  </Select>
+                ) : (
+                  <></>
+                )}
+                {/* Birthday input */}
+                <div>
+                  <Input
+                    type="date"
+                    id="birthday"
+                    label="Birthday"
+                    required
+                  ></Input>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-asterisk"></i>
+                    Or best estimate
+                  </Typography>
+                </div>
+                {/* Weight input */}
                 <Input
-                  type="date"
-                  id="birthday"
-                  label="Birthday"
+                  type="number"
+                  id="weight"
+                  label="Weight"
                   required
                 ></Input>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="mt-2 flex items-center gap-2 font-normal"
-                >
-                  <i className="fas fa-asterisk"></i>
-                  Or best estimate
-                </Typography>
               </div>
-              {/* Weight input */}
-              <Input type="number" id="weight" label="Weight" required></Input>
-            </div>
-            {/* Column two */}
-            <div className="mb-1 flex flex-col gap-6">
-              {/* Physical description input */}
-              <div>
-                <Textarea
-                  id="physicaldesc"
-                  label="Physical Description"
-                ></Textarea>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="mt-2 flex items-center gap-2 font-normal"
+              {/* Column two */}
+              <div className="mb-1 flex flex-col gap-6">
+                {/* Physical description input */}
+                <div>
+                  <Textarea
+                    id="physicaldesc"
+                    label="Physical Description"
+                  ></Textarea>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-circle-info"></i>
+                    Physical description: coat color and type, markings, unusual
+                    features
+                  </Typography>
+                </div>
+                {/* Notes input */}
+                <div>
+                  <Textarea label="Notes"></Textarea>
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="mt-2 flex items-center gap-2 font-normal"
+                  >
+                    <i className="fas fa-circle-info"></i>Personality, specific
+                    concerns or quirks
+                  </Typography>
+                </div>
+                {/* Photo upload */}
+                <Button
+                  color="blue-gray"
+                  size="md"
+                  className="flex flex-col items-center gap-6"
+                  fullWidth
                 >
-                  <i className="fas fa-circle-info"></i>
-                  Physical description: coat color and type, markings, unusual
-                  features
-                </Typography>
+                  <label html="imageupload">Upload a photo</label>
+                  <input
+                    name="imageupload"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                  ></input>
+                </Button>
               </div>
-              {/* Notes input */}
-              <div>
-                <Textarea label="Notes"></Textarea>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="mt-2 flex items-center gap-2 font-normal"
-                >
-                  <i className="fas fa-circle-info"></i>Personality, specific
-                  concerns or quirks
-                </Typography>
-              </div>
-              {/* Photo upload */}
-              <Button
-                color="blue-gray"
-                size="md"
-                className="flex flex-col items-center gap-6"
-                fullWidth
-              >
-                <label html="imageupload">Upload a photo</label>
-                <input
-                  name="imageupload"
-                  type="file"
-                  accept="image/png, image/jpeg"
-                ></input>
-              </Button>
-            </div>
-          </CardBody>
-          <CardFooter>
-            <Button type="submit">Submit</Button>
-          </CardFooter>
-        </form>
-      </Card>
+            </CardBody>
+            <CardFooter>
+              <Button type="submit">Submit</Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </Dialog>
     </>
   );
 }
