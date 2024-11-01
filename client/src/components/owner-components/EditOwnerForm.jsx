@@ -1,39 +1,22 @@
-// to do: add callback function to rerender owner profile upon edit
-
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { PUT } from "../../utilities/server-endpoints";
 import {
   Button,
   Card,
-  CardHeader,
-  Typography,
   CardBody,
+  CardFooter,
+  CardHeader,
   Dialog,
   Input,
-  CardFooter,
+  Typography,
 } from "@material-tailwind/react";
-import { useState } from "react";
-import { useServerName } from "../../ServerNameProvider";
 
 export function EditOwnerForm({ owner }) {
-  const [size, setSize] = useState(null);
+  const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const serverName = useServerName();
 
-  const handleOpen = (value) => setSize(value);
-
-  async function editOwner(editedOwner) {
-    await fetch(`https://${serverName}/owner`, {
-      method: "PUT",
-      body: JSON.stringify(editedOwner),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        if (res.status >= 400) {
-          throw res.status;
-        }
-        return res.json();
-      })
-      .then((json) => console.log("Server response:", json));
-  }
+  const handleOpen = () => setOpen(!open);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -47,15 +30,15 @@ export function EditOwnerForm({ owner }) {
     };
 
     console.log("Request body:", editedOwner);
-    editOwner(editedOwner);
+    PUT.editOwner(editedOwner);
     e.target.reset();
     setSubmitted(true);
   }
 
   return (
     <>
-      <Button onClick={() => handleOpen("xxl")}>Edit</Button>
-      <Dialog open={size === "xxl"} handler={handleOpen} size={size || "xxl"}>
+      <Button onClick={handleOpen}>Edit</Button>
+      <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -99,16 +82,23 @@ export function EditOwnerForm({ owner }) {
                 ></Input>
               </CardBody>
               <CardFooter>
-                <Button onClick={() => handleOpen(null)}>Cancel</Button>
+                <Button onClick={handleOpen}>Cancel</Button>
                 <Button type="submit">Submit</Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
-            <CardBody className="flex gap-6">Owner has been created!</CardBody>
+            <CardBody className="flex gap-6">Owner has been edited!</CardBody>
             <CardFooter>
-              <Button onClick={() => handleOpen(null)}>Close</Button>
+              <Button
+                onClick={() => {
+                  handleOpen();
+                  setSubmitted(false);
+                }}
+              >
+                Close
+              </Button>
             </CardFooter>
           </Card>
         )}
@@ -116,3 +106,7 @@ export function EditOwnerForm({ owner }) {
     </>
   );
 }
+
+EditOwnerForm.propTypes = {
+  owner: PropTypes.object.isRequired,
+};
