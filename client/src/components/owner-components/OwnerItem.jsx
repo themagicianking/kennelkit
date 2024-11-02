@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   ListItem,
   ListItemPrefix,
@@ -7,13 +8,13 @@ import {
 } from "@material-tailwind/react";
 
 export function OwnerItem({ owner }) {
-  let link = `/owners/${owner.id}`;
+  let linkToProfile = `/owners/${owner.id}`;
   return (
     <ListItem>
       <ListItemPrefix>
         <i className="fas fa-user" />
       </ListItemPrefix>
-      <a href={link} data-testid="link">
+      <a href={linkToProfile} data-testid="link">
         <Typography variant="h6">
           {`${owner.firstname} ${owner.lastname}`}
         </Typography>
@@ -28,3 +29,7 @@ export function OwnerItem({ owner }) {
     </ListItem>
   );
 }
+
+OwnerItem.propTypes = {
+  owner: PropTypes.object.isRequired,
+};
