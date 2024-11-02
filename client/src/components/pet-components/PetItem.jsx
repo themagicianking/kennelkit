@@ -1,4 +1,3 @@
-// todo: add icon for photo
 import PropTypes from "prop-types";
 import { CheckInToggle } from "./CheckInToggle";
 import {

@@ -1,8 +1,11 @@
-// todo: search material tailwind documentation to find a way to set a default tab
-// todo: change styling for tooltip info
-// todo: change color scheme
-// todo: add title font
-// todo: change owner to real owner
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useServerName } from "../../ServerNameProvider";
+import { PetProfileIconBar } from "./PetProfileIconBar";
+import { PetStats } from "./PetStats";
+import { PetProfileTabs } from "./PetProfileTabs";
+import { EditPetForm } from "./EditPetForm";
 import {
   Card,
   CardHeader,
@@ -10,24 +13,19 @@ import {
   CardBody,
   CardFooter,
   Switch,
-  Button,
 } from "@material-tailwind/react";
-import { useState, useEffect } from "react";
-import { useServerName } from "../../ServerNameProvider";
-import { PetProfileIconBar } from "./PetProfileIconBar";
-import { PetStats } from "./PetStats";
-import { PetProfileTabs } from "./PetProfileTabs";
-import { useParams } from "react-router-dom";
-import { OWNER } from "../../utilities/dummydata";
-import { EditPetForm } from "./EditPetForm";
 
 export function PetProfile() {
   const id = useParams().id;
-  let owner = OWNER;
+  const serverName = useServerName();
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState(null);
+  const [owner, setOwner] = useState(null);
   const [isChecked, setIsChecked] = useState(null);
-  const serverName = useServerName();
+
+  useEffect(() => {
+    loadPet(id);
+  }, []);
 
   async function loadPet(id) {
     try {
@@ -40,6 +38,7 @@ export function PetProfile() {
         })
         .then((json) => {
           setPet(json);
+          loadOwner(json.ownerid);
           setLoading(false);
           setIsChecked(json.checkedin);
         });
@@ -47,6 +46,26 @@ export function PetProfile() {
       setPet(null);
       setLoading(false);
       console.log("Could not get pet. The following error occurred:", e);
+    }
+  }
+
+  async function loadOwner(id) {
+    try {
+      await fetch(`https://${serverName}/ownerbyid?id=${id}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
+          return res.json();
+        })
+        .then((json) => {
+          setOwner(json);
+          setLoading(false);
+        });
+    } catch (e) {
+      setOwner(null);
+      setLoading(false);
+      console.log(`Could not get owner. The following error occurred: ${e}`);
     }
   }
 
@@ -80,15 +99,11 @@ export function PetProfile() {
     setIsChecked(e.target.checked);
   }
 
-  useEffect(() => {
-    loadPet(id);
-  }, []);
-
   if (loading) {
     return <div>loading...</div>;
   }
 
-  return pet ? (
+  return pet && owner ? (
     <Card shadow={true} variant="gradient" color="white">
       <CardHeader
         floated={false}
@@ -120,7 +135,7 @@ export function PetProfile() {
         <PetProfileTabs />
       </CardBody>
       <CardFooter className="gap-4 pet-profile-footer">
-        <EditPetForm pet={pet} owner={owner}/>
+        <EditPetForm pet={pet} owner={owner} />
         <Switch
           color="green"
           label="Checked In?"
@@ -129,7 +144,9 @@ export function PetProfile() {
         />
       </CardFooter>
     </Card>
-  ) : (
+  ) : !pet && !owner ? (
     <p>Pet could not be found.</p>
+  ) : (
+    <p>Loading...</p>
   );
 }
