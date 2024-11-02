@@ -1,5 +1,5 @@
-import { useServerName } from "../../ServerNameProvider";
 import { useState } from "react";
+import { useServerName } from "../../ServerNameProvider";
 import {
   Button,
   Card,
@@ -12,15 +12,16 @@ import {
 } from "@material-tailwind/react";
 
 export function CreateOwnerForm() {
-  const [size, setSize] = useState(null);
+  const serverName = useServerName();
+  const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const link = useServerName();
+  const [submitMessage, setSubmitMessage] = useState(null);
 
-  const handleOpen = (value) => setSize(value);
+  const handleOpen = () => setOpen(!open);
 
   async function postOwner(newOwner) {
     try {
-      await fetch(`https://${link}/owner`, {
+      await fetch(`https://${serverName}/owner`, {
         method: "POST",
         body: JSON.stringify(newOwner),
         headers: { "Content-Type": "application/json" },
@@ -31,9 +32,15 @@ export function CreateOwnerForm() {
           }
           return res.json();
         })
-        .then((json) => console.log("Server response:", json));
+        .then((json) => {
+          console.log("Server response:", json);
+          setSubmitMessage("Owner has been created!");
+        });
     } catch (e) {
       console.log("Could not create owner. The following error occurred:", e);
+      setSubmitMessage(
+        `Could not create owner. The following error occurred: ${e}`
+      );
     }
   }
 
@@ -58,7 +65,7 @@ export function CreateOwnerForm() {
       <Button onClick={() => handleOpen("xxl")}>
         <i className="fas fa-plus" /> Create an Owner
       </Button>
-      <Dialog open={size === "xxl"} handler={handleOpen} size={size || "xxl"}>
+      <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -100,16 +107,25 @@ export function CreateOwnerForm() {
                 ></Input>
               </CardBody>
               <CardFooter>
-                <Button onClick={() => handleOpen(null)}>Cancel</Button>
+                <Button onClick={handleOpen}>Cancel</Button>
                 <Button type="submit">Submit</Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
-            <CardBody className="flex gap-6">Owner has been created!</CardBody>
+            <CardBody className="flex gap-6">
+              <p>{submitMessage}</p>
+            </CardBody>
             <CardFooter>
-              <Button onClick={() => handleOpen(null)}>Close</Button>
+              <Button
+                onClick={() => {
+                  handleOpen();
+                  setSubmitted(false);
+                }}
+              >
+                Close
+              </Button>
             </CardFooter>
           </Card>
         )}
