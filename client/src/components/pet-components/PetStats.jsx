@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Typography } from "@material-tailwind/react";
 import { getAltered, getAge } from "../../utilities/pets";
 
@@ -49,3 +50,8 @@ export function PetStats({ pet, owner }) {
     </ul>
   );
 }
+
+PetStats.propTypes = {
+  pet: PropTypes.object.isRequired,
+  owner: PropTypes.object.isRequired,
+};
