@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Tooltip, IconButton } from "@material-tailwind/react";
 
 export function PetProfileIconBar({ isChecked, staytype }) {
@@ -51,3 +52,8 @@ export function PetProfileIconBar({ isChecked, staytype }) {
     </>
   );
 }
+
+PetProfileIconBar.propTypes = {
+  isChecked: PropTypes.bool.isRequired,
+  staytype: PropTypes.string.isRequired,
+};
