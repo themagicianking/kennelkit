@@ -1,3 +1,8 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { OwnerProfileTabs } from "./OwnerProfileTabs";
+import { useServerName } from "../../ServerNameProvider";
+import { EditOwnerForm } from "./EditOwnerForm";
 import {
   Card,
   CardHeader,
@@ -5,18 +10,18 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import { OwnerProfileTabs } from "./OwnerProfileTabs";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useServerName } from "../../ServerNameProvider";
-import { EditOwnerForm } from "./EditOwnerForm";
 
 export function OwnerProfile() {
   let id = useParams().id;
+  const serverName = useServerName();
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const serverName = useServerName();
+
+  useEffect(() => {
+    loadOwner(id);
+    loadPets(id);
+  });
 
   async function loadOwner(id) {
     try {
@@ -48,11 +53,6 @@ export function OwnerProfile() {
       });
   }
 
-  useEffect(() => {
-    loadOwner(id);
-    loadPets(id);
-  }, []);
-
   if (loading) {
     return <div>loading...</div>;
   }
@@ -70,6 +70,7 @@ export function OwnerProfile() {
           <li>Phone: {owner.phone}</li>
           <li>Email: {owner.email}</li>
         </ul>
+        {/* Emergency contact currently uses dummy data, as there is no emergency contact table. */}
         <Typography variant="h4">Emergency Contact</Typography>
         <ul>
           <li>Phone: Emergency contact phone</li>
