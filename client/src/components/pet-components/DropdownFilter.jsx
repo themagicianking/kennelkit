@@ -1,4 +1,5 @@
 import Select from "react-select";
+import PropTypes from "prop-types";
 
 export function DropdownFilter({ options, placeholder, onChange, isDisabled }) {
   return (
@@ -11,3 +12,10 @@ export function DropdownFilter({ options, placeholder, onChange, isDisabled }) {
     />
   );
 }
+
+DropdownFilter.propTypes = {
+  options: PropTypes.array.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+};
