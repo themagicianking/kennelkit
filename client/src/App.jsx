@@ -10,15 +10,17 @@ import { AllOwnersList } from "./components/owner-components/AllOwnersList";
 
 export function App() {
   return (
-    <ServerNameProvider>
-      <Routes>
-        <Route exact path="/" element={<Homepage />} />
-        <Route exact path="/pets/checkedin" element={<CheckedInPetsList />} />
-        <Route exact path="/pets" element={<AllPetsList />} />
-        <Route exact path="/owners" element={<AllOwnersList />} />
-        <Route path="pets/:id" element={<PetProfile />} />
-        <Route path="owners/:id" element={<OwnerProfile />} />
-      </Routes>
-    </ServerNameProvider>
+    <ThemeProvider>
+      <ServerNameProvider>
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/pets/checkedin" element={<CheckedInPetsList />} />
+          <Route exact path="/pets" element={<AllPetsList />} />
+          <Route exact path="/owners" element={<AllOwnersList />} />
+          <Route path="pets/:id" element={<PetProfile />} />
+          <Route path="owners/:id" element={<OwnerProfile />} />
+        </Routes>
+      </ServerNameProvider>
+    </ThemeProvider>
   );
 }
