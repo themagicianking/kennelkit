@@ -248,7 +248,7 @@ export const PUT = {
   checkin: async (req, res) => {
     try {
       await dbhelper.Pet.update(
-        { checkedin: req.body.checkedin },
+        { checkedin: req.body.checkedin, staytype: req.body.staytype },
         {
           where: { id: req.body.id },
         }

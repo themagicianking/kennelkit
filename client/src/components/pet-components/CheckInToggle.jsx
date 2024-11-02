@@ -12,7 +12,11 @@ export function CheckInToggle({ id, checkedin }) {
     try {
       await fetch(`https://${serverName}/checkin`, {
         method: "PUT",
-        body: JSON.stringify({ id: id, checkedin: isChecked }),
+        body: JSON.stringify({
+          id: id,
+          checkedin: isChecked,
+          staytype: "daycare",
+        }),
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => {
