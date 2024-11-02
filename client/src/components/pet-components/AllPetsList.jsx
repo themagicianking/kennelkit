@@ -4,27 +4,39 @@ import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
 
 export function AllPetsList() {
+  const serverName = useServerName();
   const [allPetsList, setAllPetsList] = useState(null);
-  const link = useServerName();
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    loadAllPets();
+  });
 
   async function loadAllPets() {
     try {
-      await fetch(`https://${link}/allpets`)
+      await fetch(`https://${serverName}/allpets`)
         .then((res) => {
           if (res.status >= 400) {
             throw res.status;
           }
           return res.json();
         })
-        .then((data) => setAllPetsList(data));
+        .then((data) => {
+          setAllPetsList(data);
+          setLoading(false);
+        });
     } catch (e) {
-      console.log("Could not get pet list. The following error occurred:", e);
+      setLoading(false);
+      setErrorMessage(
+        `Could not get pet list. The following error occurred: ${e}`
+      );
     }
   }
 
-  useEffect(() => {
-    loadAllPets();
-  }, []);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex">
@@ -34,7 +46,7 @@ export function AllPetsList() {
         {allPetsList ? (
           <PetListView list={allPetsList} />
         ) : (
-          <p>List could not be found.</p>
+          <p>{errorMessage}</p>
         )}
       </div>
     </div>
