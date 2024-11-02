@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { PetListView } from "../pet-components/PetListView";
 import {
   Tabs,
   Tab,
@@ -5,7 +7,6 @@ import {
   TabPanel,
   TabsBody,
 } from "@material-tailwind/react";
-import { PetListView } from "../pet-components/PetListView";
 
 export function OwnerProfileTabs({ pets }) {
   return (
@@ -41,3 +42,7 @@ export function OwnerProfileTabs({ pets }) {
     </Tabs>
   );
 }
+
+OwnerProfileTabs.propTypes = {
+  pets: PropTypes.array.isRequired,
+};
