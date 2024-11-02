@@ -27,7 +27,7 @@ export function CreatePetForm() {
   const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
   const [open, setOpen] = useState(false);
-  const [ownerErrorMessage, setOwnerErrorMessage] = useState(null);
+  const [ownerErrorMessage, setOwnerErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 

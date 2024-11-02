@@ -7,7 +7,7 @@ import { PetListView } from "./PetListView";
 export function CheckedInPetsList() {
   const serverName = useServerName();
   const [checkedInPetsList, setCheckedInPetsList] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

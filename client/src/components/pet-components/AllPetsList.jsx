@@ -8,7 +8,7 @@ export function AllPetsList() {
   const serverName = useServerName();
   const [allPetsList, setAllPetsList] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     loadAllPets();

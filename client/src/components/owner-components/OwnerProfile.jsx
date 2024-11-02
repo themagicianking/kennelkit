@@ -18,7 +18,7 @@ export function OwnerProfile() {
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     loadOwner(id);
