@@ -1,15 +1,15 @@
 // todo: add icon for photo
+import PropTypes from "prop-types";
+import { CheckInToggle } from "./CheckInToggle";
 import {
   ListItem,
   ListItemPrefix,
   ListItemSuffix,
   Typography,
-  IconButton,
 } from "@material-tailwind/react";
-import { CheckInToggle } from "./CheckInToggle";
 
 export function PetItem({ pet }) {
-  const link = `/pets/${pet.id}`;
+  const profileLink = `/pets/${pet.id}`;
 
   return (
     <ListItem>
@@ -27,22 +27,18 @@ export function PetItem({ pet }) {
           <i className="fas fa-venus" data-testid="list-sex-icon" />
         )}
       </ListItemPrefix>
-      <a href={link} data-testid="link">
+      <a href={profileLink} data-testid="link">
         <Typography variant="h6"> {pet.petname}</Typography>
       </a>
       <ListItemSuffix>
         <div className="flex gap-4">
           <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
-          {/* This is to edit reservations and should only show if the pet is checked in */}
-          {pet.checkedin ? (
-            <IconButton>
-              <i className="fas fa-pen-to-square" />
-            </IconButton>
-          ) : (
-            <></>
-          )}
         </div>
       </ListItemSuffix>
     </ListItem>
   );
 }
+
+PetItem.propTypes = {
+  pet: PropTypes.object.isRequired,
+};
