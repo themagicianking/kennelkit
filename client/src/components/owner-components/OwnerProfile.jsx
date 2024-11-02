@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { OwnerProfileTabs } from "./OwnerProfileTabs";
@@ -17,11 +18,12 @@ export function OwnerProfile() {
   const [owner, setOwner] = useState(null);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     loadOwner(id);
     loadPets(id);
-  });
+  }, []);
 
   async function loadOwner(id) {
     try {
@@ -39,7 +41,9 @@ export function OwnerProfile() {
     } catch (e) {
       setOwner(null);
       setLoading(false);
-      console.log("Could not get owner. The following error occurred:", e);
+      setErrorMessage(
+        `Could not get owner. The following error occurred: ${e}`
+      );
     }
   }
 
@@ -83,6 +87,6 @@ export function OwnerProfile() {
       </CardFooter>
     </Card>
   ) : (
-    <p>Owner could not be found.</p>
+    <p>{errorMessage}</p>
   );
 }
