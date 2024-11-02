@@ -1,9 +1,8 @@
-// to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
-// to do: add more consistent/better styling to image upload
-// to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
-
+/* eslint-disable react-hooks/exhaustive-deps */
+// to do: figure out how to completely clear list when species is changed
 import { useState, useEffect } from "react";
 import { useServerName } from "../../ServerNameProvider";
+import { DropdownFilter } from "./DropdownFilter";
 import {
   Button,
   Card,
@@ -18,18 +17,19 @@ import {
   Textarea,
   CardFooter,
 } from "@material-tailwind/react";
-import { DropdownFilter } from "./DropdownFilter";
 
 export function CreatePetForm() {
+  const serverName = useServerName();
   const [species, setSpecies] = useState(null);
   const [catBreedListOptions, setCatBreedListOptions] = useState([]);
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
   const [breed, setBreed] = useState(null);
   const [ownerListOptions, setOwnerListOptions] = useState([]);
   const [ownerid, setOwnerid] = useState(null);
-  const [size, setSize] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [ownerErrorMessage, setOwnerErrorMessage] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const serverName = useServerName();
+  const [submitMessage, setSubmitMessage] = useState("");
 
   useEffect(() => {
     loadOwners();
@@ -37,38 +37,20 @@ export function CreatePetForm() {
     loadDogBreeds();
   }, []);
 
-  const handleOpen = (value) => setSize(value);
+  const handleOpen = () => setOpen(!open);
 
-  function onSpeciesChange(value) {
-    setSpecies(value);
-    setBreed(null);
+  function createOwnerListOptions(ownerListOptions) {
+    return ownerListOptions.map((owner) => ({
+      value: owner.id,
+      label: `${owner.firstname} ${owner.lastname}`,
+    }));
   }
 
-  function onOwnerChange(owner) {
-    setOwnerid(owner.value);
-  }
-
-  function onBreedChange(value) {
-    setBreed(value);
-  }
-
-  async function postPet(newPet) {
-    try {
-      await fetch(`https://${serverName}/pet`, {
-        method: "POST",
-        body: JSON.stringify(newPet),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => {
-          if (res.status >= 400) {
-            throw res.status;
-          }
-          return res.json();
-        })
-        .then((json) => console.log("Server response:", json));
-    } catch (e) {
-      console.log("Could not create pet. The following error occurred:", e);
-    }
+  function createBreedListOptions(currentBreedList) {
+    return currentBreedList.map((breed) => ({
+      value: breed.name,
+      label: breed.name,
+    }));
   }
 
   async function loadOwners() {
@@ -84,7 +66,9 @@ export function CreatePetForm() {
           setOwnerListOptions(createOwnerListOptions(json));
         });
     } catch (e) {
-      console.log("Could not get owners. The following error occurred:", e);
+      setOwnerErrorMessage(
+        `Could not get owners. The following error occurred: ${e}`
+      );
     }
   }
 
@@ -122,21 +106,28 @@ export function CreatePetForm() {
     }
   }
 
-  function createOwnerListOptions(ownerListOptions) {
-    return ownerListOptions.map((owner) => ({
-      value: owner.id,
-      label: `${owner.firstname} ${owner.lastname}`,
-    }));
-  }
-
-  function createBreedListOptions(currentBreedList) {
-    let breedOptionsList = currentBreedList.map((breed) => (
-      <Option key={breed.id} name={breed.name} value={breed.name}>
-        {breed.name}
-      </Option>
-    ));
-
-    return breedOptionsList;
+  async function postPet(newPet) {
+    try {
+      await fetch(`https://${serverName}/pet`, {
+        method: "POST",
+        body: JSON.stringify(newPet),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw res.status;
+          }
+          return res.json();
+        })
+        .then((json) => {
+          console.log("Server response:", json);
+          setSubmitMessage("Pet has been created!");
+        });
+    } catch (e) {
+      setSubmitMessage(
+        `Could not create pet. The following error occurred: ${e}`
+      );
+    }
   }
 
   function handleSubmit(e) {
@@ -164,10 +155,10 @@ export function CreatePetForm() {
 
   return (
     <>
-      <Button onClick={() => handleOpen("xxl")}>
+      <Button onClick={handleOpen}>
         <i className="fas fa-plus" /> Create a Pet
       </Button>
-      <Dialog open={size === "xxl"} handler={handleOpen} size={size || "xxl"}>
+      <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -187,11 +178,12 @@ export function CreatePetForm() {
                     <DropdownFilter
                       options={ownerListOptions}
                       placeholder="Owner Name"
-                      onChange={onOwnerChange}
+                      onChange={(owner) => setOwnerid(owner.value)}
+                      isDisabled={false}
                       required
                     />
                   ) : (
-                    <></>
+                    <p>{ownerErrorMessage}</p>
                   )}
                   {/* Pet name input */}
                   <Input id="petname" label="Pet Name" required />
@@ -220,7 +212,10 @@ export function CreatePetForm() {
                     label="Species"
                     id="species"
                     value={species}
-                    onChange={onSpeciesChange}
+                    onChange={(value) => {
+                      setSpecies(value);
+                      setBreed(null);
+                    }}
                     required
                   >
                     <Option name="species" value="dog">
@@ -230,45 +225,23 @@ export function CreatePetForm() {
                       Cat
                     </Option>
                   </Select>
-                  {/* Breed dropdown (while disabled) */}
-                  {!species ? (
-                    <Select label="Breed" id="breed" disabled={!species}>
-                      <Option key={null} name={null} value={null}>
-                        Breed
-                      </Option>
-                    </Select>
-                  ) : (
-                    <></>
-                  )}
-                  {/* Cat dropdown */}
+                  {/* Breed dropdowns */}
                   {species == "cat" ? (
-                    <Select
-                      label="Breed"
-                      id="breed"
-                      value={breed}
-                      onChange={onBreedChange}
-                      disabled={!species}
+                    <DropdownFilter
+                      options={catBreedListOptions}
+                      placeholder="Breeds"
+                      onChange={(breed) => setBreed(breed.value)}
+                      isDisabled={!species}
                       required
-                    >
-                      {catBreedListOptions}
-                    </Select>
+                    />
                   ) : (
-                    <></>
-                  )}
-                  {/* Dog dropdown */}
-                  {species == "dog" ? (
-                    <Select
-                      label="Breed"
-                      id="breed"
-                      value={breed}
-                      onChange={onBreedChange}
-                      disabled={!species}
+                    <DropdownFilter
+                      options={dogBreedListOptions}
+                      placeholder="Breeds"
+                      onChange={(breed) => setBreed(breed.name)}
+                      isDisabled={!species}
                       required
-                    >
-                      {dogBreedListOptions}
-                    </Select>
-                  ) : (
-                    <></>
+                    />
                   )}
                   {/* Birthday input */}
                   <div>
@@ -332,7 +305,7 @@ export function CreatePetForm() {
                     className="flex flex-col items-center gap-6"
                     fullWidth
                   >
-                    <label html="imageupload">Upload a photo</label>
+                    <label htmlFor="imageupload">Upload a photo</label>
                     <input
                       name="imageupload"
                       type="file"
@@ -342,16 +315,23 @@ export function CreatePetForm() {
                 </div>
               </CardBody>
               <CardFooter>
-                <Button onClick={() => handleOpen(null)}>Cancel</Button>
+                <Button onClick={handleOpen}>Cancel</Button>
                 <Button type="submit">Submit</Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
-            <CardBody className="flex gap-6">Pet has been created!</CardBody>
+            <CardBody className="flex gap-6">{submitMessage}</CardBody>
             <CardFooter>
-              <Button onClick={() => handleOpen(null)}>Close</Button>
+              <Button
+                onClick={() => {
+                  handleOpen();
+                  setSubmitted(false);
+                }}
+              >
+                Close
+              </Button>
             </CardFooter>
           </Card>
         )}

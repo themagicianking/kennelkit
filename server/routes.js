@@ -181,7 +181,7 @@ export const POST = {
       const newPet = await dbhelper.Pet.create({
         petname: req.body.petname,
         checkedin: false,
-        staytype: null,
+        staytype: req.body.staytype,
         species: req.body.species,
         breed: req.body.breed,
         sex: req.body.sex,
