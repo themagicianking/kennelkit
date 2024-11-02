@@ -4,8 +4,13 @@ import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
 
 export function AllOwnersList() {
-  const [allOwnersList, setAllOwnersList] = useState(null);
   const serverName = useServerName();
+  const [allOwnersList, setAllOwnersList] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadAllOwners();
+  });
 
   async function loadAllOwners() {
     try {
@@ -16,15 +21,19 @@ export function AllOwnersList() {
           }
           return res.json();
         })
-        .then((json) => setAllOwnersList(json));
+        .then((json) => {
+          setAllOwnersList(json);
+          setLoading(false);
+        });
     } catch (e) {
       console.log("Could not get owner list. The following error occurred:", e);
+      setLoading(false);
     }
   }
 
-  useEffect(() => {
-    loadAllOwners();
-  }, []);
+  if (loading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <div className="flex">
