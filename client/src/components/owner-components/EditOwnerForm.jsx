@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { PUT } from "../../utilities/server-endpoints";
+import { useServerName } from "../../ServerNameProvider";
 import {
   Button,
   Card,
@@ -13,6 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 export function EditOwnerForm({ owner }) {
+  const serverName = useServerName();
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -30,11 +31,25 @@ export function EditOwnerForm({ owner }) {
     };
 
     console.log("Request body:", editedOwner);
-    PUT.editOwner(editedOwner);
+    editOwner(editedOwner);
     e.target.reset();
     setSubmitted(true);
   }
 
+  async function editOwner(editedOwner) {
+    await fetch(`https://${serverName}/owner`, {
+      method: "PUT",
+      body: JSON.stringify(editedOwner),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw res.status;
+        }
+        return res.json();
+      })
+      .then((json) => console.log("Server response:", json));
+  }
   return (
     <>
       <Button onClick={handleOpen}>Edit</Button>

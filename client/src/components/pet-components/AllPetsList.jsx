@@ -11,7 +11,7 @@ export function AllPetsList() {
 
   useEffect(() => {
     loadAllPets();
-  });
+  }, []);
 
   async function loadAllPets() {
     try {

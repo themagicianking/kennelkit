@@ -37,7 +37,6 @@ export function CreateOwnerForm() {
           setSubmitMessage("Owner has been created!");
         });
     } catch (e) {
-      console.log("Could not create owner. The following error occurred:", e);
       setSubmitMessage(
         `Could not create owner. The following error occurred: ${e}`
       );

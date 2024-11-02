@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useServerName } from "../../ServerNameProvider";
 import { Navbar } from "../Navbar";
@@ -10,7 +11,7 @@ export function AllOwnersList() {
 
   useEffect(() => {
     loadAllOwners();
-  });
+  }, []);
 
   async function loadAllOwners() {
     try {
