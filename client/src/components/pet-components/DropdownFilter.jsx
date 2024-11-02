@@ -1,7 +1,12 @@
 import Select from "react-select";
 import PropTypes from "prop-types";
 
-export function DropdownFilter({ options, placeholder, onChange, isDisabled }) {
+export function DropdownFilter({
+  options,
+  placeholder,
+  onChange,
+  isDisabled,
+}) {
   return (
     <Select
       id="filter"
@@ -18,4 +23,5 @@ DropdownFilter.propTypes = {
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.string,
 };

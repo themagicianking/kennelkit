@@ -1,9 +1,5 @@
-// to do: find a way to incorporate material tailwind date picker with search function instead of using native date picker to keep styling consistent
-// to do: add more consistent/better styling to image upload
-// to do: come up with alternative to select for breeds that doesn't rely on map, which is causing the selected option to render incorrectly sometimes
-// to do: add common mixes to presets
-// to do: create callback function that updates pet profile when an edit has been submitted using useeffect
-
+/* eslint-disable react-hooks/exhaustive-deps */
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import {
   Button,
@@ -20,31 +16,23 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import { useServerName } from "../../ServerNameProvider";
+import { DropdownFilter } from "./DropdownFilter";
 
 export function EditPetForm({ pet, owner }) {
-  const [species, setSpecies] = useState(null);
+  const serverName = useServerName();
+  const [species, setSpecies] = useState(pet.species);
   const [catBreedListOptions, setCatBreedListOptions] = useState([]);
   const [dogBreedListOptions, setDogBreedListOptions] = useState([]);
-  const [breed, setBreed] = useState(null);
-  const [size, setSize] = useState(null);
+  const [breed, setBreed] = useState(pet.breed);
+  const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const serverName = useServerName();
 
   useEffect(() => {
     loadCatBreeds();
     loadDogBreeds();
   }, []);
 
-  const handleOpen = (value) => setSize(value);
-
-  function onSpeciesChange(value) {
-    setSpecies(value);
-    setBreed(null);
-  }
-
-  function onBreedChange(value) {
-    setBreed(value);
-  }
+  const handleOpen = () => setOpen(!open);
 
   async function editPet(editedPet) {
     try {
@@ -91,13 +79,10 @@ export function EditPetForm({ pet, owner }) {
   }
 
   function createBreedListOptions(currentBreedList) {
-    let breedOptionsList = currentBreedList.map((breed) => (
-      <Option key={breed.id} name={breed.name} value={breed.name}>
-        {breed.name}
-      </Option>
-    ));
-
-    return breedOptionsList;
+    return currentBreedList.map((breed) => ({
+      value: breed.name,
+      label: breed.name,
+    }));
   }
 
   function handleSubmit(e) {
@@ -121,8 +106,8 @@ export function EditPetForm({ pet, owner }) {
 
   return (
     <>
-      <Button onClick={() => handleOpen("xxl")}>Edit</Button>
-      <Dialog open={size === "xxl"} handler={handleOpen} size={size || "xxl"}>
+      <Button onClick={handleOpen}>Edit</Button>
+      <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -220,7 +205,10 @@ export function EditPetForm({ pet, owner }) {
                     label="Species"
                     id="species"
                     value={species}
-                    onChange={onSpeciesChange}
+                    onChange={(value) => {
+                      setSpecies(value);
+                      setBreed(null);
+                    }}
                     required
                   >
                     <Option name="species" value="dog">
@@ -230,36 +218,23 @@ export function EditPetForm({ pet, owner }) {
                       Cat
                     </Option>
                   </Select>
-                  {/* Breed dropdown */}
-                  {/* Cat dropdown */}
+                  {/* Breed dropdowns */}
                   {species == "cat" ? (
-                    <Select
-                      label="Breed"
-                      id="breed"
-                      value={breed}
-                      onChange={onBreedChange}
-                      disabled={!species}
+                    <DropdownFilter
+                      options={catBreedListOptions}
+                      placeholder={breed}
+                      onChange={(breed) => setBreed(breed.value)}
+                      isDisabled={!species}
                       required
-                    >
-                      {catBreedListOptions}
-                    </Select>
+                    />
                   ) : (
-                    <></>
-                  )}
-                  {/* Dog dropdown */}
-                  {species == "dog" ? (
-                    <Select
-                      label="Breed"
-                      id="breed"
-                      value={breed}
-                      onChange={onBreedChange}
-                      disabled={!species}
+                    <DropdownFilter
+                      options={dogBreedListOptions}
+                      placeholder={breed}
+                      onChange={(breed) => setBreed(breed.name)}
+                      isDisabled={!species}
                       required
-                    >
-                      {dogBreedListOptions}
-                    </Select>
-                  ) : (
-                    <></>
+                    />
                   )}
                   {/* Weight input */}
                   <Input
@@ -303,7 +278,7 @@ export function EditPetForm({ pet, owner }) {
                 </div>
               </CardBody>
               <CardFooter>
-                <Button onClick={() => handleOpen(null)}>Cancel</Button>
+                <Button onClick={handleOpen}>Cancel</Button>
                 <Button type="submit">Submit</Button>
               </CardFooter>
             </form>
@@ -312,7 +287,14 @@ export function EditPetForm({ pet, owner }) {
           <Card>
             <CardBody className="flex gap-6">Pet has been edited!</CardBody>
             <CardFooter>
-              <Button onClick={() => handleOpen(null)}>Close</Button>
+              <Button
+                onClick={() => {
+                  handleOpen();
+                  setSubmitted(false);
+                }}
+              >
+                Close
+              </Button>
             </CardFooter>
           </Card>
         )}
@@ -320,3 +302,8 @@ export function EditPetForm({ pet, owner }) {
     </>
   );
 }
+
+EditPetForm.propTypes = {
+  pet: PropTypes.object.isRequired,
+  owner: PropTypes.object.isRequired,
+};
