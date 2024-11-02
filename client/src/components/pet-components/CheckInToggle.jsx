@@ -1,15 +1,16 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useServerName } from "../../ServerNameProvider";
 import { Switch } from "@material-tailwind/react";
 
 export function CheckInToggle({ id, checkedin }) {
+  const serverName = useServerName();
   const [isChecked, setIsChecked] = useState(checkedin);
-  const link = useServerName();
 
   async function toggleCheckIn(isChecked) {
     console.log(`Sending check in status ${isChecked} to the server.`);
     try {
-      await fetch(`https://${link}/checkin`, {
+      await fetch(`https://${serverName}/checkin`, {
         method: "PUT",
         body: JSON.stringify({ id: id, checkedin: isChecked }),
         headers: { "Content-Type": "application/json" },
@@ -44,3 +45,8 @@ export function CheckInToggle({ id, checkedin }) {
     />
   );
 }
+
+CheckInToggle.propTypes = {
+  id: PropTypes.number.isRequired,
+  checkedin: PropTypes.bool.isRequired,
+};
