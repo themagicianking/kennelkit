@@ -24,6 +24,7 @@ h1 {
   flex-direction: row;
   padding: 10px;
   background-color: white;
+  box-shadow: 0em 1em 0em 0em white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin: 10px 10px 0px 10px;
@@ -52,11 +53,6 @@ h1 {
 .form-tab {
   width: 48%;
 }
-
-/* .selected-tab {
-  color: #2e2e2e;
-  background-color: white;
-} */
 
 .selected-tab, .selected-tab:hover {
   color: #2e2e2e;
