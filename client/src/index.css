@@ -31,7 +31,7 @@ h1 {
   box-shadow: 0em 1em 0em 0em white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin: 10px 0px 0px 10px;
+  margin: 10px 0px 0px 0px;
   width: fit-content;
 }
 
@@ -68,13 +68,13 @@ h1 {
 .folder-corner {
   background: transparent;
   height: 4em;
-  width: 4em;
+  width: 1em;
   display: flex;
   align-self: flex-end;
   margin-left: 0;
   border: 1px solid transparent;
   box-shadow: -0.5em 1em 0em 0em white;
-  border-bottom-left-radius: 30px;
+  border-bottom-left-radius: 10px;
   position: relative;
 }
 
@@ -104,6 +104,7 @@ h1 {
   display: flex;
   flex-direction: column;
   margin: 25px;
+  padding: 25px;
   border-radius: 10px;
   background-color: black;
   min-width: fit-content;
@@ -114,7 +115,9 @@ h1 {
 .homepage {
   background-color: white;
   height: 100%;
-  margin: 0px 10px 10px 10px;
+  width: 100%;
+  min-width: 1070px;
+  margin: 0px 10px 10px 0px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
