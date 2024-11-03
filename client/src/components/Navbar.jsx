@@ -4,9 +4,9 @@ import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
 
 export function Navbar() {
   return (
-    <List>
+    <List className="navbar">
       <a href="/">
-        <ListItem>
+        <ListItem className="home-tab">
           <ListItemPrefix>
             <i className="fas fa-house" />
           </ListItemPrefix>

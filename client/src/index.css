@@ -1,3 +1,43 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Delius Unicase";
+}
+
+h1 {
+  font-size: 2em;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 1000px;
+  margin: 10px 0px 0px 10px;
+}
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.home-tab {
+  color: #ff76a8;
+}
+
 .pet-profile-header {
   display: flex;
   align-items: center;
@@ -14,7 +54,8 @@
   margin: 0 10px 0 10px;
 }
 
-.pet-stats, .pet-tabs {
+.pet-stats,
+.pet-tabs {
   margin: 0 15px 0 15px;
 }
 

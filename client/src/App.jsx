@@ -9,8 +9,12 @@ import { OwnerProfile } from "./components/owner-components/OwnerProfile";
 import { AllOwnersList } from "./components/owner-components/AllOwnersList";
 
 export function App() {
+  const customTheme = {
+    
+  };
+
   return (
-    <ThemeProvider>
+    <ThemeProvider value={customTheme}>
       <ServerNameProvider>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
