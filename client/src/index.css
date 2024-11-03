@@ -39,9 +39,15 @@ h2 {
   width: fit-content;
 }
 
-.navtab, .pet-item {
+.navtab {
   color: white;
   background-color: #2e2e2e;
+}
+
+.owner-item,
+.pet-item {
+  color: #2e2e2e;
+  background-color: #ebebeb;
 }
 
 .main-tabs {
@@ -129,7 +135,8 @@ h2 {
   border-bottom-left-radius: 10px;
 }
 
-.pet-list {
+.pet-list,
+.owner-list {
   width: 50em;
 }
 

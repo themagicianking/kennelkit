@@ -37,9 +37,9 @@ export function AllOwnersList() {
   }
 
   return (
-    <div className="flex">
+    <div className="main-container">
       <Navbar />
-      <div className="flex flex-col">
+      <div className="page">
         <h2>All owners:</h2>
         {allOwnersList ? (
           <OwnerListView list={allOwnersList} />

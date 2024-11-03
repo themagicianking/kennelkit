@@ -4,7 +4,7 @@ import { List } from "@material-tailwind/react";
 
 export function OwnerListView({ list }) {
   return list.length > 0 ? (
-    <List>
+    <List className="owner-list">
       {list.map((listItem) => (
         <OwnerItem key={listItem.id} owner={listItem} />
       ))}

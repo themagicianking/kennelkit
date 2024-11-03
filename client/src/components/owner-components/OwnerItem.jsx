@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
+import { EditOwnerForm } from "../owner-components/EditOwnerForm";
 import {
   ListItem,
   ListItemPrefix,
   ListItemSuffix,
   Typography,
-  IconButton,
 } from "@material-tailwind/react";
 
 export function OwnerItem({ owner }) {
   let linkToProfile = `/owners/${owner.id}`;
   return (
-    <ListItem>
+    <ListItem className="owner-item">
       <ListItemPrefix>
         <i className="fas fa-user" />
       </ListItemPrefix>
@@ -20,11 +20,7 @@ export function OwnerItem({ owner }) {
         </Typography>
       </a>
       <ListItemSuffix>
-        <div className="flex gap-4">
-          <IconButton>
-            <i className="fas fa-pen-to-square" />
-          </IconButton>
-        </div>
+        <EditOwnerForm owner={owner} />
       </ListItemSuffix>
     </ListItem>
   );
