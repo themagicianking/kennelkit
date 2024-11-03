@@ -2,7 +2,7 @@
 body {
   width: 100vw;
   height: 100vh;
-  background-color: #f2c14e;
+  background-color: #2E2E2E;
 }
 
 h1,
@@ -42,7 +42,7 @@ h1 {
 
 .main-tabs {
   justify-content: space-around;
-  background-color: #ff76a8;
+  background-color: #F2C14E;
   margin-right: 5px;
   width: 600px;
 }
@@ -106,9 +106,9 @@ h1 {
   margin: 25px;
   padding: 25px;
   border-radius: 10px;
-  background-color: black;
+  background-color: #F99C7B;
   min-width: fit-content;
-  height: 80%;
+  height: 90%;
   text-align: center;
 }
 
