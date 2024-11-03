@@ -40,9 +40,9 @@ export function CheckedInPetsList() {
   }
 
   return (
-    <div className="flex">
-      <Navbar />
-      <div>
+    <div className="main-container">
+      <Navbar selected={1} />
+      <div className="page">
         <h2>Checked in pets:</h2>
         {checkedInPetsList ? (
           <PetListView list={checkedInPetsList} />

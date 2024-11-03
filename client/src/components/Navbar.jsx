@@ -7,12 +7,11 @@ export function Navbar({ selected }) {
   return (
     <div className="navbar-container">
       <List className="navbar">
-        <ListItem className="main-tabs">
+        <ListItem className="main-tabs" ripple={false}>
           <a href="/">
             <ListItem
-              className={
-                "navtab " + (selected == 0 ? "selected-tab" : "hometab")
-              }
+              className={"navtab " + (selected == 0 ? "selected-tab" : "")}
+              ripple={false}
             >
               <ListItemPrefix>
                 <i className="fas fa-house" />
@@ -21,7 +20,10 @@ export function Navbar({ selected }) {
             </ListItem>
           </a>
           <a href="/pets/checkedin">
-            <ListItem className="navtab">
+            <ListItem
+              className={"navtab " + (selected == 1 ? "selected-tab" : "")}
+              ripple={false}
+            >
               <ListItemPrefix>
                 <i className="fas fa-sun" />
               </ListItemPrefix>
@@ -29,7 +31,7 @@ export function Navbar({ selected }) {
             </ListItem>
           </a>
           <a href="/pets">
-            <ListItem className="navtab">
+            <ListItem className="navtab" ripple={false}>
               <ListItemPrefix>
                 <i className="fas fa-paw" />
               </ListItemPrefix>
@@ -37,7 +39,7 @@ export function Navbar({ selected }) {
             </ListItem>
           </a>
           <a href="/owners">
-            <ListItem className="navtab">
+            <ListItem className="navtab" ripple={false}>
               <ListItemPrefix>
                 <i className="fas fa-user" />
               </ListItemPrefix>
@@ -45,7 +47,7 @@ export function Navbar({ selected }) {
             </ListItem>
           </a>
         </ListItem>
-        <ListItem className="form-tabs">
+        <ListItem className="form-tabs" ripple={false}>
           <CreatePetForm />
           <CreateOwnerForm />
         </ListItem>

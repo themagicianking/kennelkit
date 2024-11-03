@@ -109,21 +109,20 @@ h1 {
   background-color: #F99C7B;
   min-width: fit-content;
   height: 90%;
-  text-align: center;
 }
 
-.homepage {
+.page {
   display: flex;
+  flex-direction: column;
   background-color: white;
   height: 100%;
   width: 100%;
   min-width: 1070px;
   margin: 0px 10px 10px 0px;
+  padding: 20px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  justify-content: center;
-  align-items: center;
 }
 
 .pet-profile-header {
