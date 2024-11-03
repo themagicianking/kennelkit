@@ -113,6 +113,7 @@ h1 {
 }
 
 .homepage {
+  display: flex;
   background-color: white;
   height: 100%;
   width: 100%;
@@ -121,6 +122,8 @@ h1 {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .pet-profile-header {
