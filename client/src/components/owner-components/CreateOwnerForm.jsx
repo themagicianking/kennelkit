@@ -69,7 +69,7 @@ export function CreateOwnerForm() {
         </ListItemPrefix>
         Create an Owner
       </ListItem>
-      <Dialog open={open} handler={handleOpen} size={"xxl"}>
+      <Dialog open={open} handler={handleOpen} size={"xs"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -81,7 +81,7 @@ export function CreateOwnerForm() {
               <Typography variant="h2">Create an Owner</Typography>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
-              <CardBody className="flex gap-6">
+              <CardBody className="flex flex-col gap-6">
                 <Input
                   id="firstname"
                   label="First Name"
@@ -110,9 +110,11 @@ export function CreateOwnerForm() {
                   required
                 ></Input>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex gap-4 justify-end">
                 <Button onClick={handleOpen}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" color="green">
+                  Submit
+                </Button>
               </CardFooter>
             </form>
           </Card>
@@ -121,7 +123,7 @@ export function CreateOwnerForm() {
             <CardBody className="flex gap-6">
               <p>{submitMessage}</p>
             </CardBody>
-            <CardFooter>
+            <CardFooter className="flex gap-4 justify-end">
               <Button
                 onClick={() => {
                   handleOpen();

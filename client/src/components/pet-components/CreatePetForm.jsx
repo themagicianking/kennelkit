@@ -163,7 +163,7 @@ export function CreatePetForm() {
         </ListItemPrefix>
         Create a Pet
       </ListItem>
-      <Dialog open={open} handler={handleOpen} size={"xl"}>
+      <Dialog open={open} handler={handleOpen} size={"l"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -179,6 +179,9 @@ export function CreatePetForm() {
                 {/* Column one */}
                 <div className="create-pet-form-req-info gap-4">
                   {/* Owner's name dropdown */}
+                  <p>
+                    Owner <span style={{ color: "red" }}>*</span>
+                  </p>
                   {ownerListOptions ? (
                     <DropdownFilter
                       options={ownerListOptions}
@@ -194,11 +197,17 @@ export function CreatePetForm() {
                   <Input id="petname" label="Pet Name" required />
                   {/* Sex radios */}
                   <div>
+                    <p>
+                      Sex <span style={{ color: "red" }}>*</span>
+                    </p>
                     <Radio name="sex" value="male" label="Male" required />
                     <Radio name="sex" value="female" label="Female" required />
                   </div>
                   {/* Altered radios */}
                   <div>
+                    <p>
+                      Altered <span style={{ color: "red" }}>*</span>
+                    </p>
                     <Radio
                       name="altered"
                       value="altered"
@@ -323,10 +332,8 @@ export function CreatePetForm() {
           </Card>
         ) : (
           <Card>
-            <CardBody className="flex gap-4 justify-end">
-              {submitMessage}
-            </CardBody>
-            <CardFooter>
+            <CardBody>{submitMessage}</CardBody>
+            <CardFooter className="flex gap-4 justify-end">
               <Button
                 onClick={() => {
                   handleOpen();
