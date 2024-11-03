@@ -78,7 +78,7 @@ export function CreateOwnerForm() {
               color="transparent"
               className="rounded-b-none"
             >
-              <Typography variant="h2">Create an Owner</Typography>
+              <h1>Create an Owner</h1>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
               <CardBody className="flex flex-col gap-6">

@@ -172,7 +172,7 @@ export function CreatePetForm() {
               color="transparent"
               className="rounded-b-none"
             >
-              <Typography variant="h2">Create a Pet</Typography>
+              <h1>Create a Pet</h1>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
               <CardBody className="create-pet-form">
