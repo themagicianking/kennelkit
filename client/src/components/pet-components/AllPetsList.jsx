@@ -40,9 +40,9 @@ export function AllPetsList() {
   }
 
   return (
-    <div className="flex">
-      <Navbar />
-      <div className="flex flex-col">
+    <div className="main-container">
+      <Navbar selected={2} />
+      <div className="page">
         <h2>All pets:</h2>
         {allPetsList ? (
           <PetListView list={allPetsList} />

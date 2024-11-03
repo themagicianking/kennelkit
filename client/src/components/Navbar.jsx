@@ -31,7 +31,10 @@ export function Navbar({ selected }) {
             </ListItem>
           </a>
           <a href="/pets">
-            <ListItem className="navtab" ripple={false}>
+            <ListItem
+              className={"navtab " + (selected == 2 ? "selected-tab" : "")}
+              ripple={false}
+            >
               <ListItemPrefix>
                 <i className="fas fa-paw" />
               </ListItemPrefix>
