@@ -163,7 +163,7 @@ export function CreatePetForm() {
         </ListItemPrefix>
         Create a Pet
       </ListItem>
-      <Dialog open={open} handler={handleOpen} size={"xxl"}>
+      <Dialog open={open} handler={handleOpen} size={"xl"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -175,9 +175,9 @@ export function CreatePetForm() {
               <Typography variant="h2">Create a Pet</Typography>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
-              <CardBody className="flex gap-6">
+              <CardBody className="create-pet-form">
                 {/* Column one */}
-                <div className="mb-1 flex flex-col gap-6">
+                <div className="create-pet-form-req-info gap-4">
                   {/* Owner's name dropdown */}
                   {ownerListOptions ? (
                     <DropdownFilter
@@ -193,12 +193,12 @@ export function CreatePetForm() {
                   {/* Pet name input */}
                   <Input id="petname" label="Pet Name" required />
                   {/* Sex radios */}
-                  <div className="flex gap-8">
+                  <div>
                     <Radio name="sex" value="male" label="Male" required />
                     <Radio name="sex" value="female" label="Female" required />
                   </div>
                   {/* Altered radios */}
-                  <div className="flex gap-4">
+                  <div>
                     <Radio
                       name="altered"
                       value="altered"
@@ -274,7 +274,7 @@ export function CreatePetForm() {
                   ></Input>
                 </div>
                 {/* Column two */}
-                <div className="mb-1 flex flex-col gap-6">
+                <div className="create-pet-form-opt-info gap-4">
                   {/* Physical description input */}
                   <div>
                     <Textarea
@@ -304,30 +304,28 @@ export function CreatePetForm() {
                     </Typography>
                   </div>
                   {/* Photo upload */}
-                  <Button
-                    color="blue-gray"
-                    size="md"
-                    className="flex flex-col items-center gap-6"
-                    fullWidth
-                  >
-                    <label htmlFor="imageupload">Upload a photo</label>
-                    <input
-                      name="imageupload"
-                      type="file"
-                      accept="image/png, image/jpeg"
-                    ></input>
-                  </Button>
+                  <Input
+                    name="imageupload"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    label="Upload an image"
+                  ></Input>
+                  {/* </Button> */}
                 </div>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex gap-4 justify-end">
                 <Button onClick={handleOpen}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" color="green">
+                  Submit
+                </Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
-            <CardBody className="flex gap-6">{submitMessage}</CardBody>
+            <CardBody className="flex gap-4 justify-end">
+              {submitMessage}
+            </CardBody>
             <CardFooter>
               <Button
                 onClick={() => {

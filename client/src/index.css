@@ -140,6 +140,18 @@ h2 {
   width: 50em;
 }
 
+.create-pet-form {
+  display: flex;
+  justify-content: center;
+}
+
+.create-pet-form-req-info, .create-pet-form-opt-info {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 25px;
+  min-width: 20em;
+}
+
 .pet-profile-header {
   display: flex;
   align-items: center;
