@@ -11,7 +11,7 @@ export function PetItem({ pet }) {
   const profileLink = `/pets/${pet.id}`;
 
   return (
-    <ListItem>
+    <ListItem className="pet-item" ripple={false}>
       <ListItemPrefix>
         {pet.species == "dog" ? (
           <i className="fas fa-dog" data-testid="list-species-icon" />
@@ -29,10 +29,9 @@ export function PetItem({ pet }) {
       <a href={profileLink} data-testid="link">
         <Typography variant="h6"> {pet.petname}</Typography>
       </a>
-      <ListItemSuffix>
-        <div className="flex gap-4">
-          <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
-        </div>
+      <ListItemSuffix className="flex gap-4">
+        <p>Checked in?</p>
+        <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
       </ListItemSuffix>
     </ListItem>
   );

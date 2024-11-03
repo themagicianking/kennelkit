@@ -4,7 +4,7 @@ import { List } from "@material-tailwind/react";
 
 export function PetListView({ list }) {
   return list.length > 0 ? (
-    <List>
+    <List className="pet-list">
       {list.map((listitem) => (
         <PetItem key={listitem.id} pet={listitem} />
       ))}
