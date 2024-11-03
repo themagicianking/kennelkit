@@ -18,6 +18,10 @@ h1 {
   font-size: 2em;
 }
 
+.navbar-container {
+  display: flex;
+}
+
 .navbar {
   justify-self: flex-start;
   display: flex;
@@ -27,7 +31,7 @@ h1 {
   box-shadow: 0em 1em 0em 0em white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin: 10px 10px 0px 10px;
+  margin: 10px 0px 0px 10px;
   width: fit-content;
 }
 
@@ -54,10 +58,24 @@ h1 {
   width: 48%;
 }
 
-.selected-tab, .selected-tab:hover {
+.selected-tab,
+.selected-tab:hover {
   color: #2e2e2e;
   background: white;
   box-shadow: 0em 1em 0em 1em white;
+}
+
+.folder-corner {
+  background: transparent;
+  height: 4em;
+  width: 4em;
+  display: flex;
+  align-self: flex-end;
+  margin-left: 0;
+  border: 1px solid transparent;
+  box-shadow: -0.5em 1em 0em 0em white;
+  border-bottom-left-radius: 30px;
+  position: relative;
 }
 
 .right-corner:before {
@@ -89,14 +107,14 @@ h1 {
   border-radius: 10px;
   background-color: black;
   min-width: fit-content;
-  min-height: 80%;
+  height: 80%;
   text-align: center;
 }
 
 .homepage {
   background-color: white;
-  margin: 0px 10px 10px 10px;
   height: 100%;
+  margin: 0px 10px 10px 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
