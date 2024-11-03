@@ -38,7 +38,7 @@ export function AllOwnersList() {
 
   return (
     <div className="main-container">
-      <Navbar />
+      <Navbar selected={3}/>
       <div className="page">
         <h2>All owners:</h2>
         {allOwnersList ? (
