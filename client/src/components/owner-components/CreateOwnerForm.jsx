@@ -9,6 +9,8 @@ import {
   CardBody,
   Input,
   CardFooter,
+  ListItem,
+  ListItemPrefix,
 } from "@material-tailwind/react";
 
 export function CreateOwnerForm() {
@@ -61,9 +63,12 @@ export function CreateOwnerForm() {
 
   return (
     <>
-      <Button onClick={() => handleOpen("xxl")}>
-        <i className="fas fa-plus" /> Create an Owner
-      </Button>
+      <ListItem onClick={handleOpen} className="navtab form-tab">
+        <ListItemPrefix>
+          <i className="fas fa-plus" />
+        </ListItemPrefix>
+        Create an Owner
+      </ListItem>
       <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>

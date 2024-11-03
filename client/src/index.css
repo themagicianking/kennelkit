@@ -20,7 +20,7 @@ h1 {
 .navbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  padding: 10px;
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -28,8 +28,32 @@ h1 {
   margin: 10px 0px 0px 10px;
 }
 
-.home-tab {
-  color: #ff76a8;
+.navtab {
+  color: white;
+  background-color: #2e2e2e;
+}
+
+.main-tabs {
+  justify-content: space-around;
+  background-color: #ff76a8;
+  margin-right: 5px;
+  width: 600px;
+}
+
+.form-tabs {
+  justify-content: space-around;
+  background-color: #c1e093;
+  width: 500px;
+  margin-left: 5px;
+}
+
+.form-tab {
+  width: 48%;
+}
+
+.selected-tab {
+  color: #2e2e2e;
+  background-color: white;
 }
 
 .main-container {

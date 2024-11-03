@@ -16,6 +16,8 @@ import {
   Option,
   Textarea,
   CardFooter,
+  ListItem,
+  ListItemPrefix,
 } from "@material-tailwind/react";
 
 export function CreatePetForm() {
@@ -155,9 +157,12 @@ export function CreatePetForm() {
 
   return (
     <>
-      <Button onClick={handleOpen}>
-        <i className="fas fa-plus" /> Create a Pet
-      </Button>
+      <ListItem onClick={handleOpen} className="navtab form-tab">
+        <ListItemPrefix>
+          <i className="fas fa-plus" />
+        </ListItemPrefix>
+        Create a Pet
+      </ListItem>
       <Dialog open={open} handler={handleOpen} size={"xxl"}>
         {!submitted ? (
           <Card>
