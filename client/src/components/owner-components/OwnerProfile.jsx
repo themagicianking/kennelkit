@@ -11,6 +11,7 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
+import { DefaultSkeleton } from "../LoadingScreen";
 
 export function OwnerProfile() {
   let id = useParams().id;
@@ -58,7 +59,7 @@ export function OwnerProfile() {
   }
 
   if (loading) {
-    return <div>loading...</div>;
+    return <DefaultSkeleton />;
   }
 
   return owner ? (

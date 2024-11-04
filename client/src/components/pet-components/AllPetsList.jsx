@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useServerName } from "../../ServerNameProvider";
 import { Navbar } from "../Navbar";
 import { PetListView } from "./PetListView";
+import { DefaultSkeleton } from "../LoadingScreen";
 
 export function AllPetsList() {
   const serverName = useServerName();
@@ -36,7 +37,7 @@ export function AllPetsList() {
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <DefaultSkeleton />;
   }
 
   return (

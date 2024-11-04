@@ -6,6 +6,7 @@ import { PetProfileIconBar } from "./PetProfileIconBar";
 import { PetStats } from "./PetStats";
 import { PetProfileTabs } from "./PetProfileTabs";
 import { EditPetForm } from "./EditPetForm";
+import { DefaultSkeleton } from "../LoadingScreen";
 import {
   Card,
   CardHeader,
@@ -104,7 +105,7 @@ export function PetProfile() {
   }
 
   if (loading) {
-    return <div>loading...</div>;
+    return <DefaultSkeleton />;
   }
 
   return pet && owner ? (

@@ -179,20 +179,20 @@ export function CreatePetForm() {
                 {/* Column one */}
                 <div className="create-pet-form-req-info gap-4">
                   {/* Owner's name dropdown */}
-                  <p>
-                    Owner <span style={{ color: "red" }}>*</span>
-                  </p>
-                  {ownerListOptions ? (
-                    <DropdownFilter
-                      options={ownerListOptions}
-                      placeholder="Owner Name"
-                      onChange={(owner) => setOwnerid(owner.value)}
-                      isDisabled={false}
-                      required
-                    />
-                  ) : (
-                    <p>{ownerErrorMessage}</p>
-                  )}
+                  <>
+                    {ownerListOptions ? (
+                      <DropdownFilter
+                        label="owners"
+                        options={ownerListOptions}
+                        placeholder="Owner Name"
+                        onChange={(owner) => setOwnerid(owner.value)}
+                        isDisabled={false}
+                        required
+                      />
+                    ) : (
+                      <p>{ownerErrorMessage}</p>
+                    )}
+                  </>
                   {/* Pet name input */}
                   <Input id="petname" label="Pet Name" required />
                   {/* Sex radios */}

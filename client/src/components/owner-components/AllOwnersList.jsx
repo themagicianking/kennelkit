@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useServerName } from "../../ServerNameProvider";
 import { Navbar } from "../Navbar";
 import { OwnerListView } from "./OwnerListView";
+import { DefaultSkeleton } from "../LoadingScreen";
 
 export function AllOwnersList() {
   const serverName = useServerName();
@@ -33,12 +34,12 @@ export function AllOwnersList() {
   }
 
   if (loading) {
-    return <p>Loading...</p>
+    return <DefaultSkeleton />;
   }
 
   return (
     <div className="main-container">
-      <Navbar selected={3}/>
+      <Navbar selected={3} />
       <div className="page">
         <h2>All owners:</h2>
         {allOwnersList ? (
