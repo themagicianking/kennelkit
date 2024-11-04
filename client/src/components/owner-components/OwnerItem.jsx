@@ -4,7 +4,6 @@ import {
   ListItem,
   ListItemPrefix,
   ListItemSuffix,
-  Typography,
 } from "@material-tailwind/react";
 
 export function OwnerItem({ owner }) {
@@ -15,9 +14,7 @@ export function OwnerItem({ owner }) {
         <i className="fas fa-user" />
       </ListItemPrefix>
       <a href={linkToProfile} data-testid="link">
-        <Typography variant="h6">
-          {`${owner.firstname} ${owner.lastname}`}
-        </Typography>
+        <h3>{`${owner.firstname} ${owner.lastname}`}</h3>
       </a>
       <ListItemSuffix>
         <EditOwnerForm owner={owner} />
