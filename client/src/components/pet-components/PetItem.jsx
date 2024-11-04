@@ -4,7 +4,6 @@ import {
   ListItem,
   ListItemPrefix,
   ListItemSuffix,
-  Typography,
 } from "@material-tailwind/react";
 
 export function PetItem({ pet }) {
@@ -27,10 +26,9 @@ export function PetItem({ pet }) {
         )}
       </ListItemPrefix>
       <a href={profileLink} data-testid="link">
-        <Typography variant="h6"> {pet.petname}</Typography>
+        <h2> {pet.petname}</h2>
       </a>
       <ListItemSuffix className="flex gap-4">
-        <p>Checked in?</p>
         <CheckInToggle id={pet.id} checkedin={pet.checkedin} />
       </ListItemSuffix>
     </ListItem>

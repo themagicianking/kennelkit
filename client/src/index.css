@@ -11,7 +11,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Delius Unicase";
+  font-family: "Yusei Magic";
 }
 
 h1 {
@@ -19,7 +19,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .navbar-container {
@@ -42,6 +42,9 @@ h2 {
 .navtab {
   color: white;
   background-color: #2e2e2e;
+  text-wrap: nowrap;
+  width: fit-content;
+  margin: 0 10px;
 }
 
 .owner-item,
@@ -51,21 +54,13 @@ h2 {
 }
 
 .main-tabs {
-  justify-content: space-around;
   background-color: #f2c14e;
   margin-right: 5px;
-  width: 600px;
 }
 
 .form-tabs {
-  justify-content: space-around;
   background-color: #c1e093;
-  width: 500px;
   margin-left: 5px;
-}
-
-.form-tab {
-  width: 48%;
 }
 
 .selected-tab,
@@ -73,6 +68,7 @@ h2 {
   color: #2e2e2e;
   background: white;
   box-shadow: 0em 1em 0em 1em white;
+  margin: 0 25px;
 }
 
 .folder-corner {
@@ -129,7 +125,7 @@ h2 {
   width: 100%;
   min-width: 1070px;
   margin: 0px 10px 10px 0px;
-  padding: 20px;
+  padding: 20px 40px 20px 40px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -145,11 +141,11 @@ h2 {
   justify-content: center;
 }
 
-.create-pet-form-req-info, .create-pet-form-opt-info {
+.create-pet-form-req-info,
+.create-pet-form-opt-info {
   display: flex;
   flex-direction: column;
   margin: 0px 25px;
-
 }
 
 .pet-profile-header {

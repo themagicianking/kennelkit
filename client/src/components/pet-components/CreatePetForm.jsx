@@ -161,7 +161,7 @@ export function CreatePetForm() {
         <ListItemPrefix>
           <i className="fas fa-plus" />
         </ListItemPrefix>
-        Create a Pet
+        <h2>Create a Pet</h2>
       </ListItem>
       <Dialog open={open} handler={handleOpen} size={"l"}>
         {!submitted ? (

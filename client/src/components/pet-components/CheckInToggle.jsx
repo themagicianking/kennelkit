@@ -42,6 +42,7 @@ export function CheckInToggle({ id, checkedin }) {
   }
   return (
     <Switch
+      label="Checked in?"
       color="green"
       checked={isChecked}
       onChange={handleChange}

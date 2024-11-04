@@ -5,7 +5,6 @@ import {
   Card,
   CardHeader,
   Dialog,
-  Typography,
   CardBody,
   Input,
   CardFooter,
@@ -67,7 +66,7 @@ export function CreateOwnerForm() {
         <ListItemPrefix>
           <i className="fas fa-plus" />
         </ListItemPrefix>
-        Create an Owner
+        <h2>Create an Owner</h2>
       </ListItem>
       <Dialog open={open} handler={handleOpen} size={"xs"}>
         {!submitted ? (

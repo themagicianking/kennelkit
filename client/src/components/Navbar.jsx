@@ -16,7 +16,7 @@ export function Navbar({ selected }) {
               <ListItemPrefix>
                 <i className="fas fa-house" />
               </ListItemPrefix>
-              Home
+              <h2>Home</h2>
             </ListItem>
           </a>
           <a href="/pets/checkedin">
@@ -27,7 +27,7 @@ export function Navbar({ selected }) {
               <ListItemPrefix>
                 <i className="fas fa-sun" />
               </ListItemPrefix>
-              Checked In
+              <h2>Checked In</h2>
             </ListItem>
           </a>
           <a href="/pets">
@@ -38,7 +38,7 @@ export function Navbar({ selected }) {
               <ListItemPrefix>
                 <i className="fas fa-paw" />
               </ListItemPrefix>
-              All Pets
+              <h2>All Pets</h2>
             </ListItem>
           </a>
           <a href="/owners">
@@ -49,7 +49,7 @@ export function Navbar({ selected }) {
               <ListItemPrefix>
                 <i className="fas fa-user" />
               </ListItemPrefix>
-              All Owners
+              <h2>All Owners</h2>
             </ListItem>
           </a>
         </ListItem>
