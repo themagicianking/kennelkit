@@ -18,7 +18,7 @@ class databaseHelper {
       species: { type: DataTypes.STRING, allowNull: false },
       breed: { type: DataTypes.STRING, allowNull: false },
       sex: { type: DataTypes.STRING, allowNull: false },
-      altered: { type: DataTypes.STRING, allowNull: false },
+      altered: { type: DataTypes.BOOLEAN, allowNull: false },
       birthday: { type: DataTypes.DATE, allowNull: false },
       weight: { type: DataTypes.INTEGER },
       physicaldesc: { type: DataTypes.STRING },
