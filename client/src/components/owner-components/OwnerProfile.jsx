@@ -66,13 +66,13 @@ export function OwnerProfile() {
       <Card shadow={true} variant="gradient" className="owner-profile">
         <CardHeader
           floated={false}
-          className="rounded-b-none owner-profile-header"
+          className="rounded-b-none profile-header"
         >
           <h2>
             {owner.firstname} {owner.lastname}
           </h2>
         </CardHeader>
-        <CardBody className="owner-profile-body">
+        <CardBody className="profile-body">
           <div className="owner-contact-info gap-4">
             <h3>Contact Information</h3>
             <ul>
@@ -91,7 +91,7 @@ export function OwnerProfile() {
           </div>
           <OwnerProfileTabs pets={pets} />
         </CardBody>
-        <CardFooter className="gap-4 owner-profile-footer">
+        <CardFooter className="gap-4 profile-footer">
           <EditOwnerForm owner={owner} />
         </CardFooter>
       </Card>

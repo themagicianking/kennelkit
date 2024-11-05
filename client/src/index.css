@@ -166,6 +166,7 @@ label {
 .page {
   display: flex;
   flex-direction: column;
+  color: #2e2e2e;
   background-color: white;
   height: 100%;
   width: 100%;
@@ -199,14 +200,15 @@ label {
   min-width: 100%;
 }
 
-.owner-profile-header {
+.profile-header {
   color: #2e2e2e;
   background-color: #c1e093;
 }
 
-.owner-profile-body {
+.profile-body {
   display: flex;
   min-height: 450px;
+  justify-content: space-around;
 }
 
 .owner-contact-info {
@@ -222,6 +224,30 @@ label {
   width: 75%;
 }
 
-.owner-profile-footer {
+.pet-profile-image {
+  border: 5px white solid;
+  border-bottom-width: 50px;
+}
+
+.pet-stats {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  color: #2e2e2e;
+}
+
+.pet-tabs {
+  width: 50%;
+  justify-content: center;
+}
+
+.profile-footer {
+  display: flex;
   align-self: flex-end;
+  align-items: center;
+}
+
+.pet-profile-header-item {
+  margin: 0 5px;
 }

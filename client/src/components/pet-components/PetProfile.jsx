@@ -109,46 +109,52 @@ export function PetProfile() {
   }
 
   return pet && owner ? (
-    <Card shadow={true} variant="gradient" color="white">
-      <CardHeader
-        floated={false}
-        color="gray"
-        className="rounded-b-none pet-profile-header"
-      >
-        <Typography variant="h2" className="pet-profile-header-item">
-          {pet.petname} {owner.lastname}
-        </Typography>
-        <PetProfileIconBar isChecked={isChecked} staytype={pet.staytype} />
-      </CardHeader>
-      <CardBody className="pet-profile-body">
-        <div>
-          <figure>
-            <img
-              className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
-              src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
-            ></img>
-          </figure>
-          <Typography
-            as="figcaption"
-            variant="small"
-            className="mt-2 text-center font-normal"
-          >
-            {pet.physicaldesc}
-          </Typography>
-          <PetStats pet={pet} owner={owner} />
-        </div>
-        <PetProfileTabs />
-      </CardBody>
-      <CardFooter className="gap-4 pet-profile-footer">
-        <EditPetForm pet={pet} owner={owner} />
-        <Switch
-          color="green"
-          label="Checked In?"
-          checked={isChecked}
-          onChange={handleChange}
-        />
-      </CardFooter>
-    </Card>
+    <div className="profile-container">
+      <Card shadow={true} variant="gradient" color="white">
+        <CardHeader
+          floated={false}
+          color="gray"
+          className="rounded-b-none profile-header"
+        >
+          <h2>
+            {pet.petname} {owner.lastname}{" "}
+            <PetProfileIconBar
+              isChecked={isChecked}
+              staytype={pet.staytype}
+              className="pet-profile-icons"
+            />
+          </h2>
+        </CardHeader>
+        <CardBody className="profile-body">
+          <div className="pet-info">
+            <figure>
+              <img
+                className="h-96 w-96 rounded-lg object-cover object-center shadow-xl shadow-blue-gray-900/50 pet-profile-image"
+                src="https://lh3.googleusercontent.com/pw/AP1GczPul97HrD-i2k9STdgNDmvTyVJI1bFyxJRoTZiLVSu4Q9pCQiYitPJs3_sIdGLEnS8RCwVewLlNBZY_r935JYiG1v4bb_-5-Z-Yc2LDC4JawfKHJlrO1tHPGdrSkrsBpsxrEYPQiD2Vg2EeR8ismGzQ=w1270-h1686-s-no-gm?authuser=0"
+              ></img>
+            </figure>
+            <Typography
+              as="figcaption"
+              variant="small"
+              className="mt-2 text-center font-normal"
+            >
+              {pet.physicaldesc}
+            </Typography>
+            <PetStats pet={pet} owner={owner} />
+          </div>
+          <PetProfileTabs />
+        </CardBody>
+        <CardFooter className="profile-footer">
+          <Switch
+            color="green"
+            label="Checked In?"
+            checked={isChecked}
+            onChange={handleChange}
+          />
+          <EditPetForm pet={pet} owner={owner} />
+        </CardFooter>
+      </Card>
+    </div>
   ) : !pet && !owner ? (
     <p>Pet could not be found.</p>
   ) : (
