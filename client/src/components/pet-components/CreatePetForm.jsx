@@ -172,12 +172,12 @@ export function CreatePetForm() {
               color="transparent"
               className="rounded-b-none"
             >
-              <h1>Create a Pet</h1>
+              <h2>Create a Pet</h2>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
-              <CardBody className="create-pet-form">
+              <CardBody className="flex gap-6">
                 {/* Column one */}
-                <div className="create-pet-form-req-info gap-4">
+                <div className="flex flex-col gap-6 create-pet-col-1">
                   {/* Owner's name dropdown */}
                   <>
                     {ownerListOptions ? (
@@ -196,30 +196,39 @@ export function CreatePetForm() {
                   {/* Pet name input */}
                   <Input id="petname" label="Pet Name" required />
                   {/* Sex radios */}
-                  <div>
+                  <div className="flex flex-col">
                     <p>
                       Sex <span style={{ color: "red" }}>*</span>
                     </p>
-                    <Radio name="sex" value="male" label="Male" required />
-                    <Radio name="sex" value="female" label="Female" required />
+                    <div>
+                      <Radio name="sex" value="male" label="Male" required />
+                      <Radio
+                        name="sex"
+                        value="female"
+                        label="Female"
+                        required
+                      />
+                    </div>
                   </div>
                   {/* Altered radios */}
-                  <div>
+                  <div className="flex flex-col">
                     <p>
                       Altered <span style={{ color: "red" }}>*</span>
                     </p>
-                    <Radio
-                      name="altered"
-                      value="altered"
-                      label="Altered"
-                      required
-                    />
-                    <Radio
-                      name="altered"
-                      value="unaltered"
-                      label="Unaltered"
-                      required
-                    />
+                    <div>
+                      <Radio
+                        name="altered"
+                        value="altered"
+                        label="Altered"
+                        required
+                      />
+                      <Radio
+                        name="altered"
+                        value="unaltered"
+                        label="Unaltered"
+                        required
+                      />
+                    </div>
                   </div>
                   {/* Species dropdown */}
                   <Select
@@ -283,7 +292,7 @@ export function CreatePetForm() {
                   ></Input>
                 </div>
                 {/* Column two */}
-                <div className="create-pet-form-opt-info gap-4">
+                <div className="mb-1 flex flex-col gap-6">
                   {/* Physical description input */}
                   <div>
                     <Textarea
@@ -333,7 +342,7 @@ export function CreatePetForm() {
         ) : (
           <Card>
             <CardBody>{submitMessage}</CardBody>
-            <CardFooter className="flex gap-4 justify-end">
+            <CardFooter className="justify-end">
               <Button
                 onClick={() => {
                   handleOpen();

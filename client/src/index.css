@@ -184,18 +184,6 @@ label {
   max-width: 1000px;
 }
 
-.create-pet-form {
-  display: flex;
-  justify-content: center;
-}
-
-.create-pet-form-req-info,
-.create-pet-form-opt-info {
-  display: flex;
-  flex-direction: column;
-  margin: 0px 25px;
-}
-
 .owner-profile {
   min-width: 100%;
 }
@@ -250,4 +238,8 @@ label {
 
 .pet-profile-header-item {
   margin: 0 5px;
+}
+
+.create-pet-col-1 {
+  min-width: 40%;
 }

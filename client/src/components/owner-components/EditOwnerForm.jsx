@@ -9,7 +9,6 @@ import {
   CardHeader,
   Dialog,
   Input,
-  Typography,
 } from "@material-tailwind/react";
 
 export function EditOwnerForm({ owner }) {
@@ -53,7 +52,7 @@ export function EditOwnerForm({ owner }) {
   return (
     <>
       <Button onClick={handleOpen}>Edit</Button>
-      <Dialog open={open} handler={handleOpen} size={"xxl"}>
+      <Dialog open={open} handler={handleOpen} size={"xs"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -62,12 +61,12 @@ export function EditOwnerForm({ owner }) {
               color="transparent"
               className="rounded-b-none"
             >
-              <Typography variant="h2">
+              <h1>
                 Edit {owner.firstname} {owner.lastname}
-              </Typography>
+              </h1>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
-              <CardBody className="flex gap-6">
+              <CardBody className="flex flex-col gap-6">
                 <Input
                   id="firstname"
                   label="First Name"
@@ -96,16 +95,16 @@ export function EditOwnerForm({ owner }) {
                   required
                 ></Input>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex gap-4 justify-end">
                 <Button onClick={handleOpen}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" color="green">Submit</Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
             <CardBody className="flex gap-6">Owner has been edited!</CardBody>
-            <CardFooter>
+            <CardFooter className="flex gap-4 justify-end">
               <Button
                 onClick={() => {
                   handleOpen();

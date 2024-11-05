@@ -106,8 +106,10 @@ export function EditPetForm({ pet, owner }) {
 
   return (
     <>
-      <Button onClick={handleOpen} className="ml-4">Edit</Button>
-      <Dialog open={open} handler={handleOpen} size={"xxl"}>
+      <Button onClick={handleOpen} className="ml-4">
+        Edit
+      </Button>
+      <Dialog open={open} handler={handleOpen} size={"l"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -116,9 +118,9 @@ export function EditPetForm({ pet, owner }) {
               color="transparent"
               className="rounded-b-none"
             >
-              <Typography variant="h2">
+              <h2>
                 Edit {pet.petname} {owner.lastname}
-              </Typography>
+              </h2>
             </CardHeader>
             <form id="create-pet" onSubmit={handleSubmit}>
               <CardBody className="flex gap-6">
@@ -155,7 +157,10 @@ export function EditPetForm({ pet, owner }) {
                       />
                     </div>
                   ) : (
-                    <div className="flex gap-8">
+                    <div className="flex flex-col">
+                      <p>
+                        Sex <span style={{ color: "red" }}>*</span>
+                      </p>
                       <Radio name="sex" value="male" label="Male" required />
                       <Radio
                         name="sex"
@@ -168,7 +173,10 @@ export function EditPetForm({ pet, owner }) {
                   )}
                   {/* Altered radios */}
                   {pet.altered ? (
-                    <div className="flex gap-4">
+                    <div className="flex flex-col">
+                      <p>
+                        Altered <span style={{ color: "red" }}>*</span>
+                      </p>
                       <Radio
                         name="altered"
                         value="altered"
@@ -184,7 +192,10 @@ export function EditPetForm({ pet, owner }) {
                       />
                     </div>
                   ) : (
-                    <div className="flex gap-4">
+                    <div className="flex flex-col">
+                      <p>
+                        Altered <span style={{ color: "red" }}>*</span>
+                      </p>
                       <Radio
                         name="altered"
                         value="altered"
@@ -277,16 +288,18 @@ export function EditPetForm({ pet, owner }) {
                   </div>
                 </div>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex gap-4 justify-end">
                 <Button onClick={handleOpen}>Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" color="green">
+                  Submit
+                </Button>
               </CardFooter>
             </form>
           </Card>
         ) : (
           <Card>
             <CardBody className="flex gap-6">Pet has been edited!</CardBody>
-            <CardFooter>
+            <CardFooter className="justify-end">
               <Button
                 onClick={() => {
                   handleOpen();
