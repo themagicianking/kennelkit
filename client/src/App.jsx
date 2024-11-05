@@ -9,13 +9,12 @@ import { OwnerProfile } from "./components/owner-components/OwnerProfile";
 import { AllOwnersList } from "./components/owner-components/AllOwnersList";
 
 export function App() {
-  const customTheme = {
-    
-  };
+  const customTheme = {};
 
   return (
     <ThemeProvider value={customTheme}>
       <ServerNameProvider>
+      <h1 className="title">KENNELKIT</h1>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/pets/checkedin" element={<CheckedInPetsList />} />

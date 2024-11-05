@@ -2,12 +2,15 @@ body,
 html,
 #root {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-width: fit-content;
+  min-height: fit-content;
 }
 
 #root {
   background-color: #2e2e2e;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -29,8 +32,17 @@ h2 {
   font-size: 1em;
 }
 
+h3 {
+  font-size: 12px;
+}
+
 label {
   color: #2e2e2e !important;
+}
+
+.title {
+  margin-top: 20px;
+  color: #ffffff;
 }
 
 .navbar-container {
@@ -125,7 +137,7 @@ label {
   border-radius: 10px;
   background-color: #f99c7b;
   min-width: fit-content;
-  height: 90%;
+  height: 80%;
 }
 
 .page {
