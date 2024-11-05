@@ -25,15 +25,26 @@ h6 {
 }
 
 h1 {
+  display: block;
   font-size: 2em;
+  margin: 0.67em;
+  font-weight: bold;
 }
 
 h2 {
-  font-size: 1em;
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
 }
 
 h3 {
-  font-size: 12px;
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
 }
 
 label {
@@ -43,6 +54,10 @@ label {
 .title {
   margin-top: 20px;
   color: #ffffff;
+}
+
+.loading-button {
+  margin: 25px;
 }
 
 .navbar-container {

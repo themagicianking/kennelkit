@@ -26,7 +26,7 @@ export function PetItem({ pet }) {
         )}
       </ListItemPrefix>
       <a href={profileLink} data-testid="link">
-        <h2> {pet.petname}</h2>
+        <h3> {pet.petname}</h3>
       </a>
       <ListItemSuffix className="flex gap-4">
         <CheckInToggle id={pet.id} checkedin={pet.checkedin} />

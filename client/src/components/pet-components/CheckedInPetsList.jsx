@@ -44,7 +44,7 @@ export function CheckedInPetsList() {
     <div className="main-container">
       <Navbar selected={1} />
       <div className="page">
-        <h1>Checked in pets:</h1>
+        <h2>Checked in pets:</h2>
         {checkedInPetsList ? (
           <PetListView list={checkedInPetsList} />
         ) : (

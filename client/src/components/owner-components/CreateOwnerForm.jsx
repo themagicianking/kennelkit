@@ -66,7 +66,7 @@ export function CreateOwnerForm() {
         <ListItemPrefix>
           <i className="fas fa-plus" />
         </ListItemPrefix>
-        <h2>Create an Owner</h2>
+        <h3>Create an Owner</h3>
       </ListItem>
       <Dialog open={open} handler={handleOpen} size={"xs"}>
         {!submitted ? (
