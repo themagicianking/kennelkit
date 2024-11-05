@@ -17,6 +17,27 @@ function alphabetizeByName(a, b) {
   return 0;
 }
 
+// function to alphabetize owners by last name before sending to client
+function alphabetizeByLastName(a, b) {
+  if (`${a.lastname} ${a.firstname}` < `${b.lastname} ${b.firstname}`) {
+    return -1;
+  } else if (`${a.lastname} ${a.firstname}` > `${b.lastname} ${b.firstname}`) {
+    return 1;
+  }
+  return 0;
+}
+
+// function to alphabetize pets by name before sending to client
+
+function alphabetizeByPetName(a, b) {
+  if (a.petname < b.petname) {
+    return -1;
+  } else if (a.petname > b.petname) {
+    return 1;
+  }
+  return 0;
+}
+
 export const POPULATE = {
   // insert a sample owner into the database
   ownersTable: async () => {
@@ -59,6 +80,7 @@ export const GET = {
   allOwners: async (req, res) => {
     try {
       const owners = await dbhelper.Owner.findAll();
+      owners.sort(alphabetizeByLastName);
       res.send(owners);
     } catch (e) {
       res.status(404).send(e);
@@ -110,8 +132,9 @@ export const GET = {
 
   allPets: async (req, res) => {
     try {
-      const petlist = await dbhelper.Pet.findAll();
-      res.send(petlist);
+      const pets = await dbhelper.Pet.findAll();
+      pets.sort(alphabetizeByPetName);
+      res.send(pets);
     } catch (e) {
       res.status(404).send(e);
     }
@@ -119,12 +142,13 @@ export const GET = {
 
   allCheckedInPets: async (req, res) => {
     try {
-      const petlist = await dbhelper.Pet.findAll({
+      const pets = await dbhelper.Pet.findAll({
         where: {
           checkedin: true,
         },
       });
-      res.send(petlist);
+      pets.sort(alphabetizeByPetName);
+      res.send(pets);
     } catch (e) {
       res.status(404).send(e);
     }
@@ -145,12 +169,13 @@ export const GET = {
 
   petsByOwner: async (req, res) => {
     try {
-      const petlist = await dbhelper.Pet.findAll({
+      const pets = await dbhelper.Pet.findAll({
         where: {
           ownerid: req.query.id,
         },
       });
-      res.send(petlist);
+      pets.sort(alphabetizeByPetName);
+      res.send(pets);
     } catch (e) {
       res.status(404).send(e);
     }
