@@ -34,10 +34,7 @@ h1 {
 h2 {
   display: block;
   font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0.83em;
   font-weight: bold;
 }
 
@@ -151,8 +148,19 @@ label {
   padding: 25px;
   border-radius: 10px;
   background-color: #f99c7b;
-  min-width: fit-content;
+  min-width: 80%;
   height: 80%;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #f2c14e;
+  min-width: 1070px;
+  height: fit-content;
 }
 
 .page {
@@ -171,7 +179,8 @@ label {
 
 .pet-list,
 .owner-list {
-  width: 50em;
+  width: 90%;
+  max-width: 1000px;
 }
 
 .create-pet-form {
@@ -186,41 +195,33 @@ label {
   margin: 0px 25px;
 }
 
-.pet-profile-header {
+.owner-profile {
+  min-width: 100%;
+}
+
+.owner-profile-header {
+  color: #2e2e2e;
+  background-color: #c1e093;
+}
+
+.owner-profile-body {
   display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 5px;
+  min-height: 450px;
 }
 
-.pet-profile-header-item {
-  margin: 5px;
-}
-
-.pet-profile-body {
-  display: flex;
-  margin: 0 10px 0 10px;
-}
-
-.pet-stats,
-.pet-tabs {
-  margin: 0 15px 0 15px;
-}
-
-.pet-tabs {
+.owner-contact-info {
+  color: #2e2e2e;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  background-color: white;
+  width: 25%;
 }
 
-.pet-profile-image {
-  border: 10px solid white;
-  border-bottom: 50px solid white;
-  margin-bottom: 15px;
-}
-
-.pet-profile-footer {
+.owner-tabs {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
+  width: 75%;
+}
+
+.owner-profile-footer {
+  align-self: flex-end;
 }

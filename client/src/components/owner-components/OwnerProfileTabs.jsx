@@ -10,7 +10,7 @@ import {
 
 export function OwnerProfileTabs({ pets }) {
   return (
-    <Tabs className="rounded-lg" value="Pets">
+    <Tabs className="rounded-lg owner-tabs" value="Pets">
       <TabsHeader>
         <Tab key="Pets" value="Pets">
           Pets

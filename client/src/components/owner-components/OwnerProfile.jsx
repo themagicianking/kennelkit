@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Typography,
 } from "@material-tailwind/react";
 import { DefaultSkeleton } from "../LoadingScreen";
 
@@ -63,31 +62,43 @@ export function OwnerProfile() {
   }
 
   return owner ? (
-    <Card shadow={true} variant="gradient" color="white">
-      <CardHeader floated={false} color="gray" className="rounded-b-none">
-        <Typography variant="h2">
-          {owner.firstname} {owner.lastname}
-        </Typography>
-      </CardHeader>
-      <CardBody>
-        <Typography variant="h4">Contact Information</Typography>
-        <ul>
-          <li>Phone: {owner.phone}</li>
-          <li>Email: {owner.email}</li>
-        </ul>
-        {/* Emergency contact currently uses dummy data, as there is no emergency contact table. */}
-        <Typography variant="h4">Emergency Contact</Typography>
-        <ul>
-          <li>Phone: Emergency contact phone</li>
-          <li>Email: Emergency contact email</li>
-        </ul>
-        <OwnerProfileTabs pets={pets} />
-      </CardBody>
-      <CardFooter className="gap-4 pet-profile-footer">
-        <EditOwnerForm owner={owner} />
-      </CardFooter>
-    </Card>
+    <div className="profile-container">
+      <Card shadow={true} variant="gradient" className="owner-profile">
+        <CardHeader
+          floated={false}
+          className="rounded-b-none owner-profile-header"
+        >
+          <h2>
+            {owner.firstname} {owner.lastname}
+          </h2>
+        </CardHeader>
+        <CardBody className="owner-profile-body">
+          <div className="owner-contact-info gap-4">
+            <h3>Contact Information</h3>
+            <ul>
+              <li>
+                Phone: ({owner.phone.slice(0, 3)}) - {owner.phone.slice(3, 6)} -
+                {owner.phone.slice(6)}
+              </li>
+              <li>Email: {owner.email}</li>
+            </ul>
+            {/* Emergency contact currently uses dummy data, as there is no emergency contact table. */}
+            <h3>Emergency Contact</h3>
+            <ul>
+              <li>Phone: Emergency contact phone</li>
+              <li>Email: Emergency contact email</li>
+            </ul>
+          </div>
+          <OwnerProfileTabs pets={pets} />
+        </CardBody>
+        <CardFooter className="gap-4 owner-profile-footer">
+          <EditOwnerForm owner={owner} />
+        </CardFooter>
+      </Card>
+    </div>
   ) : (
-    <p>{errorMessage}</p>
+    <div className="profile-container">
+      <p>{errorMessage}</p>
+    </div>
   );
 }
