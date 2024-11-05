@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { getAltered, getAge } from "../../utilities/pets";
 
 export function PetStats({ pet, owner }) {
-  console.log("from the pet profile:", pet.altered, pet.sex)
   let alteredString = getAltered(pet.altered, pet.sex);
   let age = getAge(pet.birthday);
 
