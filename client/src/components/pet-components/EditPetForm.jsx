@@ -116,7 +116,7 @@ export function EditPetForm({ pet, owner }) {
       <Button onClick={handleOpen} className="ml-4">
         Edit
       </Button>
-      <Dialog open={open} handler={handleOpen} size={"l"}>
+      <Dialog open={open} handler={handleOpen} size={"lg"}>
         {!submitted ? (
           <Card>
             <CardHeader
