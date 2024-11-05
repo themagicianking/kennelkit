@@ -163,7 +163,7 @@ export function CreatePetForm() {
         </ListItemPrefix>
         <h3>Create a Pet</h3>
       </ListItem>
-      <Dialog open={open} handler={handleOpen} size={"l"}>
+      <Dialog open={open} handler={handleOpen} size={"lg"}>
         {!submitted ? (
           <Card>
             <CardHeader
@@ -218,13 +218,13 @@ export function CreatePetForm() {
                     <div>
                       <Radio
                         name="altered"
-                        value="altered"
+                        value={true}
                         label="Altered"
                         required
                       />
                       <Radio
                         name="altered"
-                        value="unaltered"
+                        value={false}
                         label="Unaltered"
                         required
                       />

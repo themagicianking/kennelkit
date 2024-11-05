@@ -2,12 +2,16 @@
 export function getAltered(altered, sex) {
   // set variable for return statement
   let alteredString;
+  console.log(typeof altered);
   console.log("altered", altered, "sex", sex);
-  if (altered == "altered" && sex == "male") {
+  if (altered === true && sex === "male") {
+    console.log("first cond", altered, sex);
     alteredString = "Neutered";
-  } else if (altered == "altered" && sex == "female") {
+  } else if (altered === true && sex === "female") {
+    console.log("second cond", altered, sex);
     alteredString = "Spayed";
   } else {
+    console.log("third cond", altered, sex);
     alteredString = "Intact";
   }
   return alteredString;
