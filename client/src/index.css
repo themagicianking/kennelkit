@@ -1,37 +1,245 @@
-.pet-profile-header {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 5px;
+body,
+html,
+#root {
+  width: 100%;
+  height: 100%;
+  min-width: fit-content;
+  min-height: fit-content;
 }
 
-.pet-profile-header-item {
-  margin: 5px;
-}
-
-.pet-profile-body {
-  display: flex;
-  margin: 0 10px 0 10px;
-}
-
-.pet-stats, .pet-tabs {
-  margin: 0 15px 0 15px;
-}
-
-.pet-tabs {
+#root {
+  background-color: #2e2e2e;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Yusei Magic";
+}
+
+h1 {
+  display: block;
+  font-size: 2em;
+  margin: 0.67em;
+  font-weight: bold;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin: 0.83em;
+  font-weight: bold;
+}
+
+h3 {
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
+}
+
+label {
+  color: #2e2e2e !important;
+}
+
+.title {
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.loading-button {
+  margin: 25px;
+}
+
+.navbar-container {
+  display: flex;
+}
+
+.navbar {
+  justify-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
   background-color: white;
+  box-shadow: 0em 1em 0em 0em white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 10px 0px 0px 0px;
+  width: fit-content;
+}
+
+.navtab {
+  color: white;
+  background-color: #2e2e2e;
+  text-wrap: nowrap;
+  width: fit-content;
+  margin: 0 10px;
+}
+
+.owner-item,
+.pet-item {
+  color: #2e2e2e;
+  background-color: #ebebeb;
+}
+
+.main-tabs {
+  background-color: #f2c14e;
+  margin-right: 5px;
+}
+
+.form-tabs {
+  background-color: #c1e093;
+  margin-left: 5px;
+}
+
+.selected-tab,
+.selected-tab:hover {
+  color: #2e2e2e;
+  background: white;
+  box-shadow: 0em 1em 0em 1em white;
+  margin: 0 25px;
+}
+
+.folder-corner {
+  background: transparent;
+  height: 4em;
+  width: 1em;
+  display: flex;
+  align-self: flex-end;
+  margin-left: 0;
+  border: 1px solid transparent;
+  box-shadow: -0.5em 1em 0em 0em white;
+  border-bottom-left-radius: 10px;
+  position: relative;
+}
+
+.right-corner:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 60px 60px 0;
+  border-style: solid;
+  border-color: gray #fff;
+  border-radius: 5px;
+  box-shadow:
+    2px 2px 0px rgba(0, 0, 0, 0.3),
+    -2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+  width: 0;
+}
+
+.right-corner {
+  position: relative;
+  margin: 2em auto;
+  border-radius: 10px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #f99c7b;
+  min-width: 80%;
+  height: 80%;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  margin: 25px;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #f2c14e;
+  min-width: 1070px;
+  height: fit-content;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  color: #2e2e2e;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  min-width: 1070px;
+  margin: 0px 10px 10px 0px;
+  padding: 20px 40px 20px 40px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.pet-list,
+.owner-list {
+  width: 90%;
+  max-width: 1000px;
+}
+
+.owner-profile {
+  min-width: 100%;
+}
+
+.profile-header {
+  color: #2e2e2e;
+  background-color: #c1e093;
+}
+
+.profile-body {
+  display: flex;
+  min-height: 450px;
+  justify-content: space-around;
+}
+
+.owner-contact-info {
+  color: #2e2e2e;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.owner-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
 }
 
 .pet-profile-image {
-  border: 10px solid white;
-  border-bottom: 50px solid white;
-  margin-bottom: 15px;
+  border: 5px white solid;
+  border-bottom-width: 50px;
 }
 
-.pet-profile-footer {
+.pet-stats {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  color: #2e2e2e;
+}
+
+.pet-tabs {
+  width: 50%;
+  justify-content: center;
+}
+
+.profile-footer {
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+}
+
+.pet-profile-header-item {
+  margin: 0 5px;
+}
+
+.create-pet-col-1 {
+  min-width: 40%;
 }

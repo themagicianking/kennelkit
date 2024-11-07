@@ -2,9 +2,10 @@
 export function getAltered(altered, sex) {
   // set variable for return statement
   let alteredString;
-  if (altered && sex == "male") {
+  console.log("altered", altered, "sex", sex);
+  if (altered === true && sex === "male") {
     alteredString = "Neutered";
-  } else if (altered && sex == "female") {
+  } else if (altered === true && sex === "female") {
     alteredString = "Spayed";
   } else {
     alteredString = "Intact";

@@ -4,10 +4,9 @@ import cors from "cors";
 import "dotenv/config";
 import https from "https";
 import path from "path";
-import { fileURLToPath } from "url";
 import fs from "fs";
-// importing custom sequelize class
-import databaseHelper from "./databasehelper.js";
+import { fileURLToPath } from "url";
+import { POPULATE, GET, POST, PUT } from "./routes.js";
 
 // create express app
 const APP = express();
@@ -20,233 +19,28 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // environment variables
 const APP_ENV = process.env.APP_ENV;
 const PORT = process.env.PORT;
-const DATABASE_URL = process.env.DATABASE_URL;
 
-// creates a sequelize instance
-const dbhelper = new databaseHelper(DATABASE_URL);
+// insert sample data into the database along with needed breed data
+POPULATE.ownersTable();
+POPULATE.breedsTable();
+POPULATE.petsTable();
 
-// pull cat & dog breeds from api, add them to preset list of breeds, and insert them into breeds table
-async function populateBreedsTable() {
-  const dogBreeds = await dbhelper.Breed.findAll({
-    where: {
-      species: "dog",
-    },
-  });
-  const catBreeds = await dbhelper.Breed.findAll({
-    where: {
-      species: "cat",
-    },
-  });
-  dogBreeds.length < 1
-    ? dbhelper.getDogBreeds()
-    : console.log("Dog breeds have already loaded.");
-  catBreeds.length < 1
-    ? dbhelper.getCatBreeds()
-    : console.log("Cat breeds have already loaded.");
-}
+// calling app routes
+APP.get("/allowners", GET.allOwners);
+APP.get("/ownerbyid", GET.ownerById);
+APP.get("/catbreeds", GET.catBreeds);
+APP.get("/dogbreeds", GET.dogBreeds);
+APP.get("/allpets", GET.allPets);
+APP.get("/checkedinpets", GET.allCheckedInPets);
+APP.get("/petbyid", GET.petById);
+APP.get("/petsbyowner", GET.petsByOwner);
 
-populateBreedsTable();
+APP.post("/owner", POST.owner);
+APP.post("/pet", POST.pet);
 
-// function to insert a sample pet into the database
-async function populatePetsTable() {
-  const petlist = await dbhelper.Pet.findAll();
-  petlist.length < 1
-    ? dbhelper.createSamplePet()
-    : console.log("A sample pet has already been added to the database.");
-}
-
-populatePetsTable();
-
-// function to insert a sample owner into the database
-async function populateOwnersTable() {
-  const ownerlist = await dbhelper.Owner.findAll();
-  ownerlist.length < 1
-    ? dbhelper.createSampleOwner()
-    : console.log("A sample owner has already been created.");
-}
-
-populateOwnersTable();
-
-// function to alphabetize breed lists by name before sending to client
-function alphabetizeByName(a, b) {
-  if (a.name < b.name) {
-    return -1;
-  } else if (a.name > b.name) {
-    return 1;
-  }
-  return 0;
-}
-
-// endpoint to retrieve pet by id
-APP.get("/pet", async (req, res) => {
-  try {
-    const pet = await dbhelper.Pet.findOne({ where: { id: req.query.id } });
-    if (pet !== null) {
-      res.send(pet);
-    } else {
-      throw error;
-    }
-  } catch (e) {
-    res.status(404).send(e);
-  }
-});
-
-// endpoint to retrieve all pets
-APP.get("/allpets", async (req, res) => {
-  const petlist = await dbhelper.Pet.findAll();
-  res.send(petlist);
-});
-
-// endpoint to retrieve all checked in pets
-APP.get("/checkedinpets", async (req, res) => {
-  const petlist = await dbhelper.Pet.findAll({
-    where: {
-      checkedin: true,
-    },
-  });
-  res.send(petlist);
-});
-
-// endpoint to retrieve pets by owner
-APP.get("/petsbyowner", async (req, res) => {
-  const petlist = await dbhelper.Pet.findAll({
-    where: {
-      ownerid: req.query.id,
-    },
-  });
-  res.send(petlist);
-});
-
-// endpoint to retrieve dog breeds
-APP.get("/dogbreeds", async (req, res) => {
-  const dogBreeds = await dbhelper.Breed.findAll({
-    where: {
-      species: "dog",
-    },
-  });
-  dogBreeds.sort(alphabetizeByName);
-  res.send(dogBreeds);
-});
-
-// endpoint to retrieve cat breeds
-APP.get("/catbreeds", async (req, res) => {
-  const catBreeds = await dbhelper.Breed.findAll({
-    where: {
-      species: "cat",
-    },
-  });
-  catBreeds.sort(alphabetizeByName);
-  res.send(catBreeds);
-});
-
-// endpoint to retrieve owner by id
-APP.get("/owner", async (req, res) => {
-  try {
-    const owner = await dbhelper.Owner.findOne({ where: { id: req.query.id } });
-    if (owner !== null) {
-      res.send(owner);
-    } else {
-      throw error;
-    }
-  } catch (e) {
-    res.status(404).send(e);
-  }
-});
-
-// endpoint to retrieve all owners
-APP.get("/allowners", async (req, res) => {
-  const owners = await dbhelper.Owner.findAll();
-  res.send(owners);
-});
-
-// endpoint to create a new pet
-APP.post("/pet", async (req, res) => {
-  await dbhelper.db.sync();
-  const newPet = await dbhelper.Pet.create({
-    petname: req.body.petname,
-    checkedin: false,
-    staytype: null,
-    species: req.body.species,
-    breed: req.body.breed,
-    sex: req.body.sex,
-    altered: req.body.altered,
-    birthday: req.body.birthday,
-    weight: req.body.weight,
-    physicaldesc: req.body.physicaldesc,
-    ownerid: req.body.ownerid,
-  });
-
-  console.log(newPet.toJSON());
-  res.send(newPet);
-});
-
-// endpoint to create a new owner
-APP.post("/owner", async (req, res) => {
-  await dbhelper.db.sync();
-  const newOwner = await dbhelper.Owner.create({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    phone: req.body.phone,
-    email: req.body.email,
-  });
-
-  console.log(newOwner.toJSON());
-  res.send(newOwner);
-});
-
-// endpoint to edit pet by id
-APP.put("/pet", async (req, res) => {
-  await dbhelper.Pet.update(
-    {
-      sex: req.body.sex,
-      altered: req.body.altered,
-      species: req.body.species,
-      breed: req.body.breed,
-      weight: req.body.weight,
-      physicaldesc: req.body.physicaldesc,
-    },
-    { where: { id: req.body.id } }
-  );
-  const editedPets = await dbhelper.Pet.findAll({
-    where: { id: req.body.id },
-  });
-  res.status(200).send(editedPets[0]);
-});
-
-// endpoint to check pet in and out by id
-APP.put("/checkin", async (req, res) => {
-  await dbhelper.Pet.update(
-    { checkedin: req.body.checkedin },
-    {
-      where: { id: req.body.id },
-    }
-  );
-  const editedPets = await dbhelper.Pet.findAll({
-    where: {
-      id: req.body.id,
-    },
-  });
-  res.status(200).send(editedPets[0].checkedin);
-});
-
-// endpoint to edit owner
-APP.put("/owner", async (req, res) => {
-  await dbhelper.Owner.update(
-    {
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      phone: req.body.phone,
-      email: req.body.email,
-    },
-    { where: { id: req.body.id } }
-  );
-  const editedOwners = await dbhelper.Owner.findAll({
-    where: {
-      id: req.body.id,
-    },
-  });
-  res.status(200).send(editedOwners[0]);
-});
+APP.put("/owner", PUT.owner);
+APP.put("/pet", PUT.pet);
+APP.put("/checkin", PUT.checkin);
 
 // development mode requires a cert in the cert directory in order to use https
 if (APP_ENV == "development") {

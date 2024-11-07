@@ -13,7 +13,7 @@ CREATE TABLE pets (
     species character varying(255) NOT NULL,
     breed character varying(255) NOT NULL,
     sex character varying(255) NOT NULL,
-    altered character varying(255) NOT NULL,
+    altered boolean NOT NULL,
     birthday timestamp with time zone NOT NULL,
     weight integer,
     physicaldesc character varying(255),

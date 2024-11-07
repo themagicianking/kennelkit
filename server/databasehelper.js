@@ -18,7 +18,7 @@ class databaseHelper {
       species: { type: DataTypes.STRING, allowNull: false },
       breed: { type: DataTypes.STRING, allowNull: false },
       sex: { type: DataTypes.STRING, allowNull: false },
-      altered: { type: DataTypes.STRING, allowNull: false },
+      altered: { type: DataTypes.BOOLEAN, allowNull: false },
       birthday: { type: DataTypes.DATE, allowNull: false },
       weight: { type: DataTypes.INTEGER },
       physicaldesc: { type: DataTypes.STRING },
@@ -95,7 +95,7 @@ class databaseHelper {
       await this.Pet.bulkCreate([
         {
           petname: "Arcadia",
-          checkedin: true,
+          checkedin: false,
           staytype: "daycare",
           species: "cat",
           breed: "Domestic Shorthair",
@@ -104,7 +104,20 @@ class databaseHelper {
           birthday: "2023-07-13",
           weight: 10,
           physicaldesc: "Shorthaired tuxedo",
-          ownerid: 0,
+          ownerid: 1,
+        },
+        {
+          petname: "Watts",
+          checkedin: false,
+          staytype: null,
+          species: "dog",
+          breed: "Airedale Terrier",
+          sex: "male",
+          altered: true,
+          birthday: "2013-05-14",
+          weight: 55,
+          physicaldesc: "Curly black and tan",
+          ownerid: 2,
         },
       ]);
     })();
@@ -115,9 +128,15 @@ class databaseHelper {
     (async () => {
       await this.Owner.bulkCreate([
         {
+          firstname: "Thane",
+          lastname: "Wilson",
+          phone: "1111111111",
+          email: "email@email.com",
+        },
+        {
           firstname: "Cara",
           lastname: "Coleman",
-          phone: "123-456-7890",
+          phone: "2222222222",
           email: "email@email.com",
         },
       ]);
