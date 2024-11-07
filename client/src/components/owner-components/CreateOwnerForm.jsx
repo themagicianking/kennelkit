@@ -33,8 +33,7 @@ export function CreateOwnerForm() {
           }
           return res.json();
         })
-        .then((json) => {
-          console.log("Server response:", json);
+        .then(() => {
           setSubmitMessage("Owner has been created!");
         });
     } catch (e) {
@@ -53,8 +52,6 @@ export function CreateOwnerForm() {
       phone: e.target.phone.value,
       email: e.target.email.value,
     };
-
-    console.log("Request body:", newOwner);
     postOwner(newOwner);
     e.target.reset();
     setSubmitted(true);
