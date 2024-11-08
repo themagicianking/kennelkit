@@ -15,7 +15,13 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 6. While still in the server directory, run `npm run start`.
 7. Fill in the .envexample file with "localhost:[host you gave for server env]" and rename the file to .env.
 8. Navigate back to the client directory and run `npm run dev`. Click on the link provided in your console output, and you'll be able to view the app.
-9. 
+9. Checking in a pet:
+   - ![checkinpet](https://github.com/user-attachments/assets/3f67b0c7-ed76-4924-bf55-db5dd9efc938)
+10. Editing a pet:
+    - ![editpet](https://github.com/user-attachments/assets/e29400b9-3dd5-4735-b30f-a815999f9085)
+11. Editing an owner:
+    - ![editowner](https://github.com/user-attachments/assets/6d8f4075-4885-4d9f-808c-3a2d4f3c5d23)
+Note: more demos to come
 
 ## Component List
 
