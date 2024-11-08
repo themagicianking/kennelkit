@@ -260,7 +260,7 @@ export function CreatePetForm() {
                     <DropdownFilter
                       options={catBreedListOptions}
                       placeholder="Breeds"
-                      onChange={(breed) => setBreed(breed.value)}
+                      onChange={(option) => setBreed(option.value)}
                       isDisabled={!species}
                       required
                     />
@@ -268,7 +268,7 @@ export function CreatePetForm() {
                     <DropdownFilter
                       options={dogBreedListOptions}
                       placeholder="Breeds"
-                      onChange={(breed) => setBreed(breed.name)}
+                      onChange={(option) => setBreed(option.value)}
                       isDisabled={!species}
                       required
                     />
