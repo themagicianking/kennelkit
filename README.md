@@ -17,10 +17,6 @@ Kennelkit is an app designed to help kennel employees store and organize informa
 8. Navigate back to the client directory and run `npm run dev`. Click on the link provided in your console output, and you'll be able to view the app.
 9. Checking in a pet:
       - ![checkin](assets/checkinpet.gif)
-11. Editing a pet:
-    - ![editpet]()
-12. Editing an owner:
-    - ![editowner]()
 Note: more demos to come
 
 ## Component List
