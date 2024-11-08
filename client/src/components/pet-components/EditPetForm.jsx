@@ -87,19 +87,12 @@ export function EditPetForm({ pet, owner }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    let altered;
-
-    if (e.target.altered.value == "altered") {
-      altered = true;
-    } else {
-      altered = false;
-    }
 
     let editedPet = {
       id: pet.id,
       petname: e.target.petname.value,
       sex: e.target.sex.value,
-      altered: altered,
+      altered: e.target.altered.value,
       species: species,
       breed: breed,
       weight: e.target.weight.value,

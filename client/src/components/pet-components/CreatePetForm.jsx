@@ -134,19 +134,12 @@ export function CreatePetForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    let altered;
-
-    if (e.target.altered.value == "altered") {
-      altered = true;
-    } else {
-      altered = false;
-    }
 
     let newPet = {
       ownerid: ownerid,
       petname: e.target.petname.value,
       sex: e.target.sex.value,
-      altered: altered,
+      altered: e.target.altered.value,
       species: species,
       breed: breed,
       birthday: e.target.birthday.value,
