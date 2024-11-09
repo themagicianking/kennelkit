@@ -198,13 +198,13 @@ export function EditPetForm({ pet, owner }) {
                       </p>
                       <Radio
                         name="altered"
-                        value="altered"
+                        value={true}
                         label="Altered"
                         required
                       />
                       <Radio
                         name="altered"
-                        value="unaltered"
+                        value={false}
                         label="Unaltered"
                         defaultChecked
                         required

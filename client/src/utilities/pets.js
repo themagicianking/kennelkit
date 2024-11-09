@@ -2,7 +2,7 @@
 export function getAltered(altered, sex) {
   // set variable for return statement
   let alteredString;
-  console.log("altered", altered, "sex", sex);
+
   if (altered === true && sex === "male") {
     alteredString = "Neutered";
   } else if (altered === true && sex === "female") {
